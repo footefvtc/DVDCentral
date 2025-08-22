@@ -1,0 +1,21 @@
+﻿@model FVTC.DVDCentral.BL.Models.Rating
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="m-2">
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+    </dl>
+</div>
+<div class="m-2">
+    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+    <a class="btn btn-primary" asp-action="Update" asp-route-id="@Model.Id">Update</a>
+    <a class="btn btn-primary" asp-action="Get">Back to List</a>
+</div>

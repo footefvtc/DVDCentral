@@ -1,0 +1,9 @@
+Package Manager Console > Default Project > PL:
+
+Install-Package Microsoft.EntityFrameworkCore.SqlServer 
+Install-Package Microsoft.EntityFrameworkCore.Tools
+Install-Package Microsoft.VisualStudio.Web.CodeGeneration.Design
+
+Scaffold-DbContext "Server=(localdb)\MSSQLLocalDB;Database=FVTC.DVDCentral.DB;Integrated Security=True" Microsoft.EntityFrameworkCore.SqlServer -Context DVDCentralEntities -UseDatabaseNames -force
+
+"Data Source=server-21295-300062190.database.windows.net;Initial Catalog=dvdcentraldb;User ID=300062190db;Password=Test123!;Connect Timeout=30;Encrypt=True;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False"
