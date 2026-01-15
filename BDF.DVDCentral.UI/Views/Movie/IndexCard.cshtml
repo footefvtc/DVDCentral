@@ -1,0 +1,44 @@
+﻿@model IEnumerable<BDF.DVDCentral.BL.Models.Movie>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<p class="m-2">
+    <a asp-action="Create">Create New</a>
+</p>
+
+<div class="row m-2">
+    @foreach(var item in Model)
+    {
+        <div class="col-sm-4">
+            <div class="card mb-2">
+                <div class="card-header">
+                    <h3>@Html.DisplayFor(modelItem => item.Title)</h3>
+                </div>
+                <div class="card-body">
+                    <img class="imagepropmedium"
+                         alt="@item.Title"
+                         onclick="on('/images/@item.ImagePath')"
+                         src="~/images/@item.ImagePath" />
+                    <h5>@Html.DisplayFor(modelItem => item.Description)</h5>
+                    <h5>@Html.DisplayFor(modelItem => item.Cost)</h5>
+                    <h5>@Html.DisplayFor(modelItem => item.InStkQty)</h5>
+                    <h5>@Html.DisplayFor(modelItem => item.RatingDescription)</h5>
+                    <h5>@Html.DisplayFor(modelItem => item.FormatDescription)</h5>
+                    <h5>@Html.DisplayFor(modelItem => item.DirectorFullName)</h5>
+                </div>
+                <div class="card-footer">
+                    <a class="btn btn-sm btn-primary" asp-route-id="@item.Id" asp-action="Edit">Edit</a>
+                    <a class="btn btn-sm btn-primary" asp-route-id="@item.Id" asp-action="Details">Details</a>
+                    <a class="btn btn-sm btn-primary" asp-route-id="@item.Id" asp-action="Delete">Delete</a>
+                    @* <a class="btn btn-sm btn-primary" asp-route-id="@item.Id" asp-action="Add" asp-controller="ShoppingCart">+</a> *@
+                    <input class="btn btn-sm btn-primary"
+                        type="button"
+                        onclick="AddToCart(@item.Id)"
+                        value="+" />
+                </div>
+            </div>
+        </div>
+    }
+</div>
