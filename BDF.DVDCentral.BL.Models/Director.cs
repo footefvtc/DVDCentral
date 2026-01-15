@@ -4,7 +4,7 @@ namespace BDF.DVDCentral.BL.Models
 {
     public class Director
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         [DisplayName("First Name")]
         public string FirstName { get; set; } = string.Empty;
         [DisplayName("Last Name")]

@@ -2,8 +2,8 @@
 {
     public class MovieGenre
     {
-        public int Id { get; set; }
-        public int MovieId { get; set; }
-        public int GenreId { get; set; }
+        public Guid Id { get; set; }
+        public Guid MovieId { get; set; }
+        public Guid GenreId { get; set; }
     }
 }

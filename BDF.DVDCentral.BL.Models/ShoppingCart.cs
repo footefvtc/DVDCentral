@@ -27,7 +27,7 @@ namespace BDF.DVDCentral.BL.Models
         [DisplayFormat(DataFormatString = "{0:C}")]
         public double Total { get { return SubTotal + Tax; } }
 
-        public int CustomerId { get; set; }
-        public int UserId { get; set; }
+        public Guid CustomerId { get; set; }
+        public Guid UserId { get; set; }
     }
 }

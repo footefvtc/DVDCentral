@@ -1,14 +1,14 @@
-﻿namespace BDF.DVDCentral.PL;
+﻿namespace BDF.DVDCentral.PL.Entities;
 
 public partial class tblCustomer
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; }
 
     public string FirstName { get; set; } = null!;
 
     public string LastName { get; set; } = null!;
 
-    public int UserId { get; set; }
+    public Guid UserId { get; set; }
 
     public string Address { get; set; } = null!;
 

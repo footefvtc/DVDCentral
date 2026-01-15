@@ -1,18 +1,18 @@
-﻿namespace BDF.DVDCentral.PL;
+﻿namespace BDF.DVDCentral.PL.Entities;
 
 public partial class tblMovie
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; }
 
     public string Title { get; set; } = null!;
 
     public string Description { get; set; } = null!;
 
-    public int FormatId { get; set; }
+    public Guid FormatId { get; set; }
 
-    public int DirectorId { get; set; }
+    public Guid DirectorId { get; set; }
 
-    public int RatingId { get; set; }
+    public Guid RatingId { get; set; }
 
     public double Cost { get; set; }
 

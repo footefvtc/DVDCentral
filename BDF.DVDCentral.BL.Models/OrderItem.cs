@@ -5,12 +5,12 @@ namespace BDF.DVDCentral.BL.Models
 {
     public class OrderItem
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         [DisplayName("Order #")]
-        public int OrderId { get; set; }
+        public Guid OrderId { get; set; }
         public int Quantity { get; set; }
         [DisplayName("Movie Id")]
-        public int MovieId { get; set; }
+        public Guid MovieId { get; set; }
         [DisplayName("Movie Title")]
         public string Title { get; set; } = string.Empty;
         [DisplayName("Image")]

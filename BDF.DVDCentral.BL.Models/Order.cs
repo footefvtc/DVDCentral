@@ -6,9 +6,9 @@ namespace BDF.DVDCentral.BL.Models
     public class Order
     {
         [DisplayName("Order #")]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         [DisplayName("Customer Id")]
-        public int CustomerId { get; set; }
+        public Guid CustomerId { get; set; }
         [DisplayName("Customer Name")]
         public string CustomerFullName { get; set; } = string.Empty;
         [DisplayName("Order Date")]
@@ -20,7 +20,7 @@ namespace BDF.DVDCentral.BL.Models
         [DisplayName("User Full Name")]
         public string UserFullName { get; set; } = string.Empty;
         [DisplayName("User Id")]
-        public int UserId { get; set; }
+        public Guid UserId { get; set; }
         
         [DisplayName("Order Items")]
         public List<OrderItem> OrderItems { get; set; } = new List<OrderItem>();

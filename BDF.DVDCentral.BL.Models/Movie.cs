@@ -5,12 +5,12 @@ namespace BDF.DVDCentral.BL.Models
 {
     public class Movie
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public string Title { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
-        public int FormatId { get; set; }
-        public int DirectorId { get; set; }
-        public int RatingId { get; set; }
+        public Guid FormatId { get; set; }
+        public Guid DirectorId { get; set; }
+        public Guid RatingId { get; set; }
         [DisplayName("Rating")]
         public string RatingDescription { get; set; } = string.Empty;
         [DisplayName("Format")]
