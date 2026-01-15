@@ -1,6 +1,5 @@
 ﻿using BDF.DVDCentral.PL.Entities;
 using Microsoft.EntityFrameworkCore;
-//Add comment
 
 namespace BDF.DVDCentral.PL.Data
 {
