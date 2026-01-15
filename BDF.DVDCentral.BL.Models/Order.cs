@@ -10,7 +10,7 @@ namespace BDF.DVDCentral.BL.Models
         [DisplayName("Customer Id")]
         public int CustomerId { get; set; }
         [DisplayName("Customer Name")]
-        public string CustomerFullName { get; set; }
+        public string CustomerFullName { get; set; } = string.Empty;
         [DisplayName("Order Date")]
         [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime OrderDate { get; set; }
@@ -18,7 +18,7 @@ namespace BDF.DVDCentral.BL.Models
         [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime ShipDate { get; set; }
         [DisplayName("User Full Name")]
-        public string UserFullName { get; set; }
+        public string UserFullName { get; set; } = string.Empty;
         [DisplayName("User Id")]
         public int UserId { get; set; }
         

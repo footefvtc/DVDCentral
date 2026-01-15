@@ -39,7 +39,7 @@ namespace BDF.DVDCentral.BL
 
                 using (DVDCentralEntities dc = new DVDCentralEntities())
                 {
-                    IDbContextTransaction transaction = null;
+                    IDbContextTransaction transaction = null!;
                     if (rollback) transaction = dc.Database.BeginTransaction();
 
                     tblFormat entity = new tblFormat();
@@ -71,11 +71,11 @@ namespace BDF.DVDCentral.BL
                 int results = 0;
                 using (DVDCentralEntities dc = new DVDCentralEntities())
                 {
-                    IDbContextTransaction transaction = null;
+                    IDbContextTransaction transaction = null!;
                     if (rollback) transaction = dc.Database.BeginTransaction();
 
                     // Get the row that we are trying to update
-                    tblFormat entity = dc.tblFormats.FirstOrDefault(f => f.Id == format.Id);
+                    tblFormat entity = dc.tblFormats.FirstOrDefault(f => f.Id == format.Id)!;
 
                     if (entity != null)
                     {
@@ -105,11 +105,11 @@ namespace BDF.DVDCentral.BL
                 int results = 0;
                 using (DVDCentralEntities dc = new DVDCentralEntities())
                 {
-                    IDbContextTransaction transaction = null;
+                    IDbContextTransaction transaction = null!;
                     if (rollback) transaction = dc.Database.BeginTransaction();
 
                     // Get the row that we are trying to update
-                    tblFormat entity = dc.tblFormats.FirstOrDefault(f => f.Id == id);
+                    tblFormat entity = dc.tblFormats.FirstOrDefault(f => f.Id == id)!;
 
                     if (entity != null)
                     {
@@ -138,7 +138,7 @@ namespace BDF.DVDCentral.BL
             {
                 using (DVDCentralEntities dc = new DVDCentralEntities())
                 {
-                    tblFormat entity = dc.tblFormats.FirstOrDefault(f => f.Id == id);
+                    tblFormat entity = dc.tblFormats.FirstOrDefault(f => f.Id == id)!;
 
                     if (entity != null)
                     {

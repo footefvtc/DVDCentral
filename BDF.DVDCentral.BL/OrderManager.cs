@@ -45,7 +45,7 @@ namespace BDF.DVDCentral.BL
 
                 using (DVDCentralEntities dc = new DVDCentralEntities())
                 {
-                    IDbContextTransaction transaction = null;
+                    IDbContextTransaction transaction = null!;
                     if (rollback) transaction = dc.Database.BeginTransaction();
 
                     tblOrder entity = new tblOrder();
@@ -86,11 +86,11 @@ namespace BDF.DVDCentral.BL
                 int results = 0;
                 using (DVDCentralEntities dc = new DVDCentralEntities())
                 {
-                    IDbContextTransaction transaction = null;
+                    IDbContextTransaction transaction = null!;
                     if (rollback) transaction = dc.Database.BeginTransaction();
 
                     // Get the row that we are trying to update
-                    tblOrder entity = dc.tblOrders.FirstOrDefault(o => o.Id == order.Id);
+                    tblOrder entity = dc.tblOrders.FirstOrDefault(o => o.Id == order.Id)!;
 
                     if (entity != null)
                     {
@@ -124,11 +124,11 @@ namespace BDF.DVDCentral.BL
                 int results = 0;
                 using (DVDCentralEntities dc = new DVDCentralEntities())
                 {
-                    IDbContextTransaction transaction = null;
+                    IDbContextTransaction transaction = null!;
                     if (rollback) transaction = dc.Database.BeginTransaction();
 
                     // Get the row that we are trying to update
-                    tblOrder entity = dc.tblOrders.FirstOrDefault(o => o.Id == id);
+                    tblOrder entity = dc.tblOrders.FirstOrDefault(o => o.Id == id)!;
 
                     if (entity != null)
                     {

@@ -6,9 +6,9 @@ namespace BDF.DVDCentral.BL.Models
     {
         public int Id { get; set; }
         [DisplayName("First Name")]
-        public string FirstName { get; set; }
+        public string FirstName { get; set; } = string.Empty;
         [DisplayName("Last Name")]
-        public string LastName { get; set; }
+        public string LastName { get; set; } = string.Empty;
 
         // Calculated field
         public string FullName 

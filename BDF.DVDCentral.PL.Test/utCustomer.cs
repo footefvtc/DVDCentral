@@ -1,10 +1,11 @@
+[assembly: DoNotParallelize]
 namespace BDF.DVDCentral.PL.Test
 {
     [TestClass]
     public class utCustomer
     {
-        protected DVDCentralEntities dc;
-        protected IDbContextTransaction transaction;
+        public required DVDCentralEntities dc;
+        protected IDbContextTransaction? transaction;
 
         [TestMethod]
         public void LoadTest()
@@ -44,7 +45,7 @@ namespace BDF.DVDCentral.PL.Test
             entity.FirstName = "Test";
 
             int result = dc.SaveChanges();
-            Assert.IsTrue(result > 0);
+            Assert.IsGreaterThan(result, 0);
         }
 
         [TestMethod]
@@ -62,8 +63,8 @@ namespace BDF.DVDCentral.PL.Test
         public void LoadByIdTest()
         {
             // Select * from tblCustomer where id = 2
-            tblCustomer entity = dc.tblCustomers.Where(e => e.Id == 2).FirstOrDefault();
-            Assert.AreEqual(entity.Id, 2);
+            tblCustomer entity = dc.tblCustomers.Where(e => e.Id == 2).FirstOrDefault()!;
+            Assert.AreEqual(2, entity.Id);
         }
 
         [TestInitialize]

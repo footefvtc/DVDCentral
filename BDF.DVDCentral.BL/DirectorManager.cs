@@ -41,7 +41,7 @@ namespace BDF.DVDCentral.BL
 
                 using(DVDCentralEntities dc = new DVDCentralEntities())
                 {
-                    IDbContextTransaction transaction = null;
+                    IDbContextTransaction transaction = null!;
                     if (rollback) transaction = dc.Database.BeginTransaction();
 
                     tblDirector entity = new tblDirector();                  
@@ -74,11 +74,11 @@ namespace BDF.DVDCentral.BL
                 int results = 0;
                 using(DVDCentralEntities dc = new DVDCentralEntities())
                 {
-                    IDbContextTransaction transaction = null;
+                    IDbContextTransaction transaction = null!;
                     if (rollback) transaction = dc.Database.BeginTransaction();
 
                     // Get the row that we are trying to update
-                    tblDirector entity = dc.tblDirectors.FirstOrDefault(d => d.Id == director.Id);
+                    tblDirector entity = dc.tblDirectors.FirstOrDefault(d => d.Id == director.Id)!;
 
                     if (entity != null)
                     {
@@ -109,11 +109,11 @@ namespace BDF.DVDCentral.BL
                 int results = 0;
                 using(DVDCentralEntities dc = new DVDCentralEntities())
                 {
-                    IDbContextTransaction transaction = null;
+                    IDbContextTransaction transaction = null!;
                     if (rollback) transaction = dc.Database.BeginTransaction();
 
                     // Get the row that we are trying to update
-                    tblDirector entity = dc.tblDirectors.FirstOrDefault(d => d.Id == id);
+                    tblDirector entity = dc.tblDirectors.FirstOrDefault(d => d.Id == id)!;
 
                     if (entity != null)
                     {
@@ -142,7 +142,7 @@ namespace BDF.DVDCentral.BL
             {
                 using(DVDCentralEntities dc = new DVDCentralEntities())
                 {
-                    tblDirector entity = dc.tblDirectors.FirstOrDefault(d => d.Id == id);
+                    tblDirector entity = dc.tblDirectors.FirstOrDefault(d => d.Id == id)!;
 
                     if (entity != null ) 
                     {

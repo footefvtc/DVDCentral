@@ -4,7 +4,7 @@
     public class utMovie
     {
         protected DVDCentralEntities dc;
-        protected IDbContextTransaction transaction;
+        protected IDbContextTransaction? transaction;
 
         [TestMethod]
         public void LoadTest()

@@ -4,7 +4,7 @@
     public class utDirector
     {
         protected DVDCentralEntities dc;
-        protected IDbContextTransaction transaction;
+        protected IDbContextTransaction? transaction;
 
         [TestMethod]
         public void LoadTest()
@@ -45,7 +45,7 @@
         public void DeleteTest()
         {
             // Select * from tblDirector where id = 3
-            tblDirector entity = dc.tblDirectors.Where(e => e.Id == 3).FirstOrDefault();
+            tblDirector entity = dc.tblDirectors.Where(e => e.Id == 3).FirstOrDefault()!;
 
             dc.tblDirectors.Remove(entity);
             int result = dc.SaveChanges();
@@ -70,9 +70,9 @@
         [TestCleanup]
         public void Cleanup()
         {
-            transaction.Rollback();
-            transaction.Dispose();
-            dc = null;
+            transaction?.Rollback();
+            transaction?.Dispose();
+            dc = null!;
         }
     }
 }

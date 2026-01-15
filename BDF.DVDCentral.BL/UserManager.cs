@@ -40,7 +40,7 @@ namespace BDF.DVDCentral.BL
 
                 using (DVDCentralEntities dc = new DVDCentralEntities())
                 {
-                    IDbContextTransaction transaction = null;
+                    IDbContextTransaction transaction = null!;
                     if (rollback) transaction = dc.Database.BeginTransaction();
 
                     tblUser entity = new tblUser();
@@ -73,7 +73,7 @@ namespace BDF.DVDCentral.BL
                 int results = 0;
                 using (DVDCentralEntities dc = new DVDCentralEntities())
                 {
-                    IDbContextTransaction transaction = null;
+                    IDbContextTransaction transaction = null!;
                     if (rollback) transaction = dc.Database.BeginTransaction();
 
                     // Get the row that we are trying to update
@@ -110,11 +110,11 @@ namespace BDF.DVDCentral.BL
                 int results = 0;
                 using (DVDCentralEntities dc = new DVDCentralEntities())
                 {
-                    IDbContextTransaction transaction = null;
+                    IDbContextTransaction transaction = null!;
                     if (rollback) transaction = dc.Database.BeginTransaction();
 
                     // Get the row that we are trying to update
-                    tblUser entity = dc.tblUsers.FirstOrDefault(u => u.Id == id);
+                    tblUser entity = dc.tblUsers.FirstOrDefault(u => u.Id == id)!;
 
                     if (entity != null)
                     {
@@ -216,7 +216,7 @@ namespace BDF.DVDCentral.BL
                     {
                         using (DVDCentralEntities dc = new DVDCentralEntities())
                         {
-                            tblUser tblUser = dc.tblUsers.FirstOrDefault(u => u.UserId == user.UserId);
+                            tblUser tblUser = dc.tblUsers.FirstOrDefault(u => u.UserId == user.UserId)!;
                             if (tblUser != null)
                             {
                                 if (tblUser.Password == GetHash(user.Password))

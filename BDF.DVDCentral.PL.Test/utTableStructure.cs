@@ -75,7 +75,7 @@ namespace BDF.DVDCentral.PL.Test
 
 
             }
-            catch (System.Exception ex)
+            catch
             {
                 errmessage += "Failed: Get Count for " + tableType.Name + "\r\n";
                 message += "Failed: Get Count for " + tableType.Name + "\r\n";
@@ -130,7 +130,7 @@ namespace BDF.DVDCentral.PL.Test
                     return false;
                 }
             }
-            catch (System.Exception ex)
+            catch 
             {
                 errmessage += "Failed: " + tableType.Name + "." + columnName + " does not exist.\r\n";
                 message += "Failed: " + tableType.Name + "." + columnName + " does not exist.\r\n";

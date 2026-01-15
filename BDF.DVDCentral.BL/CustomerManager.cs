@@ -71,7 +71,7 @@ namespace BDF.DVDCentral.BL
 
                 using (DVDCentralEntities dc = new DVDCentralEntities())
                 {
-                    IDbContextTransaction transaction = null;
+                    IDbContextTransaction transaction = null!;
                     if (rollback) transaction = dc.Database.BeginTransaction();
 
                     if (customer.State.Length == 2)
@@ -117,11 +117,11 @@ namespace BDF.DVDCentral.BL
                 int results = 0;
                 using (DVDCentralEntities dc = new DVDCentralEntities())
                 {
-                    IDbContextTransaction transaction = null;
+                    IDbContextTransaction transaction = null!;
                     if (rollback) transaction = dc.Database.BeginTransaction();
 
                     // Get the row that we are trying to update
-                    tblCustomer entity = dc.tblCustomers.FirstOrDefault(c => c.Id == customer.Id);
+                    tblCustomer entity = dc.tblCustomers.FirstOrDefault(c => c.Id == customer.Id)!;
 
                     if (entity != null)
                     {
@@ -151,11 +151,11 @@ namespace BDF.DVDCentral.BL
                 int results = 0;
                 using (DVDCentralEntities dc = new DVDCentralEntities())
                 {
-                    IDbContextTransaction transaction = null;
+                    IDbContextTransaction transaction = null!;
                     if (rollback) transaction = dc.Database.BeginTransaction();
 
                     // Get the row that we are trying to update
-                    tblCustomer entity = dc.tblCustomers.FirstOrDefault(c => c.Id == id);
+                    tblCustomer entity = dc.tblCustomers.FirstOrDefault(c => c.Id == id)!;
 
                     if (entity != null)
                     {
@@ -184,7 +184,7 @@ namespace BDF.DVDCentral.BL
             {
                 using (DVDCentralEntities dc = new DVDCentralEntities())
                 {
-                    tblCustomer entity = dc.tblCustomers.FirstOrDefault(c => c.Id == id);   
+                    tblCustomer entity = dc.tblCustomers.FirstOrDefault(c => c.Id == id)!;   
 
                     if (entity != null)
                     {

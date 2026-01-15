@@ -39,7 +39,7 @@ namespace BDF.DVDCentral.BL
             {
                 using (DVDCentralEntities dc = new DVDCentralEntities())
                 {
-                    IDbContextTransaction transaction = null;
+                    IDbContextTransaction transaction = null!;
                     if (rollback) transaction = dc.Database.BeginTransaction();
 
                     tblMovieGenre tblMovieGenre = new tblMovieGenre();
@@ -67,7 +67,7 @@ namespace BDF.DVDCentral.BL
 
                 using (DVDCentralEntities dc = new DVDCentralEntities())
                 {
-                    IDbContextTransaction transaction = null;
+                    IDbContextTransaction transaction = null!;
                     if (rollback) transaction = dc.Database.BeginTransaction();
 
                     tblMovieGenre entity = new tblMovieGenre();
@@ -98,11 +98,11 @@ namespace BDF.DVDCentral.BL
                 int results = 0;
                 using (DVDCentralEntities dc = new DVDCentralEntities())
                 {
-                    IDbContextTransaction transaction = null;
+                    IDbContextTransaction transaction = null!;
                     if (rollback) transaction = dc.Database.BeginTransaction();
 
                     // Get the row that we are trying to update
-                    tblMovieGenre entity = dc.tblMovieGenres.FirstOrDefault(mg => mg.Id == movieGenre.Id);
+                    tblMovieGenre entity = dc.tblMovieGenres.FirstOrDefault(mg => mg.Id == movieGenre.Id)!;
 
                     if (entity != null)
                     {
@@ -132,11 +132,11 @@ namespace BDF.DVDCentral.BL
                 int results = 0;
                 using (DVDCentralEntities dc = new DVDCentralEntities())
                 {
-                    IDbContextTransaction transaction = null;
+                    IDbContextTransaction transaction = null!;
                     if (rollback) transaction = dc.Database.BeginTransaction();
 
                     // Get the row that we are trying to update
-                    tblMovieGenre entity = dc.tblMovieGenres.FirstOrDefault(mg => mg.Id == id);
+                    tblMovieGenre entity = dc.tblMovieGenres.FirstOrDefault(mg => mg.Id == id)!;
 
                     if (entity != null)
                     {
@@ -165,7 +165,7 @@ namespace BDF.DVDCentral.BL
             {
                 using (DVDCentralEntities dc = new DVDCentralEntities())
                 {
-                    IDbContextTransaction transaction = null;
+                    IDbContextTransaction transaction = null!;
                     if (rollback) transaction = dc.Database.BeginTransaction();
 
                     tblMovieGenre? tblMovieGenre = dc.tblMovieGenres.FirstOrDefault(mg => mg.MovieId == movieId
@@ -191,7 +191,7 @@ namespace BDF.DVDCentral.BL
             {
                 using (DVDCentralEntities dc = new DVDCentralEntities())
                 {
-                    tblMovieGenre entity = dc.tblMovieGenres.FirstOrDefault(mg => mg.Id == id);
+                    tblMovieGenre entity = dc.tblMovieGenres.FirstOrDefault(mg => mg.Id == id)!;
 
                     if (entity != null)
                     {

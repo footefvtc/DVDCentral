@@ -12,9 +12,9 @@ namespace BDF.DVDCentral.BL.Models
         [DisplayName("Movie Id")]
         public int MovieId { get; set; }
         [DisplayName("Movie Title")]
-        public string Title { get; set; }
+        public string Title { get; set; } = string.Empty;
         [DisplayName("Image")]
-        public string ImagePath { get; set; }
+        public string ImagePath { get; set; } = string.Empty;
         [DisplayFormat(DataFormatString = "{0:C}")]
         public float Cost { get; set; }
     }

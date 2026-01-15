@@ -39,7 +39,7 @@ namespace BDF.DVDCentral.BL
 
                 using (DVDCentralEntities dc = new DVDCentralEntities())
                 {
-                    IDbContextTransaction transaction = null;
+                    IDbContextTransaction transaction = null!;
                     if (rollback) transaction = dc.Database.BeginTransaction();
 
                     tblGenre entity = new tblGenre();
@@ -71,11 +71,11 @@ namespace BDF.DVDCentral.BL
                 int results = 0;
                 using (DVDCentralEntities dc = new DVDCentralEntities())
                 {
-                    IDbContextTransaction transaction = null;
+                    IDbContextTransaction transaction = null!;
                     if (rollback) transaction = dc.Database.BeginTransaction();
 
                     // Get the row that we are trying to update
-                    tblGenre entity = dc.tblGenres.FirstOrDefault(g => g.Id == genre.Id);
+                    tblGenre entity = dc.tblGenres.FirstOrDefault(g => g.Id == genre.Id)!;
 
                     if (entity != null)
                     {
@@ -105,11 +105,11 @@ namespace BDF.DVDCentral.BL
                 int results = 0;
                 using (DVDCentralEntities dc = new DVDCentralEntities())
                 {
-                    IDbContextTransaction transaction = null;
+                    IDbContextTransaction transaction = null!;
                     if (rollback) transaction = dc.Database.BeginTransaction();
 
                     // Get the row that we are trying to update
-                    tblGenre entity = dc.tblGenres.FirstOrDefault(g => g.Id == id);
+                    tblGenre entity = dc.tblGenres.FirstOrDefault(g => g.Id == id)!;
 
                     if (entity != null)
                     {
@@ -138,7 +138,7 @@ namespace BDF.DVDCentral.BL
             {
                 using (DVDCentralEntities dc = new DVDCentralEntities())
                 {
-                    tblGenre entity = dc.tblGenres.FirstOrDefault(g => g.Id == id);
+                    tblGenre entity = dc.tblGenres.FirstOrDefault(g => g.Id == id)!;
 
                     if (entity != null)
                     {

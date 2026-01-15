@@ -27,9 +27,10 @@ namespace BDF.DVDCentral.BL.Test
                 Seed();
                 Assert.IsTrue(UserManager.Login(new User { UserId = "", Password = "maple" }));
             }
-            catch (LoginFailureException)
+            catch (LoginFailureException ex)
             {
-                Assert.IsTrue(true);
+                Assert.AreEqual("UserId was not entered.", ex.Message);
+                //Assert.IsTrue(true);
             }
             catch (Exception ex)
             {

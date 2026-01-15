@@ -1,16 +1,18 @@
 ﻿using BDF.DVDCentral.BL.Models;
+using System.Diagnostics.CodeAnalysis;
 
 namespace BDF.DVDCentral.UI.ViewModels
 {
     public class MovieVM
     {
-        public Movie Movie { get; set; }
+        public required Movie Movie { get; set; }
         public List<Genre> Genres { get; set; } = new List<Genre>();
         public List<Director> Directors { get; set; } = new List<Director>();
         public List<Rating> Ratings { get; set; } = new List<Rating>();
         public List<Format> Formats { get; set; } = new List<Format>();
-        public IFormFile File { get; set; }
+        public required IFormFile File { get; set; }
         public IEnumerable<int> GenreIds { get; set; } // new genres for the movies
+        [SetsRequiredMembers]
         public MovieVM()
         {
             Genres = GenreManager.Load();
@@ -18,6 +20,7 @@ namespace BDF.DVDCentral.UI.ViewModels
             Ratings = RatingManager.Load();
             Formats = FormatManager.Load();
         }
+        [SetsRequiredMembers]
         public MovieVM(int id)
         {
             Movie = MovieManager.LoadById(id);

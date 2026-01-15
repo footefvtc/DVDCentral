@@ -55,7 +55,7 @@ namespace BDF.DVDCentral.BL
 
                 using (DVDCentralEntities dc = new DVDCentralEntities())
                 {
-                    IDbContextTransaction transaction = null;
+                    IDbContextTransaction transaction = null!;
                     if (rollback) transaction = dc.Database.BeginTransaction();
 
                     tblMovie entity = new tblMovie();
@@ -94,11 +94,11 @@ namespace BDF.DVDCentral.BL
                 int results = 0;
                 using (DVDCentralEntities dc = new DVDCentralEntities())
                 {
-                    IDbContextTransaction transaction = null;
+                    IDbContextTransaction transaction = null!;
                     if (rollback) transaction = dc.Database.BeginTransaction();
 
                     // Get the row that we are trying to update
-                    tblMovie entity = dc.tblMovies.FirstOrDefault(m => m.Id == movie.Id);
+                    tblMovie entity = dc.tblMovies.FirstOrDefault(m => m.Id == movie.Id)!;
 
                     if (entity != null)
                     {
@@ -135,11 +135,11 @@ namespace BDF.DVDCentral.BL
                 int results = 0;
                 using (DVDCentralEntities dc = new DVDCentralEntities())
                 {
-                    IDbContextTransaction transaction = null;
+                    IDbContextTransaction transaction = null!;
                     if (rollback) transaction = dc.Database.BeginTransaction();
 
                     // Get the row that we are trying to update
-                    tblMovie entity = dc.tblMovies.FirstOrDefault(m => m.Id == id);
+                    tblMovie entity = dc.tblMovies.FirstOrDefault(m => m.Id == id)!;
 
                     if (entity != null)
                     {

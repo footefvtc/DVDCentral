@@ -39,7 +39,7 @@ namespace BDF.DVDCentral.BL
 
                 using (DVDCentralEntities dc = new DVDCentralEntities())
                 {
-                    IDbContextTransaction transaction = null;
+                    IDbContextTransaction transaction = null!;
                     if (rollback) transaction = dc.Database.BeginTransaction();
 
                     tblRating entity = new tblRating();
@@ -71,11 +71,11 @@ namespace BDF.DVDCentral.BL
                 int results = 0;
                 using (DVDCentralEntities dc = new DVDCentralEntities())
                 {
-                    IDbContextTransaction transaction = null;
+                    IDbContextTransaction transaction = null!;
                     if (rollback) transaction = dc.Database.BeginTransaction();
 
                     // Get the row that we are trying to update
-                    tblRating entity = dc.tblRatings.FirstOrDefault(r => r.Id == rating.Id);
+                    tblRating entity = dc.tblRatings.FirstOrDefault(r => r.Id == rating.Id)!;
 
                     if (entity != null)
                     {
@@ -105,11 +105,11 @@ namespace BDF.DVDCentral.BL
                 int results = 0;
                 using (DVDCentralEntities dc = new DVDCentralEntities())
                 {
-                    IDbContextTransaction transaction = null;
+                    IDbContextTransaction transaction = null!;
                     if (rollback) transaction = dc.Database.BeginTransaction();
 
                     // Get the row that we are trying to update
-                    tblRating entity = dc.tblRatings.FirstOrDefault(r => r.Id == id);
+                    tblRating entity = dc.tblRatings.FirstOrDefault(r => r.Id == id)!;
 
                     if (entity != null)
                     {
@@ -138,7 +138,7 @@ namespace BDF.DVDCentral.BL
             {
                 using (DVDCentralEntities dc = new DVDCentralEntities())
                 {
-                    tblRating entity = dc.tblRatings.FirstOrDefault(r => r.Id == id);
+                    tblRating entity = dc.tblRatings.FirstOrDefault(r => r.Id == id)!;
 
                     if (entity != null)
                     {
