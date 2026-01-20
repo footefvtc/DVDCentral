@@ -19,4 +19,13 @@ public partial class tblMovie
     public int InStkQty { get; set; }
 
     public string ImagePath { get; set; } = null!;
+
+    public virtual tblDirector Director { get; set; }   
+    public virtual tblRating Rating { get; set;  }
+    public virtual tblFormat Format {  get; set; }    
+
+    public virtual ICollection<tblOrderItem> OrderItems { get; set; }
+    public virtual ICollection<tblMovieGenre> MovieGenres { get; set; }
+
+
 }

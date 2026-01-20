@@ -5,4 +5,5 @@ public partial class tblFormat
     public Guid Id { get; set; }
 
     public string Description { get; set; } = null!;
+    public virtual ICollection<tblMovie> Movies { get; set; }
 }

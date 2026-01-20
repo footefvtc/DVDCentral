@@ -11,4 +11,8 @@ public partial class tblUser
     public string UserId { get; set; } = null!;
 
     public string Password { get; set; } = null!;
+
+    public virtual ICollection<tblCustomer> Customers { get; set;  }
+
+
 }

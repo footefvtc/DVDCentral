@@ -19,4 +19,8 @@ public partial class tblCustomer
     public string Zip { get; set; } = null!;
 
     public string Phone { get; set; } = null!;
+
+    public virtual ICollection<tblOrder> Orders { get; set; }
+
+    public virtual tblUser User { get; set; }
 }
