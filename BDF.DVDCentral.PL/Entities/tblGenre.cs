@@ -5,4 +5,6 @@ public partial class tblGenre
     public Guid Id { get; set; }
 
     public string Description { get; set; } = null!;
+
+    public virtual ICollection<tblMovieGenre> MovieGenres { get; set; }
 }

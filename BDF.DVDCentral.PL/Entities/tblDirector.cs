@@ -7,4 +7,6 @@ public partial class tblDirector
     public string FirstName { get; set; } = null!;
 
     public string LastName { get; set; } = null!;
+    public virtual ICollection<tblMovie> Movies { get; set; }
 }
+

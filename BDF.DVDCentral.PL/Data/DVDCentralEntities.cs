@@ -1,5 +1,6 @@
 ﻿using BDF.DVDCentral.PL.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace BDF.DVDCentral.PL.Data
 {
@@ -43,6 +44,7 @@ namespace BDF.DVDCentral.PL.Data
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            optionsBuilder.ConfigureWarnings(w => w.Ignore(RelationalEventId.PendingModelChangesWarning));
         }
 
         public DVDCentralEntities()
@@ -233,11 +235,11 @@ namespace BDF.DVDCentral.PL.Data
 
                 entity.Property(e => e.Id).ValueGeneratedNever();
 
-                //entity.HasOne(d => d.Order)
-                //  .WithMany(p => p.OrderItems)
-                //  .HasForeignKey(d => d.OrderId)
-                //  .OnDelete(DeleteBehavior.ClientSetNull)
-                //  .HasConstraintName("FK_tblOrderItem_OrderId");
+                entity.HasOne(d => d.Order)
+                  .WithMany(p => p.OrderItems)
+                  .HasForeignKey(d => d.OrderId)
+                  .OnDelete(DeleteBehavior.ClientSetNull)
+                  .HasConstraintName("FK_tblOrderItem_OrderId");
 
             });
 
@@ -268,11 +270,11 @@ namespace BDF.DVDCentral.PL.Data
                 entity.Property(e => e.OrderDate).HasColumnType("datetime");
                 entity.Property(e => e.ShipDate).HasColumnType("datetime");
 
-                //entity.HasOne(d => d.Customer)
-                //  .WithMany(p => p.Orders)
-                //  .HasForeignKey(d => d.CustomerId)
-                //  .OnDelete(DeleteBehavior.ClientSetNull)
-                //  .HasConstraintName("FK_tblOrder_CustomerId");
+                entity.HasOne(d => d.Customer)
+                  .WithMany(p => p.Orders)
+                  .HasForeignKey(d => d.CustomerId)
+                  .OnDelete(DeleteBehavior.ClientSetNull)
+                  .HasConstraintName("FK_tblOrder_CustomerId");
 
             });
 
@@ -296,15 +298,15 @@ namespace BDF.DVDCentral.PL.Data
 
                 entity.Property(e => e.Id).ValueGeneratedNever();
 
-                //entity.HasOne(d => d.Genre)
-                //.WithMany(p => p.MovieGenres)
-                //.HasForeignKey(d => d.GenreId)
-                //.HasConstraintName("tblMovieGenre_GenreId");
+                entity.HasOne(d => d.Genre)
+                .WithMany(p => p.MovieGenres)
+                .HasForeignKey(d => d.GenreId)
+                .HasConstraintName("tblMovieGenre_GenreId");
 
-                //entity.HasOne(d => d.Movie)
-                //.WithMany(p => p.MovieGenres)
-                //.HasForeignKey(d => d.MovieId)
-                //.HasConstraintName("tblMovieGenre_MovieId");
+                entity.HasOne(d => d.Movie)
+                .WithMany(p => p.MovieGenres)
+                .HasForeignKey(d => d.MovieId)
+                .HasConstraintName("tblMovieGenre_MovieId");
 
 
             });
@@ -354,23 +356,23 @@ namespace BDF.DVDCentral.PL.Data
                     .HasMaxLength(100)
                     .IsUnicode(false);
 
-                //entity.HasOne(d => d.Director)
-                //    .WithMany(p => p.Movies)
-                //    .HasForeignKey(d => d.DirectorId)
-                //    .OnDelete(DeleteBehavior.ClientSetNull)
-                //    .HasConstraintName("FK_tblMovie_DirectorId");
+                entity.HasOne(d => d.Director)
+                    .WithMany(p => p.Movies)
+                    .HasForeignKey(d => d.DirectorId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_tblMovie_DirectorId");
 
-                //entity.HasOne(d => d.Format)
-                //    .WithMany(p => p.Movies)
-                //    .HasForeignKey(d => d.FormatId)
-                //    .OnDelete(DeleteBehavior.ClientSetNull)
-                //    .HasConstraintName("FK_tblMovie_FormatId");
+                entity.HasOne(d => d.Format)
+                    .WithMany(p => p.Movies)
+                    .HasForeignKey(d => d.FormatId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_tblMovie_FormatId");
 
-                //entity.HasOne(d => d.Rating)
-                //    .WithMany(p => p.Movies)
-                //    .HasForeignKey(d => d.RatingId)
-                //    .OnDelete(DeleteBehavior.ClientSetNull)
-                //    .HasConstraintName("FK_tblMovie_RatingId");
+                entity.HasOne(d => d.Rating)
+                    .WithMany(p => p.Movies)
+                    .HasForeignKey(d => d.RatingId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_tblMovie_RatingId");
 
                 //modelBuilder.Entity<spGetMoviesResult>().HasNoKey();
                 // Comment New Test
@@ -538,11 +540,11 @@ namespace BDF.DVDCentral.PL.Data
                     .HasMaxLength(12)
                     .IsUnicode(false);
 
-                //entity.HasOne(d => d.User)
-                // .WithMany(p => p.Customers)
-                // .HasForeignKey(d => d.UserId)
-                // .OnDelete(DeleteBehavior.ClientSetNull)
-                // .HasConstraintName("FK_tblCustomer_UserId");
+                entity.HasOne(d => d.User)
+                 .WithMany(p => p.Customers)
+                 .HasForeignKey(d => d.UserId)
+                 .OnDelete(DeleteBehavior.ClientSetNull)
+                 .HasConstraintName("FK_tblCustomer_UserId");
 
             });
 

@@ -1,4 +1,6 @@
-﻿namespace BDF.DVDCentral.PL.Entities;
+﻿using BDF.DVDCentral.PL.Entities;
+
+namespace BDF.DVDCentral.PL.Entities;
 
 public partial class tblCustomer
 {
@@ -19,4 +21,8 @@ public partial class tblCustomer
     public string Zip { get; set; } = null!;
 
     public string Phone { get; set; } = null!;
+
+    public virtual ICollection<tblOrder> Orders { get; set; }
+
+    public virtual tblUser User { get; set; }
 }
