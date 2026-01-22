@@ -1,4 +1,6 @@
-﻿namespace BDF.DVDCentral.PL.Test
+﻿using BDF.DVDCentral.PL.Data;
+
+namespace BDF.DVDCentral.PL.Test
 {
     [TestClass]
     public abstract class utBase<T> where T : class
@@ -58,7 +60,6 @@
         [TestInitialize]
         public void Initialize()
         {
-            dc = new DVDCentralEntities();
             transaction = dc.Database.BeginTransaction();
         }
 

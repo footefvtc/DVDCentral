@@ -8,7 +8,7 @@ namespace BDF.DVDCentral.PL.Test
         [TestMethod]
         public void LoadTest()
         {
-            LoadTest(3);
+            LoadTest(4);
         }
 
         [TestMethod]
@@ -40,7 +40,7 @@ namespace BDF.DVDCentral.PL.Test
 
             int result = UpdateTest(entity);
 
-            Assert.IsGreaterThan(result, 0);
+            Assert.IsGreaterThan(0, result);
         }
 
         [TestMethod]
@@ -56,8 +56,8 @@ namespace BDF.DVDCentral.PL.Test
         [TestMethod]
         public void LoadByIdTest()
         {
-            var item = base.LoadTest()!.FirstOrDefault()!;
-            var entity = dc.tblDirectors.Where(e => e.Id == item.Id).FirstOrDefault()!;
+            tblCustomer item = base.LoadTest()!.FirstOrDefault()!;
+            var entity = dc.tblCustomers.Where(e => e.Id == item.Id).FirstOrDefault()!;
             Assert.AreEqual(item.Id, entity.Id);
         }
 

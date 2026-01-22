@@ -30,7 +30,7 @@
             tblOrderItem entity = base.LoadTest().FirstOrDefault()!;
 
             // Change a property value
-            entity.MovieId = base.LoadTest().LastOrDefault().MovieId;
+            entity.MovieId = base.LoadTest().LastOrDefault()!.MovieId;
 
             int result = UpdateTest(entity);
 
