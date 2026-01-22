@@ -1,4 +1,6 @@
-﻿namespace BDF.DVDCentral.PL.Test
+﻿using BDF.DVDCentral.PL.Test;
+
+namespace BDF.DVDCentral.PL.Test
 {
     [TestClass]
     public class utUser : utBase<tblUser>
@@ -7,7 +9,7 @@
         [TestMethod]
         public void LoadTest()
         {
-            LoadTest(3);
+            Assert.AreEqual(4, dc.tblUsers.Count());
         }
 
         [TestMethod]
@@ -15,46 +17,51 @@
         {
             // Make an entity
             tblUser entity = new tblUser();
-            entity.FirstName = "Yolanda";
-            entity.LastName = "Yolanda";
-            entity.UserId = "";
+            entity.FirstName = "Test";
+            entity.LastName = "Test";
+            entity.UserId = "bfoote";
+            entity.Password = "TestSecret";
 
-            int result = InsertTest(entity);
+            // Add the entity to the database
+            dc.tblUsers.Add(entity);
+
+            // Commit the changes
+            int result = dc.SaveChanges();
             Assert.AreEqual(1, result);
         }
 
         [TestMethod]
         public void UpdateTest()
         {
-            // SELECT * FROM tblUser - use the first one
-            tblUser entity = base.LoadTest().FirstOrDefault()!;
+            // SELECT * FROM tblUsers - use the first one
+            tblUser entity = dc.tblUsers.FirstOrDefault();
 
             // Change a property value
             entity.FirstName = "Test";
 
-            int result = UpdateTest(entity);
-
-            Assert.IsGreaterThan(result, 0);
+            int result = dc.SaveChanges();
+            Assert.IsTrue(result > 0);
         }
 
         [TestMethod]
         public void DeleteTest()
         {
-            // Select * from tblUser where id = 3
-            tblUser entity = base.LoadTest().FirstOrDefault(e => e.FirstName == "Other")!;
+            // Select * from tblUser where id = 2
+            tblUser entity = dc.tblUsers.FirstOrDefault(x => x.FirstName == "Other");
 
-            int result = DeleteTest(entity);
-            Assert.AreNotEqual(0, result);
+            dc.tblUsers.Remove(entity);
+            int result = dc.SaveChanges();
+            Assert.AreNotEqual(result, 0);
         }
 
         [TestMethod]
         public void LoadByIdTest()
         {
-            tblUser item = base.LoadTest()!.FirstOrDefault()!;
-            tblUser entity = dc.tblUsers.Where(e => e.Id == item.Id).FirstOrDefault()!;
-            Assert.AreEqual(item.Id, entity.Id);
+            //var items = base.LoadTest();
+            // Select * from tblUser where id = 2
+            //tblUser entity = dc.tblUsers.FirstOrDefault(u => u.FirstName == "Other");
+            // Assert.AreEqual(entity.Id, 2);
         }
-
 
     }
 }

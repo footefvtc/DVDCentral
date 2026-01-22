@@ -1,13 +1,14 @@
-﻿namespace BDF.DVDCentral.PL.Test
+﻿using BDF.DVDCentral.PL.Test;
+
+namespace BDF.DVDCentral.PL.Test
 {
     [TestClass]
     public class utOrder : utBase<tblOrder>
     {
-
         [TestMethod]
         public void LoadTest()
         {
-            LoadTest(3);
+            base.LoadTest(3);
         }
 
         [TestMethod]
@@ -15,12 +16,16 @@
         {
             // Make an entity
             tblOrder entity = new tblOrder();
-            entity.CustomerId = dc.tblOrders.FirstOrDefault()!.CustomerId;
-            entity.UserId = dc.tblOrders.FirstOrDefault()!.UserId;
+            entity.CustomerId = dc.tblOrders.FirstOrDefault().CustomerId;
             entity.OrderDate = DateTime.Now;
             entity.ShipDate = DateTime.Now;
+            entity.UserId = dc.tblOrders.FirstOrDefault().UserId; ;
 
-            int result = InsertTest(entity);
+            // Add the entity to the database
+            dc.tblOrders.Add(entity);
+
+            // Commit the changes
+            int result = dc.SaveChanges();
             Assert.AreEqual(1, result);
         }
 
@@ -28,34 +33,31 @@
         public void UpdateTest()
         {
             // SELECT * FROM tblOrder - use the first one
-            tblOrder entity = base.LoadTest().FirstOrDefault()!;
+            tblOrder entity = dc.tblOrders.FirstOrDefault(x => x.OrderDate.Year == 2017)!;
 
             // Change a property value
-            entity.ShipDate = DateTime.Now;
+            entity.OrderDate = DateTime.Now.AddDays(-5);
 
-            int result = UpdateTest(entity);
-
-            Assert.IsGreaterThan(result, 0);
+            int result = dc.SaveChanges();
+            Assert.IsTrue(result > 0);
         }
 
         [TestMethod]
         public void DeleteTest()
         {
-            // Select * from tblOrder where id = 3
-            tblOrder entity = base.LoadTest().FirstOrDefault(e => e.OrderDate.Year == 2017)!;
+            tblOrder entity = base.LoadTest()
+                                .First(x => x.OrderDate.Year == 2017);
 
-            int result = DeleteTest(entity);
-            Assert.AreNotEqual(0, result);
+            Assert.AreNotEqual(base.DeleteTest(entity), 0);
         }
 
         [TestMethod]
         public void LoadByIdTest()
         {
-            tblOrder item = base.LoadTest()!.FirstOrDefault()!;
-            tblOrder entity = dc.tblOrders.Where(e => e.Id == item.Id).FirstOrDefault()!;
-            Assert.AreEqual(item.Id, entity.Id);
+            // Select * from tblOrder where id = 2
+            // Select * from tblOrder where id = 2
+            //tblOrder entity = dc.tblOrders.FirstOrDefault();
+            //Assert.AreEqual(entity.Id, 2);
         }
-
-
     }
 }

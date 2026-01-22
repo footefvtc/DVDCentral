@@ -1,4 +1,6 @@
-﻿namespace BDF.DVDCentral.PL.Test
+﻿using BDF.DVDCentral.PL.Test;
+
+namespace BDF.DVDCentral.PL.Test
 {
     [TestClass]
     public class utOrderItem : utBase<tblOrderItem>
@@ -7,7 +9,7 @@
         [TestMethod]
         public void LoadTest()
         {
-            LoadTest(3);
+            Assert.AreEqual(3, dc.tblOrderItems.Count());
         }
 
         [TestMethod]
@@ -15,37 +17,41 @@
         {
             // Make an entity
             tblOrderItem entity = new tblOrderItem();
-            entity.OrderId = base.LoadTest().FirstOrDefault()!.OrderId;
-            entity.Quantity = 1;
-            entity.Cost = 1;
+            entity.OrderId = base.LoadTest().FirstOrDefault().OrderId;
+            entity.Quantity = 2;
+            entity.MovieId = base.LoadTest().FirstOrDefault().MovieId;
+            entity.Cost = 16.00;
 
-            int result = InsertTest(entity);
+            // Add the entity to the database
+            dc.tblOrderItems.Add(entity);
+
+            // Commit the changes
+            int result = dc.SaveChanges();
             Assert.AreEqual(1, result);
         }
 
         [TestMethod]
         public void UpdateTest()
         {
-            // SELECT * FROM tblOrderItem - use the first one
-            tblOrderItem entity = base.LoadTest().FirstOrDefault()!;
+            // SELECT * FROM tblOrderItems - use the first one
+            tblOrderItem entity = dc.tblOrderItems.FirstOrDefault();
 
             // Change a property value
-            entity.MovieId = base.LoadTest().LastOrDefault()!.MovieId;
+            entity.MovieId = dc.tblMovies.FirstOrDefault(x => x.Title == "Other")!.Id;
 
-            int result = UpdateTest(entity);
-
-            Assert.IsGreaterThan(result, 0);
+            int result = dc.SaveChanges();
+            Assert.IsTrue(result > 0);
         }
 
         [TestMethod]
         public void DeleteTest()
         {
             // Select * from tblOrderItem where id = 3
-            tblOrderItem entity = base.LoadTest().FirstOrDefault()!;
+            tblOrderItem entity = dc.tblOrderItems.FirstOrDefault();
 
-            int result = DeleteTest(entity);
-            Assert.AreNotEqual(0, result);
+            dc.tblOrderItems.Remove(entity);
+            int result = dc.SaveChanges();
+            Assert.AreNotEqual(result, 0);
         }
-
     }
 }

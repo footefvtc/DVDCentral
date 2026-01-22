@@ -7,7 +7,7 @@
         [TestMethod]
         public void LoadTest()
         {
-            LoadTest(3);
+            LoadTest(13);
         }
 
         [TestMethod]

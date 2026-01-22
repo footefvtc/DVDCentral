@@ -1,4 +1,6 @@
-﻿namespace BDF.DVDCentral.PL.Test
+﻿using BDF.DVDCentral.PL.Test;
+
+namespace BDF.DVDCentral.PL.Test
 {
     [TestClass]
     public class utGenre : utBase<tblGenre>
@@ -7,7 +9,8 @@
         [TestMethod]
         public void LoadTest()
         {
-            LoadTest(3);
+            var list = base.LoadTest();
+            Assert.AreEqual(10, list.Count());
         }
 
         [TestMethod]
@@ -15,9 +18,11 @@
         {
             // Make an entity
             tblGenre entity = new tblGenre();
-            entity.Description = "Yolanda";
+            entity.Id = Guid.NewGuid();
+            entity.Description = "Genre Description";
 
             int result = InsertTest(entity);
+
             Assert.AreEqual(1, result);
         }
 
@@ -25,32 +30,32 @@
         public void UpdateTest()
         {
             // SELECT * FROM tblGenre - use the first one
-            tblGenre entity = base.LoadTest().FirstOrDefault()!;
+            var item = base.LoadTest().FirstOrDefault();
 
             // Change a property value
-            entity.Description = "Test";
+            item.Description = "Test";
 
-            int result = UpdateTest(entity);
-
-            Assert.IsGreaterThan(result, 0);
+            int result = UpdateTest(item);
+            Assert.IsTrue(result > 0);
         }
 
         [TestMethod]
         public void DeleteTest()
         {
             // Select * from tblGenre where id = 3
-            tblGenre entity = base.LoadTest().FirstOrDefault(e => e.Description == "Other")!;
-
+            tblGenre entity = dc.tblGenres.FirstOrDefault(e => e.Description == "Other");
             int result = DeleteTest(entity);
-            Assert.AreNotEqual(0, result);
+            Assert.AreNotEqual(result, 0);
         }
 
         [TestMethod]
         public void LoadByIdTest()
         {
-            tblGenre item = base.LoadTest()!.FirstOrDefault()!;
-            tblGenre entity = dc.tblGenres.Where(e => e.Id == item.Id).FirstOrDefault()!;
-            Assert.AreEqual(item.Id, entity.Id);
+            var item = base.LoadTest().FirstOrDefault();
+
+            // Select * from tblGenre where id = 2
+            tblGenre entity = dc.tblGenres.Where(e => e.Id == item.Id).FirstOrDefault();
+            Assert.AreEqual(entity.Id, item.Id);
         }
 
 

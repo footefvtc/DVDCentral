@@ -1,4 +1,6 @@
-﻿namespace BDF.DVDCentral.PL.Test
+﻿using BDF.DVDCentral.PL.Test;
+
+namespace BDF.DVDCentral.PL.Test
 {
     [TestClass]
     public class utDirector : utBase<tblDirector>
@@ -7,7 +9,8 @@
         [TestMethod]
         public void LoadTest()
         {
-            LoadTest(3);
+            var list = base.LoadTest();
+            Assert.AreEqual(6, list.Count());
         }
 
         [TestMethod]
@@ -15,10 +18,12 @@
         {
             // Make an entity
             tblDirector entity = new tblDirector();
-            entity.FirstName = "Yolanda";
-            entity.LastName = "Smith";
-            
+            entity.Id = Guid.NewGuid();
+            entity.FirstName = "FirstName";
+            entity.LastName = "LastName";
+
             int result = InsertTest(entity);
+
             Assert.AreEqual(1, result);
         }
 
@@ -26,32 +31,32 @@
         public void UpdateTest()
         {
             // SELECT * FROM tblDirector - use the first one
-            tblDirector entity = base.LoadTest().FirstOrDefault()!;
+            var item = base.LoadTest().FirstOrDefault();
 
             // Change a property value
-            entity.FirstName = "Test";
+            item.FirstName = "Test";
 
-            int result = UpdateTest(entity);
-
-            Assert.IsGreaterThan(result, 0);
+            int result = UpdateTest(item);
+            Assert.IsTrue(result > 0);
         }
 
         [TestMethod]
         public void DeleteTest()
         {
             // Select * from tblDirector where id = 3
-            tblDirector entity = base.LoadTest().FirstOrDefault(e => e.FirstName == "Other")!;
-
+            tblDirector entity = dc.tblDirectors.FirstOrDefault(e => e.FirstName == "Other");
             int result = DeleteTest(entity);
-            Assert.AreNotEqual(0, result);
+            Assert.AreNotEqual(result, 0);
         }
 
         [TestMethod]
         public void LoadByIdTest()
         {
-            tblDirector item = base.LoadTest()!.FirstOrDefault()!;
-            tblDirector entity = dc.tblDirectors.Where(e => e.Id == item.Id).FirstOrDefault()!;
-            Assert.AreEqual(item.Id, entity.Id);
+            var item = base.LoadTest().FirstOrDefault();
+
+            // Select * from tblDirector where id = 2
+            tblDirector entity = dc.tblDirectors.Where(e => e.Id == item.Id).FirstOrDefault();
+            Assert.AreEqual(entity.Id, item.Id);
         }
 
 
