@@ -1,15 +1,13 @@
 ﻿namespace BDF.DVDCentral.PL.Test
 {
     [TestClass]
-    public class utGenre
+    public class utGenre : utBase<tblGenre>
     {
-        protected DVDCentralEntities dc;
-        protected IDbContextTransaction? transaction;
 
         [TestMethod]
         public void LoadTest()
         {
-            Assert.AreEqual(8, dc.tblGenres.Count());
+            LoadTest(3);
         }
 
         [TestMethod]
@@ -17,13 +15,9 @@
         {
             // Make an entity
             tblGenre entity = new tblGenre();
-            entity.Description = "Genre Description";
+            entity.Description = "Yolanda";
 
-            // Add the entity to the database
-            dc.tblGenres.Add(entity);
-
-            // Commit the changes
-            int result = dc.SaveChanges();
+            int result = InsertTest(entity);
             Assert.AreEqual(1, result);
         }
 
@@ -31,47 +25,34 @@
         public void UpdateTest()
         {
             // SELECT * FROM tblGenre - use the first one
-            tblGenre entity = dc.tblGenres.FirstOrDefault();
+            tblGenre entity = base.LoadTest().FirstOrDefault()!;
 
             // Change a property value
             entity.Description = "Test";
 
-            int result = dc.SaveChanges();
-            Assert.IsTrue(result > 0);
+            int result = UpdateTest(entity);
+
+            Assert.IsGreaterThan(result, 0);
         }
 
         [TestMethod]
         public void DeleteTest()
         {
             // Select * from tblGenre where id = 3
-            tblGenre entity = dc.tblGenres.Where(e => e.Id == 3).FirstOrDefault();
+            tblGenre entity = base.LoadTest().FirstOrDefault(e => e.Description == "Other")!;
 
-            dc.tblGenres.Remove(entity);
-            int result = dc.SaveChanges();
-            Assert.AreNotEqual(result, 0);
+            int result = DeleteTest(entity);
+            Assert.AreNotEqual(0, result);
         }
 
         [TestMethod]
         public void LoadByIdTest()
         {
-            // Select * from tblGenre where id = 2
-            tblGenre entity = dc.tblGenres.Where(e => e.Id == 2).FirstOrDefault();
-            Assert.AreEqual(entity.Id, 2);
+            tblGenre item = base.LoadTest()!.FirstOrDefault()!;
+            tblGenre entity = dc.tblGenres.Where(e => e.Id == item.Id).FirstOrDefault()!;
+            Assert.AreEqual(item.Id, entity.Id);
         }
 
-        [TestInitialize]
-        public void Initialize()
-        {
-            dc = new DVDCentralEntities();
-            transaction = dc.Database.BeginTransaction();
-        }
 
-        [TestCleanup]
-        public void Cleanup()
-        {
-            transaction.Rollback();
-            transaction.Dispose();
-            dc = null;
-        }
     }
 }

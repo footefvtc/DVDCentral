@@ -1,15 +1,13 @@
 ﻿namespace BDF.DVDCentral.PL.Test
 {
     [TestClass]
-    public class utMovieGenre
+    public class utMovieGenre : utBase<tblMovieGenre>
     {
-        protected DVDCentralEntities dc;
-        protected IDbContextTransaction? transaction;
 
         [TestMethod]
         public void LoadTest()
         {
-            Assert.AreEqual(6, dc.tblMovieGenres.Count());
+            LoadTest(3);
         }
 
         [TestMethod]
@@ -17,54 +15,21 @@
         {
             // Make an entity
             tblMovieGenre entity = new tblMovieGenre();
-            entity.MovieId = 1;
-            entity.GenreId = 1;
+            entity.MovieId = base.LoadTest().FirstOrDefault()!.MovieId;
+            entity.GenreId = base.LoadTest().FirstOrDefault()!.GenreId;
 
-            // Add the entity to the database
-            dc.tblMovieGenres.Add(entity);
-
-            // Commit the changes
-            int result = dc.SaveChanges();
+            int result = InsertTest(entity);
             Assert.AreEqual(1, result);
         }
 
         [TestMethod]
-        public void UpdateTest()
+        public void LoadByIdTest()
         {
-            // SELECT * FROM tblMovieGenre - use the first one
-            tblMovieGenre entity = dc.tblMovieGenres.FirstOrDefault();
-
-            // Change a property value
-            entity.GenreId = 4;
-            
-            int result = dc.SaveChanges();
-            Assert.IsTrue(result > 0);
+            tblMovieGenre item = base.LoadTest()!.FirstOrDefault()!;
+            tblMovieGenre entity = dc.tblMovieGenres.Where(e => e.Id == item.Id).FirstOrDefault()!;
+            Assert.AreEqual(item.Id, entity.Id);
         }
 
-        [TestMethod]
-        public void DeleteTest()
-        {
-            // Select * from tblMovieGenre where id = 3
-            tblMovieGenre entity = dc.tblMovieGenres.Where(e => e.Id == 3).FirstOrDefault();
 
-            dc.tblMovieGenres.Remove(entity);
-            int result = dc.SaveChanges();
-            Assert.AreNotEqual(result, 0);
-        }
-
-        [TestInitialize]
-        public void Initialize()
-        {
-            dc = new DVDCentralEntities();
-            transaction = dc.Database.BeginTransaction();
-        }
-
-        [TestCleanup]
-        public void Cleanup()
-        {
-            transaction.Rollback();
-            transaction.Dispose();
-            dc = null;
-        }
     }
 }

@@ -2,15 +2,13 @@
 namespace BDF.DVDCentral.PL.Test
 {
     [TestClass]
-    public class utCustomer
+    public class utCustomer : utBase<tblCustomer>
     {
-        public required DVDCentralEntities dc;
-        protected IDbContextTransaction? transaction;
-
+        
         [TestMethod]
         public void LoadTest()
         {
-            Assert.AreEqual(3, dc.tblCustomers.Count());
+            LoadTest(3);
         }
 
         [TestMethod]
@@ -25,61 +23,44 @@ namespace BDF.DVDCentral.PL.Test
             entity.Phone = "7485986549";
             entity.FirstName = "Yolanda";
             entity.LastName = "Smith";
-            entity.UserId = -99;
+            entity.UserId = base.LoadTest().FirstOrDefault()!.UserId;
 
-            // Add the entity to the database
-            dc.tblCustomers.Add(entity);
-
-            // Commit the changes
-            int result = dc.SaveChanges();
+            int result = InsertTest(entity);
             Assert.AreEqual(1, result);
         }
 
         [TestMethod]
         public void UpdateTest()
         {
-            // SELECT * FROM tblCustomer - use the first one
-            tblCustomer entity = dc.tblCustomers.FirstOrDefault();
+            // SELECT * FROM tblDirector - use the first one
+            tblCustomer entity = base.LoadTest().FirstOrDefault()!;
 
             // Change a property value
             entity.FirstName = "Test";
 
-            int result = dc.SaveChanges();
+            int result = UpdateTest(entity);
+
             Assert.IsGreaterThan(result, 0);
         }
 
         [TestMethod]
         public void DeleteTest()
         {
-            // Select * from tblCustomer where id = 3
-            tblCustomer entity = dc.tblCustomers.Where(e => e.Id == 3).FirstOrDefault();
+            // Select * from tblDirector where id = 3
+            var entity = base.LoadTest().FirstOrDefault(e => e.FirstName == "Other")!;
 
-            dc.tblCustomers.Remove(entity);
-            int result = dc.SaveChanges();
-            Assert.AreNotEqual(result, 0);
+            int result = DeleteTest(entity);
+            Assert.AreNotEqual(0, result);
         }
 
         [TestMethod]
         public void LoadByIdTest()
         {
-            // Select * from tblCustomer where id = 2
-            tblCustomer entity = dc.tblCustomers.Where(e => e.Id == 2).FirstOrDefault()!;
-            Assert.AreEqual(2, entity.Id);
+            var item = base.LoadTest()!.FirstOrDefault()!;
+            var entity = dc.tblDirectors.Where(e => e.Id == item.Id).FirstOrDefault()!;
+            Assert.AreEqual(item.Id, entity.Id);
         }
 
-        [TestInitialize]
-        public void Initialize()
-        {
-            dc = new DVDCentralEntities();
-            transaction = dc.Database.BeginTransaction();
-        }
-
-        [TestCleanup]
-        public void Cleanup()
-        {
-            transaction.Rollback();
-            transaction.Dispose();
-            dc = null;
-        }
+       
     }
 }

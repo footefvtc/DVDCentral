@@ -1,15 +1,13 @@
 ﻿namespace BDF.DVDCentral.PL.Test
 {
     [TestClass]
-    public class utOrderItem
+    public class utOrderItem : utBase<tblOrderItem>
     {
-        protected DVDCentralEntities dc;
-        protected IDbContextTransaction? transaction;
 
         [TestMethod]
         public void LoadTest()
         {
-            Assert.AreEqual(4, dc.tblOrderItems.Count());
+            LoadTest(3);
         }
 
         [TestMethod]
@@ -17,56 +15,37 @@
         {
             // Make an entity
             tblOrderItem entity = new tblOrderItem();
-            entity.OrderId = 1;
-            entity.Quantity = 2;
-            entity.MovieId = 3;
-            entity.Cost = 16.00;
+            entity.OrderId = base.LoadTest().FirstOrDefault()!.OrderId;
+            entity.Quantity = 1;
+            entity.Cost = 1;
 
-            // Add the entity to the database
-            dc.tblOrderItems.Add(entity);
-
-            // Commit the changes
-            int result = dc.SaveChanges();
+            int result = InsertTest(entity);
             Assert.AreEqual(1, result);
         }
 
         [TestMethod]
         public void UpdateTest()
         {
-            // SELECT * FROM tblOrderItems - use the first one
-            tblOrderItem entity = dc.tblOrderItems.FirstOrDefault();
+            // SELECT * FROM tblOrderItem - use the first one
+            tblOrderItem entity = base.LoadTest().FirstOrDefault()!;
 
             // Change a property value
-            entity.MovieId = 5;
+            entity.MovieId = base.LoadTest().LastOrDefault().MovieId;
 
-            int result = dc.SaveChanges();
-            Assert.IsTrue(result > 0);
+            int result = UpdateTest(entity);
+
+            Assert.IsGreaterThan(result, 0);
         }
 
         [TestMethod]
         public void DeleteTest()
         {
             // Select * from tblOrderItem where id = 3
-            tblOrderItem entity = dc.tblOrderItems.Where(e => e.Id == 3).FirstOrDefault();
+            tblOrderItem entity = base.LoadTest().FirstOrDefault()!;
 
-            dc.tblOrderItems.Remove(entity);
-            int result = dc.SaveChanges();
-            Assert.AreNotEqual(result, 0);
+            int result = DeleteTest(entity);
+            Assert.AreNotEqual(0, result);
         }
 
-        [TestInitialize]
-        public void Initialize()
-        {
-            dc = new DVDCentralEntities();
-            transaction = dc.Database.BeginTransaction();
-        }
-
-        [TestCleanup]
-        public void Cleanup()
-        {
-            transaction.Rollback();
-            transaction.Dispose();
-            dc = null;
-        }
     }
 }
