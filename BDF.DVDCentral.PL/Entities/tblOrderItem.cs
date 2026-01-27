@@ -1,6 +1,6 @@
 ﻿namespace BDF.DVDCentral.PL.Entities;
 
-public partial class tblOrderItem
+public partial class tblOrderItem : IEntity
 {
     public Guid Id { get; set; }
 

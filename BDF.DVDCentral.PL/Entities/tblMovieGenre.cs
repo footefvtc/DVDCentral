@@ -1,6 +1,6 @@
 ﻿namespace BDF.DVDCentral.PL.Entities;
 
-public partial class tblMovieGenre
+public partial class tblMovieGenre : IEntity
 {
     public Guid Id { get; set; }
 

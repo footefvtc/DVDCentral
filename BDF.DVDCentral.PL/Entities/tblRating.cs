@@ -1,6 +1,6 @@
 ﻿namespace BDF.DVDCentral.PL.Entities;
 
-public partial class tblRating
+public partial class tblRating : IEntity
 {
     public Guid Id { get; set; }
 

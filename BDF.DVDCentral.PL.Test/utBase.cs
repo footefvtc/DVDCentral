@@ -32,6 +32,11 @@ namespace BDF.DVDCentral.PL.Test
             return dc.Set<T>().ToList();
         }
 
+        //public T LoadByIdTest(Guid id)
+        //{
+        //    return dc.Set<T>().Where(x => x.Id == id).ToList();
+        //}
+
         public void LoadTest(int expected)
         {
             Assert.HasCount(expected, dc.Set<T>().ToList());
