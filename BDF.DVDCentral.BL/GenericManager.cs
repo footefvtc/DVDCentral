@@ -17,6 +17,9 @@
                 {
                     var fromp = FromProperties.FirstOrDefault(x => x.Name == o.Name
                                                                 && x.PropertyType == o.PropertyType);
+                    if (fromp != null) {
+                        o.SetValue(objTo, fromp.GetValue(objFrom));
+                    } 
                 });
             return objTo;
         }
