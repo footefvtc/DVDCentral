@@ -3,6 +3,7 @@
     "path": "BDF.DVDCentral.sln",
     "projects": [
       "BDF.DVDCentral.BL.Models\\BDF.DVDCentral.BL.Models.csproj",
+      "BDF.DVDCentral.DB\\BDF.DVDCentral.DB.sqlproj",
       "BDF.DVDCentral.MigrationHandler\\BDF.DVDCentral.MigrationHandler.csproj",
       "BDF.DVDCentral.PL.Test\\BDF.DVDCentral.PL.Test.csproj",
       "BDF.DVDCentral.PL\\BDF.DVDCentral.PL.csproj"
