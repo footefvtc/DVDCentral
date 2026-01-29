@@ -26,6 +26,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BDF.DVDCentral.API", "BDF.D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BDF.DVDCentral.MigrationHandler", "BDF.DVDCentral.MigrationHandler\BDF.DVDCentral.MigrationHandler.csproj", "{2D4AD774-50EF-4463-80F6-B140A41F2723}"
 EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "BDF.DVDCentral.DB", "BDF.DVDCentral.DB\BDF.DVDCentral.DB.sqlproj", "{89ABF542-C702-4390-B9C2-AA699B39F545}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -68,6 +70,12 @@ Global
 		{2D4AD774-50EF-4463-80F6-B140A41F2723}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2D4AD774-50EF-4463-80F6-B140A41F2723}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2D4AD774-50EF-4463-80F6-B140A41F2723}.Release|Any CPU.Build.0 = Release|Any CPU
+		{89ABF542-C702-4390-B9C2-AA699B39F545}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89ABF542-C702-4390-B9C2-AA699B39F545}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89ABF542-C702-4390-B9C2-AA699B39F545}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{89ABF542-C702-4390-B9C2-AA699B39F545}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89ABF542-C702-4390-B9C2-AA699B39F545}.Release|Any CPU.Build.0 = Release|Any CPU
+		{89ABF542-C702-4390-B9C2-AA699B39F545}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
