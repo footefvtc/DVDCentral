@@ -1,28 +1,24 @@
-﻿using Microsoft.EntityFrameworkCore.Storage;
-using BDF.DVDCentral.BL.Models;
-using BDF.DVDCentral.PL;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Microsoft.Extensions.Options;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace BDF.DVDCentral.BL
 {
     public class LoginFailureException : Exception
     {
-        public LoginFailureException() : base("Cannot log in with these credentials.") 
-        { 
+        public LoginFailureException() : base("Cannot log in with these credentials.")
+        {
         }
 
-        public LoginFailureException(string message) : base(message) 
-        { 
+        public LoginFailureException(string message) : base(message)
+        {
         }
     }
 
-    public static class UserManager
+    public class UserManager : GenericManager<tblUser>
     {
+        public UserManager(DbContextOptions<DVDCentralEntities> options, ILogger logger) : base(options, logger) { }
+        public UserManager(DbContextOptions<DVDCentralEntities> options) : base(options) { }
         public static string GetHash(string password)
         {
             using (var hasher = SHA1.Create())
@@ -32,33 +28,30 @@ namespace BDF.DVDCentral.BL
             }
         }
 
-        public static int Insert(User user, bool rollback = false)
+        public async Task<Guid> InsertAsync(User user, bool rollback = false)
         {
             try
             {
-                int results = 0;
+                tblUser row = Map<User, tblUser>(user);
+                return await base.InsertAsync(row,
+                                              e => e.UserId == user.UserId,
+                                              rollback);
+            }
+            catch (Exception)
+            {
 
-                using (DVDCentralEntities dc = new DVDCentralEntities())
-                {
-                    IDbContextTransaction transaction = null!;
-                    if (rollback) transaction = dc.Database.BeginTransaction();
+                throw;
+            }
+        }
 
-                    tblUser entity = new tblUser();
-                    entity.Id = dc.tblUsers.Any() ? dc.tblUsers.Max(u => u.Id) + 1 : 1;
-                    entity.FirstName = user.FirstName;
-                    entity.LastName = user.LastName;
-                    entity.UserId = user.UserId;
-                    entity.Password = GetHash(user.Password);
-
-                    // IMPORTANT - BACK FILL THE ID
-                    user.Id = entity.Id;
-
-                    dc.tblUsers.Add(entity);
-                    results = dc.SaveChanges();
-
-                    if (rollback) transaction.Rollback();
-                }
-                return results;
+        public async Task<int> UpdateAsync(User user, bool rollback = false)
+        {
+            try
+            {
+                tblUser row = Map<User, tblUser>(user);
+                return await base.UpdateAsync(row,
+                                              e => e.UserId == user.UserId,
+                                              rollback);
             }
             catch (Exception)
             {
@@ -66,36 +59,15 @@ namespace BDF.DVDCentral.BL
             }
         }
 
-        public static int Update(User user, bool rollback = false)
+
+        public async Task<List<User>> LoadAsync()
         {
             try
             {
-                int results = 0;
-                using (DVDCentralEntities dc = new DVDCentralEntities())
-                {
-                    IDbContextTransaction transaction = null!;
-                    if (rollback) transaction = dc.Database.BeginTransaction();
-
-                    // Get the row that we are trying to update
-                    tblUser entity = dc.tblUsers.FirstOrDefault(u => u.Id == user.Id);
-
-                    if (entity != null)
-                    {
-                        entity.FirstName = user.FirstName;
-                        entity.LastName = user.LastName;
-                        entity.UserId = user.UserId;
-                        entity.Password = user.Password;
-                        results = dc.SaveChanges();
-                    }
-                    else
-                    {
-                        throw new Exception("Row does not exist.");
-                    }
-
-                    if (rollback) transaction.Rollback();
-                }
-
-                return results;
+                List<User> rows = new List<User>();
+                (await base.LoadAsync())
+                    .ForEach(e => rows.Add(Map<tblUser, User>(e)));
+                return rows;
             }
             catch (Exception)
             {
@@ -103,110 +75,7 @@ namespace BDF.DVDCentral.BL
             }
         }
 
-        public static int Delete(int id, bool rollback = false)
-        {
-            try
-            {
-                int results = 0;
-                using (DVDCentralEntities dc = new DVDCentralEntities())
-                {
-                    IDbContextTransaction transaction = null!;
-                    if (rollback) transaction = dc.Database.BeginTransaction();
-
-                    // Get the row that we are trying to update
-                    tblUser entity = dc.tblUsers.FirstOrDefault(u => u.Id == id)!;
-
-                    if (entity != null)
-                    {
-                        dc.tblUsers.Remove(entity);
-                        results = dc.SaveChanges();
-                    }
-                    else
-                    {
-                        throw new Exception("Row does not exist.");
-                    }
-
-                    if (rollback) transaction.Rollback();
-                }
-
-                return results;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
-        public static List<User> Load()
-        {
-            try
-            {
-                List<User> list = new List<User>();
-
-                using (DVDCentralEntities dc = new DVDCentralEntities())
-                {
-                    // similar to select * from tblUser
-                    (from u in dc.tblUsers
-                     select new
-                     {
-                         // creating a record set from the tblUser fields
-                         u.Id,
-                         u.FirstName,
-                         u.LastName,
-                         u.UserId,
-                         u.Password
-                     })
-                    .ToList()
-                    .ForEach(user => list.Add(new User
-                    {
-                        Id = user.Id,
-                        FirstName = user.FirstName,
-                        LastName = user.LastName,
-                        UserId = user.UserId,
-                        Password = user.Password
-                    }));
-                    Seed();
-                }
-                return list;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
-        public static User LoadById(int id)
-        {
-            try
-            {
-                using (DVDCentralEntities dc = new DVDCentralEntities())
-                {
-                    tblUser entity = dc.tblUsers.FirstOrDefault(u => u.Id == id);
-
-                    if (entity != null)
-                    {
-                        return new User
-                        {
-                            Id = entity.Id,
-                            FirstName = entity.FirstName,
-                            LastName = entity.LastName,
-                            UserId = entity.UserId,
-                            Password = entity.Password
-                        };
-                    }
-                    else
-                    {
-                        throw new Exception();
-                    }
-                }
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
-        public static bool Login(User user)
+        public async Task<bool> Login(User user)
         {
             try
             {
@@ -214,7 +83,7 @@ namespace BDF.DVDCentral.BL
                 {
                     if (!string.IsNullOrEmpty(user.Password))
                     {
-                        using (DVDCentralEntities dc = new DVDCentralEntities())
+                        using (DVDCentralEntities dc = new DVDCentralEntities(options))
                         {
                             tblUser tblUser = dc.tblUsers.FirstOrDefault(u => u.UserId == user.UserId)!;
                             if (tblUser != null)
@@ -258,31 +127,5 @@ namespace BDF.DVDCentral.BL
             }
         }
 
-        public static void Seed()
-        {
-            using (DVDCentralEntities dc = new DVDCentralEntities())
-            {               
-                if (!dc.tblUsers.Any())
-                {
-                    User user = new User()
-                    {
-                        UserId = "rgroff",
-                        FirstName = "Rachel",
-                        LastName = "Groff",
-                        Password = "fall2023"
-                    };
-                    Insert(user);
-
-                    user = new User()
-                    {
-                        UserId = "bfoote",
-                        FirstName = "Brian",
-                        LastName = "Foote",
-                        Password = "maple"
-                    };
-                    Insert(user);
-                }
-            }
-        }
     }
 }
