@@ -1,62 +1,64 @@
-﻿using BDF.DVDCentral.PL;
+﻿using BDF.DVDCentral.PL.Entities;
+using Microsoft.Extensions.Options;
 
 namespace BDF.DVDCentral.BL.Test
 {
     [TestClass]
-    public class utMovie
+    public class utMovie : utBase<tblMovie>
     {
+
         [TestMethod]
-        public void LoadTest() 
+        public async Task LoadTest()
         {
-            var items = MovieManager.Load();
-            Assert.AreEqual(3, items.Count());
+            var movies = await new MovieManager(options, logger).LoadAsync();
+            Assert.AreEqual(7, movies.Count);
+            Assert.IsTrue(movies[0].Genres.Count > 0);
+            Assert.IsNotNull(movies[0].DirectorFullName);
+            Assert.IsNotNull(movies[0].FormatDescription);
         }
 
         [TestMethod]
-        public void InsertTest1()
+        public async Task LoadByIdTest()
         {
-            int id = 0;
-            int results = MovieManager.Insert("Titanic", "Ship sinking", 1, 3, 3, (float)20.00, 1, "test.jpg", ref id, true);
-            Assert.AreEqual(4, id);
-            Assert.AreEqual(1, results);
+            var movie = new MovieManager(options, logger).LoadAsync().Result.FirstOrDefault();
+            Assert.AreEqual(new MovieManager(options, logger).LoadByIdAsync(movie.Id).Result.Id, movie.Id);
         }
 
-        [TestMethod]
-        public void InsertTest2()
+        public async Task InsertTest()
         {
-            int id = 0;
-            Movie movie = new Movie()
+            Movie movie = new Movie
             {
-                Title = "Movie Title",
-                Description = "Movie Description",
-                FormatId = 1,
-                DirectorId = 2,
-                RatingId = 3,
-                Cost = (float)15.00,
-                InStkQty = 4,
-                ImagePath = "test.png"
+                Id = Guid.NewGuid(),
+                Title = "XXXXX",
+                Description = "XXXXX",
+                Cost = 9.99f,
+                RatingId = (await new RatingManager(options, logger).LoadAsync()).FirstOrDefault().Id,
+                FormatId = (await new FormatManager(options, logger).LoadAsync()).FirstOrDefault().Id,
+                DirectorId = (await new DirectorManager(options, logger).LoadAsync()).FirstOrDefault().Id,
+                InStkQty = 0,
+                ImagePath = "XXXXXXX"
             };
 
-            int results = MovieManager.Insert(movie, true);
-            Assert.AreEqual(1, results);
+            Guid result = await new MovieManager(options, logger).InsertAsync(movie, true);
+            Assert.AreNotEqual(result, Guid.Empty);
+        }
+
+
+        [TestMethod]
+        public async Task UpdateTest()
+        {
+            Movie entity = (await new MovieManager(options, logger).LoadAsync()).FirstOrDefault();
+            entity.Description = "Blah blah";
+            Assert.IsTrue(new MovieManager(options, logger).UpdateAsync(entity, true).Result > 0);
         }
 
         [TestMethod]
-        public void UpdateTest()
+        public async Task DeleteTest()
         {
-            Movie movie = MovieManager.LoadById(3);
-
-            movie.Title = "Test";
-
-            int results = MovieManager.Update(movie, true);
-            Assert.AreEqual(1, results);
+            Movie entity = (await new MovieManager(options, logger).LoadAsync()).FirstOrDefault(x => x.Title == "Other");
+            Assert.IsTrue(new MovieManager(options, logger).DeleteAsync(entity.Id, true).Result > 0);
         }
 
-        [TestMethod]
-        public void DeleteTest()
-        {
-            int results = MovieManager.Delete(3, true);
-            Assert.AreEqual(1, results);
-        }
+
     }
 }

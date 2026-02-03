@@ -1,50 +1,21 @@
-﻿using BDF.DVDCentral.BL.Models;
-using BDF.DVDCentral.PL;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BDF.DVDCentral.BL.Test
+﻿namespace BDF.DVDCentral.BL.Test
 {
     [TestClass]
-    public class utUser
+    public class utUser : utBase<tblUser>
     {
         [TestMethod]
-        public void LoginSuccessTest()
+        public async Task LoginSuccessTest()
         {
-            Seed();
-            Assert.IsTrue(UserManager.Login(new User { UserId = "bfoote", Password = "maple" }));
-            Assert.IsTrue(UserManager.Login(new User { UserId = "rgroff", Password = "fall2023" }));
+            Assert.IsTrue(await new UserManager(options, logger).Login(new User { UserId = "bfoote", Password = "maple" }));
+            Assert.IsTrue(await new UserManager(options, logger).Login(new User { UserId = "sophie", Password = "sophie" }));
         }
 
         [TestMethod]
-        public void LoginFailTestNoUserId()
+        public async Task LoginFailTestNoUserId()
         {
             try
             {
-                Seed();
-                Assert.IsTrue(UserManager.Login(new User { UserId = "", Password = "maple" }));
-            }
-            catch (LoginFailureException ex)
-            {
-                Assert.AreEqual("UserId was not entered.", ex.Message);
-                //Assert.IsTrue(true);
-            }
-            catch (Exception ex)
-            {
-                Assert.Fail(ex.Message);
-            }
-        }
-
-        [TestMethod]
-        public void LoginFailTestBadPassword()
-        {
-            try
-            {
-                Seed();
-                Assert.IsTrue(UserManager.Login(new User { UserId = "bfoote", Password = "birch" }));
+                Assert.IsTrue(await new UserManager(options, logger).Login(new User { UserId = "", Password = "maple" }));
             }
             catch (LoginFailureException)
             {
@@ -57,12 +28,11 @@ namespace BDF.DVDCentral.BL.Test
         }
 
         [TestMethod]
-        public void LoginFailTestBadUserId()
+        public async Task LoginFailTestBadPassword()
         {
             try
             {
-                Seed();
-                Assert.IsTrue(UserManager.Login(new User { UserId = "foote", Password = "maple" }));
+                Assert.IsTrue(await new UserManager(options, logger).Login(new User { UserId = "bfoote", Password = "birch" }));
             }
             catch (LoginFailureException)
             {
@@ -75,12 +45,11 @@ namespace BDF.DVDCentral.BL.Test
         }
 
         [TestMethod]
-        public void LoginFailTestNoPassword()
+        public async Task LoginFailTestBadUserId()
         {
             try
             {
-                Seed();
-                Assert.IsTrue(UserManager.Login(new User { UserId = "bfoote", Password = "" }));
+                Assert.IsTrue(await new UserManager(options, logger).Login(new User { UserId = "foote", Password = "maple" }));
             }
             catch (LoginFailureException)
             {
@@ -93,14 +62,30 @@ namespace BDF.DVDCentral.BL.Test
         }
 
         [TestMethod]
-        public void LoadTest()
+        public async Task LoginFailTestNoPassword()
         {
-            Seed();
-            Assert.AreEqual(2, UserManager.Load().Count());
+            try
+            {
+                Assert.IsTrue(await new UserManager(options, logger).Login(new User { UserId = "bfoote", Password = "" }));
+            }
+            catch (LoginFailureException)
+            {
+                Assert.IsTrue(true);
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail(ex.Message);
+            }
         }
 
         [TestMethod]
-        public void InsertTest()
+        public async Task LoadTest()
+        {
+            Assert.AreEqual(4, (await new UserManager(options, logger).LoadAsync()).Count);
+        }
+
+        [TestMethod]
+        public async Task InsertTest()
         {
             User user = new User()
             {
@@ -110,13 +95,9 @@ namespace BDF.DVDCentral.BL.Test
                 Password = "Test"
             };
 
-            int results = UserManager.Insert(user, true);
-            Assert.AreEqual(1, results);
+            Guid results = await new UserManager(options, logger).InsertAsync(user, true);
+            Assert.AreNotEqual(Guid.Empty, results);
         }
 
-        public void Seed()
-        {
-            UserManager.Seed();
-        }
     }
 }

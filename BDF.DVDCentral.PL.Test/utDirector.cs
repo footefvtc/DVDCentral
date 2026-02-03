@@ -55,7 +55,10 @@ namespace BDF.DVDCentral.PL.Test
             var item = base.LoadTest().FirstOrDefault();
 
             // Select * from tblDirector where id = 2
-            tblDirector entity = dc.tblDirectors.Where(e => e.Id == item.Id).FirstOrDefault();
+            tblDirector entity = dc.tblDirectors.Where(e => e.Id == item.Id).FirstOrDefault()!;
+
+            Assert.IsGreaterThan(0, entity!.Movies.Count);
+
             Assert.AreEqual(entity.Id, item.Id);
         }
 

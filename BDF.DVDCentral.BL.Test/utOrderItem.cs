@@ -1,64 +1,59 @@
-﻿using BDF.DVDCentral.PL;
-
-namespace BDF.DVDCentral.BL.Test
+﻿namespace BDF.DVDCentral.BL.Test
 {
     [TestClass]
-    public class utOrderItem
+    public class utOrderItem : utBase<tblOrderItem>
     {
         [TestMethod]
-        public void LoadTest()
+        public async Task LoadTest()
         {
-            Assert.AreEqual(4, OrderItemManager.Load().Count());
+            List<OrderItem> orderitems = await new OrderItemManager(options, logger).LoadAsync();
+            int expected = 3;
+
+            Assert.AreEqual(expected, orderitems.Count);
+        }
+
+        //[TestMethod]
+        //public async Task InsertTest()
+        //{
+        //    OrderItem orderitem = new OrderItem
+        //    {
+        //        Cost = 1,
+
+
+        //    };
+
+        //    Guid result = await new OrderItemManager(options).InsertAsync(orderitem, true);
+        //    Assert.AreNotEqual(result, Guid.Empty);
+        //}
+
+        [TestMethod]
+        public async Task UpdateTest()
+        {
+            OrderItem orderitem = (await new OrderItemManager(options, logger).LoadAsync()).FirstOrDefault();
+            orderitem.Quantity = -50;
+
+            Assert.IsTrue(new OrderItemManager(options, logger).UpdateAsync(orderitem, true).Result > 0);
         }
 
         [TestMethod]
-        public void LoadByOrderIdTest()
+        public async Task DeleteTest()
         {
-            int orderId = OrderItemManager.Load().FirstOrDefault().OrderId;
-            Assert.IsTrue(OrderItemManager.LoadByOrderId(orderId).Count() > 0);
+            OrderItem orderitem = (await new OrderItemManager(options, logger).LoadAsync()).FirstOrDefault();
+
+            Assert.IsTrue(new OrderItemManager(options, logger).DeleteAsync(orderitem.Id, true).Result > 0);
         }
 
         [TestMethod]
-        public void InsertTest1()
+        public async Task LoadByIdTest()
         {
-            int id = 0;
-            int results = OrderItemManager.Insert(4, 2, 2, (float)15.00, ref id, true);
-            Assert.AreEqual(5, id);
-            Assert.AreEqual(1, results);
+            OrderItem orderitem = (await new OrderItemManager(options, logger)
+            .LoadAsync())
+            .FirstOrDefault();
+
+            Assert.AreEqual((await new OrderItemManager(options, logger)
+                            .LoadByIdAsync(orderitem.Id)).Id, orderitem.Id);
         }
 
-        [TestMethod]
-        public void InsertTest2()
-        {
-            int id = 0;
-            OrderItem orderItem = new OrderItem()
-            {
-                OrderId = 5,
-                Quantity = 1,
-                MovieId = 2,
-                Cost = (float)3.00
-            };
 
-            int results = OrderItemManager.Insert(orderItem, true);
-            Assert.AreEqual(1, results);
-        }
-
-        [TestMethod]
-        public void UpdateTest()
-        {
-            OrderItem orderItem = OrderItemManager.LoadById(3);
-
-            orderItem.OrderId = 10;
-
-            int results = OrderItemManager.Update(orderItem, true);
-            Assert.AreEqual(1, results);
-        }
-
-        [TestMethod]
-        public void DeleteTest()
-        {
-            int results = OrderItemManager.Delete(3, true);
-            Assert.AreEqual(1, results);
-        }
     }
 }

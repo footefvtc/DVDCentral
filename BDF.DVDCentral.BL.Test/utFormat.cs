@@ -1,54 +1,47 @@
-﻿using BDF.DVDCentral.PL;
-
-namespace BDF.DVDCentral.BL.Test
+﻿namespace BDF.DVDCentral.BL.Test
 {
     [TestClass]
-    public class utFormat
+    public class utFormat : utBase<tblFormat>
     {
         [TestMethod]
-        public void LoadTest()
+        public async void LoadTest()
         {
-            Assert.AreEqual(3, FormatManager.Load().Count());
+            Assert.AreEqual(3, (await new FormatManager(options, logger).LoadAsync()).Count);
         }
 
-        [TestMethod]
-        public void InsertTest1()
-        {
-            int id = 0;
-            int results = FormatManager.Insert("A-Track", ref id, true);
-            Assert.AreEqual(4, id);
-            Assert.AreEqual(1, results);
-        }
 
         [TestMethod]
-        public void InsertTest2()
+        public async void InsertTest()
         {
-            int id = 0;
-            Format format = new Format()
+            Format entity = new Format()
             {
-                Description = "FormatTest"
+                Description = "Test"
             };
 
-            int results = FormatManager.Insert(format, true);
-            Assert.AreEqual(1, results);
+            Guid results = await new FormatManager(options, logger).InsertAsync(entity, true);
+            Assert.AreNotEqual(Guid.Empty, results);
         }
 
         [TestMethod]
-        public void UpdateTest()
+        public async Task UpdateTest()
         {
-            Format format = FormatManager.LoadById(3);
-
-            format.Description = "Test";
-
-            int results = FormatManager.Update(format, true);
-            Assert.AreEqual(1, results);
+            Format entity = (await new FormatManager(options, logger).LoadAsync()).FirstOrDefault();
+            entity.Description = "Blah blah";
+            Assert.IsTrue(new FormatManager(options, logger).UpdateAsync(entity, true).Result > 0);
         }
 
         [TestMethod]
-        public void DeleteTest()
+        public async Task DeleteTest()
         {
-            int results = FormatManager.Delete(3, true);
-            Assert.AreEqual(1, results);
+            Format entity = (await new FormatManager(options, logger).LoadAsync()).FirstOrDefault(x => x.Description == "Other");
+            Assert.IsTrue(new FormatManager(options, logger).DeleteAsync(entity.Id, true).Result > 0);
+        }
+
+        [TestMethod]
+        public async Task LoadByIdTest()
+        {
+            Format entity = (await new FormatManager(options, logger).LoadAsync()).FirstOrDefault();
+            Assert.AreEqual(new FormatManager(options, logger).LoadByIdAsync(entity.Id).Result.Id, entity.Id);
         }
     }
 }

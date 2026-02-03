@@ -1,67 +1,58 @@
-﻿using BDF.DVDCentral.PL;
-
-namespace BDF.DVDCentral.BL.Test
+﻿namespace BDF.DVDCentral.BL.Test
 {
     [TestClass]
-    public class utCustomer
+    public class utCustomer : utBase<tblCustomer>
     {
+
         [TestMethod]
-        public void LoadTest()
+        public async Task LoadAsyncTest()
         {
-            Assert.AreEqual(3, CustomerManager.Load().Count());
+            List<Customer> customers = await new CustomerManager(options, logger).LoadAsync();
+            int expected = 4;
+            Assert.AreEqual(expected, customers.Count);
         }
 
         [TestMethod]
-        public void InsertTest1()
+        public async Task InsertTest()
         {
-            int id = 0;
-            int results = CustomerManager.Insert("Bobby", "Flay", 0, "123 Cook St", "Cooking", "FL", "78945", "7894561234", ref id, true);
-            Assert.AreEqual(4, id);
-            Assert.AreEqual(1, results);
-        }
-
-        [TestMethod]
-        public void InsertTest2()
-        {
-            Customer customer = new Customer()
+            Customer customer = new Customer
             {
-                FirstName = "Test",
-                LastName = "Test",
-                UserId = 0,
-                Address = "45 Street Name Rd.",
-                City = "Malibu",
-                State = "CA",
-                Zip = "45612",
-                Phone = "4571594567"
+                FirstName = "XXXXX",
+                LastName = "XXXXX",
+                Address = "XXXXX",
+                City = "XXXXX",
+                State = "XX",
+                Zip = "XXXXX",
+                Phone = "XXX-XXX-XXXX",
+                UserId = (await new UserManager(options, logger).LoadAsync()).FirstOrDefault().Id
             };
 
-            int results = CustomerManager.Insert(customer, true);
-            Assert.AreEqual(1, results);
+            Guid result = await new CustomerManager(options, logger).InsertAsync(customer, true);
+            Assert.AreNotEqual(result, Guid.Empty);
         }
 
         [TestMethod]
-        public void UpdateTest()
+        public async Task UpdateTest()
         {
-            Customer customer = CustomerManager.LoadById(3);
-
-            customer.FirstName = "TestNameChange";
-
-            int results = CustomerManager.Update(customer, true);
-            Assert.AreEqual(1, results);
+            Customer customer = (await new CustomerManager(options, logger).LoadAsync()).FirstOrDefault();
+            customer.FirstName = "Blah blah";
+            Assert.IsTrue(new CustomerManager(options, logger).UpdateAsync(customer, true).Result > 0);
         }
 
         [TestMethod]
-        public void DeleteTest()
+        public async Task DeleteTest()
         {
-            int results = CustomerManager.Delete(3, true);
-            Assert.AreEqual(1, results);
+            Customer customer = (await new CustomerManager(options, logger).LoadAsync()).FirstOrDefault(x => x.LastName == "Other");
+            Assert.IsTrue(new CustomerManager(options, logger).DeleteAsync(customer.Id, true).Result > 0);
         }
 
         [TestMethod]
-        public void LoadByIdTest()
+        public async Task LoadByIdTest()
         {
-            Customer customer = CustomerManager.LoadById(1);
-            Assert.AreEqual(customer.Id = 1, 1);
+            Customer customer = (await new CustomerManager(options, logger).LoadAsync()).FirstOrDefault();
+            Assert.AreEqual(new CustomerManager(options, logger).LoadByIdAsync(customer.Id).Result.Id, customer.Id);
         }
+
+
     }
 }

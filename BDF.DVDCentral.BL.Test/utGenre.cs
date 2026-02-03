@@ -1,54 +1,49 @@
-﻿using BDF.DVDCentral.PL;
-
-namespace BDF.DVDCentral.BL.Test
+﻿namespace BDF.DVDCentral.BL.Test
 {
     [TestClass]
-    public class utGenre
+    public class utGenre : utBase<tblGenre>
     {
         [TestMethod]
-        public void LoadTest()
+        public async Task LoadTest()
         {
-            Assert.AreEqual(8, GenreManager.Load().Count());
+            Assert.AreEqual(10, (await new GenreManager(options, logger).LoadAsync()).Count);
+
         }
 
-        [TestMethod]
-        public void InsertTest1()
-        {
-            int id = 0;
-            int results = GenreManager.Insert("Genre", ref id, true);
-            Assert.AreEqual(9, id);
-            Assert.AreEqual(1, results);
-        }
 
         [TestMethod]
-        public void InsertTest2()
+        public async Task InsertTest()
         {
-            int id = 0;
-            Genre genre = new Genre()
+            Genre entity = new Genre()
             {
                 Description = "Test"
             };
 
-            int results = GenreManager.Insert(genre, true);
-            Assert.AreEqual(1, results);
+            Guid results = await new GenreManager(options, logger).InsertAsync(entity, true);
+            Assert.AreNotEqual(Guid.Empty, results);
         }
 
         [TestMethod]
-        public void UpdateTest()
+        public async Task UpdateTest()
         {
-            Genre genre = GenreManager.LoadById(3);
-
-            genre.Description = "Test";
-
-            int results = GenreManager.Update(genre, true);
-            Assert.AreEqual(1, results);
+            Genre entity = (await new GenreManager(options, logger).LoadAsync()).FirstOrDefault();
+            entity.Description = "Blah blah";
+            Assert.IsTrue(new GenreManager(options, logger).UpdateAsync(entity, true).Result > 0);
         }
 
         [TestMethod]
-        public void DeleteTest()
+        public async Task DeleteTest()
         {
-            int results = GenreManager.Delete(3, true);
-            Assert.AreEqual(1, results);
+            Genre entity = (await new GenreManager(options, logger).LoadAsync()).FirstOrDefault(x => x.Description == "Other");
+            Assert.IsTrue(new GenreManager(options, logger).DeleteAsync(entity.Id, true).Result > 0);
+        }
+
+        [TestMethod]
+        public async Task LoadByIdTest()
+        {
+            Genre entity = (await new GenreManager(options, logger).LoadAsync()).FirstOrDefault();
+            Assert.AreEqual(new GenreManager(options, logger).LoadByIdAsync(entity.Id).Result.Id, entity.Id);
+
         }
     }
 }

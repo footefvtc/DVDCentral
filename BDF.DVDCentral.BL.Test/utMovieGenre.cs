@@ -1,49 +1,30 @@
-﻿using BDF.DVDCentral.PL;
-
-namespace BDF.DVDCentral.BL.Test
+﻿namespace BDF.DVDCentral.BL.Test
 {
     [TestClass]
-    public class utMovieGenre
+    public class utMovieGenre : utBase<tblMovieGenre>
     {
 
         [TestMethod]
-        public void InsertTest1()
+        public async Task InsertTest()
         {
             int id = 0;
-            int results = MovieGenreManager.Insert(1, 2, ref id, true);
-            Assert.AreEqual(7, id);
-            Assert.AreEqual(1, results);
-        }
-
-        [TestMethod]
-        public void InsertTest2()
-        {
-            int id = 0;
+            Guid genreId = (await new GenreManager(options, logger).LoadAsync()).FirstOrDefault().Id;
+            Guid movieId = (await new MovieManager(options, logger).LoadAsync()).FirstOrDefault().Id;
             MovieGenre movieGenre = new MovieGenre()
             {
-                MovieId = 2,
-                GenreId = 3
+                MovieId = movieId,
+                GenreId = genreId
             };
 
-            int results = MovieGenreManager.Insert(movieGenre, true);
-            Assert.AreEqual(1, results);
+            Guid results = await new MovieGenreManager(options, logger).InsertAsync(movieGenre, true);
+            Assert.AreNotEqual(Guid.Empty, results);
         }
 
         [TestMethod]
-        public void UpdateTest()
+        public async Task DeleteTest()
         {
-            MovieGenre movieGenre = MovieGenreManager.LoadById(3);
-
-            movieGenre.MovieId = 4;
-
-            int results = MovieGenreManager.Update(movieGenre, true);
-            Assert.AreEqual(1, results);
-        }
-
-        [TestMethod]
-        public void DeleteTest()
-        {
-            int results = MovieGenreManager.Delete(3, true);
+            Guid id = (await new MovieGenreManager(options, logger).LoadAsync()).FirstOrDefault().Id;
+            int results = await new MovieGenreManager(options, logger).DeleteAsync(id, true);
             Assert.AreEqual(1, results);
         }
     }

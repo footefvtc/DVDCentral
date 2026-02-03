@@ -1,6 +1,6 @@
-﻿using BDF.DVDCentral.PL.Data;
+﻿using Microsoft.Extensions.Logging;
 
-namespace BDF.DVDCentral.PL.Test
+namespace BDF.DVDCentral.BL.Test
 {
     [TestClass]
     public abstract class utBase<T> where T : class
@@ -9,7 +9,8 @@ namespace BDF.DVDCentral.PL.Test
         protected IDbContextTransaction? transaction;
 
         private IConfigurationRoot configuration;
-        private DbContextOptions<DVDCentralEntities> options;
+        protected DbContextOptions<DVDCentralEntities> options;
+        protected readonly ILogger logger;
 
 
         public utBase()
@@ -26,41 +27,6 @@ namespace BDF.DVDCentral.PL.Test
                 .Options;
 
             dc = new DVDCentralEntities(options);
-        }
-
-        public List<T> LoadTest()
-        {
-            return dc.Set<T>().ToList();
-        }
-
-        //public T LoadByIdTest(Guid id)
-        //{
-        //    return dc.Set<T>().Where(x => x.Id == id).ToList();
-        //}
-
-        public void LoadTest(int expected)
-        {
-            Assert.HasCount(expected, dc.Set<T>().ToList());
-
-        }
-
-        public int InsertTest(T entity)
-        {
-            dc.Set<T>().Add(entity);
-            return dc.SaveChanges();
-        }
-
-
-        public int DeleteTest(T entity)
-        {
-            dc.Set<T>().Remove(entity);
-            return dc.SaveChanges();
-        }
-
-        public int UpdateTest(T entity)
-        {
-            dc.Entry(entity).State = EntityState.Modified;
-            return dc.SaveChanges();
         }
 
         [TestInitialize]

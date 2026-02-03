@@ -1,55 +1,47 @@
-﻿using BDF.DVDCentral.BL.Models;
-using BDF.DVDCentral.PL;
-
-namespace BDF.DVDCentral.BL.Test
+﻿namespace BDF.DVDCentral.BL.Test
 {
     [TestClass]
-    public class utRating
+    public class utRating : utBase<tblRating>
     {
         [TestMethod]
-        public void LoadTest()
+        public async Task LoadTest()
         {
-            Assert.AreEqual(4, RatingManager.Load().Count());
+            Assert.AreEqual(5, (await new RatingManager(options, logger).LoadAsync()).Count);
         }
 
-        [TestMethod]
-        public void InsertTest1()
-        {
-            int id = 0;
-            int results = RatingManager.Insert("Not Rated", ref id, true);
-            Assert.AreEqual(5, id);
-            Assert.AreEqual(1, results);
-        }
 
         [TestMethod]
-        public void InsertTest2()
+        public async Task InsertTest()
         {
-            int id = 0;
-            Rating rating = new Rating()
+            Rating entity = new Rating()
             {
-                Description = "Rating Description"
+                Description = "Test"
             };
 
-            int results = RatingManager.Insert(rating, true);
-            Assert.AreEqual(1, results);
+            Guid results = await new RatingManager(options, logger).InsertAsync(entity, true);
+            Assert.AreNotEqual(Guid.Empty, results);
         }
 
         [TestMethod]
-        public void UpdateTest()
+        public async Task UpdateTest()
         {
-            Rating rating = RatingManager.LoadById(3);
-
-            rating.Description = "Test";
-
-            int results = RatingManager.Update(rating, true);
-            Assert.AreEqual(1, results);
+            Rating entity = (await new RatingManager(options, logger).LoadAsync()).FirstOrDefault();
+            entity.Description = "Blah blah";
+            Assert.IsTrue(new RatingManager(options, logger).UpdateAsync(entity, true).Result > 0);
         }
 
         [TestMethod]
-        public void DeleteTest()
+        public async Task DeleteTest()
         {
-            int results = RatingManager.Delete(3, true);
-            Assert.AreEqual(1, results);
+            Rating entity = (await new RatingManager(options, logger).LoadAsync()).FirstOrDefault(x => x.Description == "Other");
+            Assert.IsTrue(new RatingManager(options, logger).DeleteAsync(entity.Id, true).Result > 0);
+        }
+
+        [TestMethod]
+        public async Task LoadByIdTest()
+        {
+            Rating entity = (await new RatingManager(options, logger).LoadAsync()).FirstOrDefault();
+            Assert.AreEqual(new RatingManager(options, logger).LoadByIdAsync(entity.Id).Result.Id, entity.Id);
         }
     }
 }

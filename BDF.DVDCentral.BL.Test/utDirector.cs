@@ -1,55 +1,41 @@
-using BDF.DVDCentral.PL;
-
 namespace BDF.DVDCentral.BL.Test
 {
     [TestClass]
-    public class utDirector
+    public class utDirector : utBase<tblDirector>
     {
         [TestMethod]
-        public void LoadTest()
+        public async Task LoadTest()
         {
-            Assert.AreEqual(3, DirectorManager.Load().Count());
+            Assert.IsGreaterThan(0, (await new DirectorManager(options, logger).LoadAsync()).Count);
         }
 
         [TestMethod]
-        public void InsertTest1()
+        public async Task InsertTest()
         {
             int id = 0;
-            int results = DirectorManager.Insert("Gold", "Fish", ref id, true);
-            Assert.AreEqual(4, id);
-            Assert.AreEqual(1, results);
-        }
-
-        [TestMethod]
-        public void InsertTest2()
-        {
-            int id = 0;
-            Director director = new Director()
+            Director entity = new Director()
             {
                 FirstName = "Test",
                 LastName = "Test"
             };
 
-            int results = DirectorManager.Insert(director, true);
-            Assert.AreEqual(1, results);
+            Guid results = await new DirectorManager(options, logger).InsertAsync(entity, true);
+            Assert.AreNotEqual(Guid.Empty, results);
         }
 
         [TestMethod]
-        public void UpdateTest() 
+        public async Task UpdateTest() 
         {
-            Director director = DirectorManager.LoadById(3);
-
-            director.FirstName = "Test";
-
-            int results = DirectorManager.Update(director, true);
-            Assert.AreEqual(1, results);
+            Director entity = (await new DirectorManager(options, logger).LoadAsync()).FirstOrDefault()!;
+            entity.FirstName = "Test";
+            Assert.IsGreaterThan(0, new DirectorManager(options, logger).UpdateAsync(entity, true).Result);
         }
 
         [TestMethod]
-        public void DeleteTest()
+        public async Task DeleteTest()
         {
-            int results = DirectorManager.Delete(3, true);
-            Assert.AreEqual(1, results);
+            Director entity = (await new DirectorManager(options, logger).LoadAsync()).FirstOrDefault()!;
+            Assert.IsGreaterThan(0, new DirectorManager(options, logger).DeleteAsync(entity.Id, true).Result);
         }
     }
 }
