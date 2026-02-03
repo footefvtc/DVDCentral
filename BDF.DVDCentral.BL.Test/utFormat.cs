@@ -4,14 +4,14 @@
     public class utFormat : utBase<tblFormat>
     {
         [TestMethod]
-        public async void LoadTest()
+        public async Task LoadTest()
         {
-            Assert.AreEqual(3, (await new FormatManager(options, logger).LoadAsync()).Count);
+            Assert.AreEqual(4, (await new FormatManager(options, logger).LoadAsync()).Count);
         }
 
 
         [TestMethod]
-        public async void InsertTest()
+        public async Task InsertTest()
         {
             Format entity = new Format()
             {

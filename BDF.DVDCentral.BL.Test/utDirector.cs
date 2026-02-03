@@ -34,7 +34,7 @@ namespace BDF.DVDCentral.BL.Test
         [TestMethod]
         public async Task DeleteTest()
         {
-            Director entity = (await new DirectorManager(options, logger).LoadAsync()).FirstOrDefault()!;
+            Director entity = (await new DirectorManager(options, logger).LoadAsync()).FirstOrDefault(e => e.FirstName == "Other")!;
             Assert.IsGreaterThan(0, new DirectorManager(options, logger).DeleteAsync(entity.Id, true).Result);
         }
     }
