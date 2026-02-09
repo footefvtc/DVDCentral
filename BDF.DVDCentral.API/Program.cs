@@ -1,6 +1,6 @@
-using BDF.DVDCentral.PL.Data;
-using Microsoft.EntityFrameworkCore;
-
+using Serilog;
+using Serilog.Ui.MsSqlServerProvider;
+using Serilog.Ui.Web;
 public class Program
 {
     private static void Main(string[] args)
@@ -18,6 +18,20 @@ public class Program
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
+
+        var configSettings = new ConfigurationBuilder()
+            .AddJsonFile("appsettings.json")
+            .Build();
+
+        Log.Logger = new LoggerConfiguration()
+             .ReadFrom.Configuration(configSettings)
+             .CreateLogger();
+
+        builder.Services
+            .AddLogging(c => c.AddDebug())
+            .AddLogging(c => c.AddSerilog())
+            .AddLogging(c => c.AddEventLog())
+            .AddLogging(c => c.AddConsole());
 
         var app = builder.Build();
 
