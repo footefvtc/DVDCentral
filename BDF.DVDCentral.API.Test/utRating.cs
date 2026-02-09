@@ -8,7 +8,7 @@
         {
             await base.LoadTestAsync<Rating>(4);
         }
-
+        [TestMethod]
         public async Task InsertTestAsync()
         {
             await base.InsertTestAsync<Rating>(new Rating { Description = "Test" });
