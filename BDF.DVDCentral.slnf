@@ -10,7 +10,11 @@
       "BDF.DVDCentral.DB\\BDF.DVDCentral.DB.sqlproj",
       "BDF.DVDCentral.MigrationHandler\\BDF.DVDCentral.MigrationHandler.csproj",
       "BDF.DVDCentral.PL.Test\\BDF.DVDCentral.PL.Test.csproj",
-      "BDF.DVDCentral.PL\\BDF.DVDCentral.PL.csproj"
+      "BDF.DVDCentral.PL\\BDF.DVDCentral.PL.csproj",
+      "BDF.DVDCentral.UI.Test\\BDF.DVDCentral.UI.Test.csproj",
+      "BDF.DVDCentral.UIConsole\\BDF.DVDCentral.UIConsole.csproj",
+      "BDF.DVDCentral.UI\\BDF.DVDCentral.UI.csproj",
+      "FVTC.Utility\\FVTC.Utility.csproj"
     ]
   }
 }
