@@ -7,16 +7,16 @@ namespace BDF.DVDCentral.BL.Models
         public double Cost { get; }
         public List<Movie> Items { get; set; } = new List<Movie>();
 
-        public int NumberOfItems { get { return Items.Sum(t=>t.Count); } }
+        public int NumberOfItems { get { return Items.Sum(t=>t.InStkQty); } }
 
         [DisplayFormat(DataFormatString = "{0:C}")]
         public double SubTotal
         {
             get
             {
-                float total = 0;
+                double total = 0;
                 foreach (var item in Items)
-                    total += item.CostTotal;
+                    total += item.Cost;
                 return total;
             }
         }
