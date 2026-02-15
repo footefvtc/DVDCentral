@@ -25,12 +25,12 @@ namespace FVTC.Utility
             var result = response.Content.ReadAsStringAsync().Result;
             if (response.IsSuccessStatusCode)
             {
-                var items = (JArray)JsonConvert.DeserializeObject(result);
-                return items.ToObject<List<T>>();
+                var items = (JArray)JsonConvert.DeserializeObject(result)!;
+                return items.ToObject<List<T>>()!;
             }
             else
             {
-                var values = JsonConvert.DeserializeObject<Dictionary<string, string>>(result);
+                //var values = JsonConvert.DeserializeObject<Dictionary<string, string>>(result);
                 throw new Exception(response.ToString());
             }
         }
@@ -100,7 +100,7 @@ namespace FVTC.Utility
                 var result = response.Content.ReadAsStringAsync().Result;
                 var item = JsonConvert.DeserializeObject(result, typeof(T));
 
-                return (T)item;
+                return (T)item!;
             }
             catch (Exception)
             {
