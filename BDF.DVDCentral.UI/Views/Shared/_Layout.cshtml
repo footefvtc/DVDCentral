@@ -32,7 +32,7 @@
                             <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Rating" asp-action="Get">Ratings</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="Rating" asp-action="Index">Ratings</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-light" asp-area="" asp-controller="Genre" asp-action="Index">Genres</a>
@@ -79,7 +79,7 @@
                         </li>
                         <li class="nav-item">
                             @{
-                                BDF.DVDCentral.BL.UserManager.Seed();
+                                //BDF.DVDCentral.BL.UserManager.Seed();
                                 var fullname = HttpContextAccessor.HttpContext?.Session.GetString("fullname");
                                 if (fullname != null) fullname = fullname.Replace("\"", "");
                             }

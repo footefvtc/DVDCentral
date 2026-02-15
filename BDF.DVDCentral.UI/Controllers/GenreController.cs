@@ -2,9 +2,11 @@
 {
     public class GenreController : GenericController<Genre>
     {
-        public GenreController(HttpClient httpClient,
+        public GenreController(ApiClient httpClient,
                                    ILogger<GenericController<Genre>> logger)
                                    : base(httpClient, logger)
-        { }
+        {
+            
+        }
     }
 }

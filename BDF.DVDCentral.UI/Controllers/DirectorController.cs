@@ -2,9 +2,11 @@
 {
     public class DirectorController : GenericController<Director>
     {
-        public DirectorController(HttpClient httpClient,
+        public DirectorController(ApiClient httpClient,
                                    ILogger<GenericController<Director>> logger)
                                    : base(httpClient, logger)
-        { }
+        {
+            logger.LogWarning("Help");
+        }
     }
 }

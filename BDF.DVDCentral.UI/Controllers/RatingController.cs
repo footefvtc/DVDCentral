@@ -2,7 +2,7 @@
 {
     public class RatingController : GenericController<Rating>
     {
-        public RatingController(HttpClient httpClient,
+        public RatingController(ApiClient httpClient,
                                    ILogger<GenericController<Rating>> logger)
                                    : base(httpClient, logger)
         { }

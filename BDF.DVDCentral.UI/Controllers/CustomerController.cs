@@ -2,7 +2,7 @@
 {
     public class CustomerController : GenericController<Customer>
     {
-        public CustomerController(HttpClient httpClient,
+        public CustomerController(ApiClient httpClient,
                                    ILogger<GenericController<Customer>> logger)
                                    : base(httpClient, logger)
         { }

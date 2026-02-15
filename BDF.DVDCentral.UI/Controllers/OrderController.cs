@@ -2,7 +2,7 @@
 {
     public class OrderController : GenericController<Order>
     {
-        public OrderController(HttpClient httpClient,
+        public OrderController(ApiClient httpClient,
                                    ILogger<GenericController<Order>> logger)
                                    : base(httpClient, logger)
         { }

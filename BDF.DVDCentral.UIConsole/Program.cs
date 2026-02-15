@@ -27,10 +27,13 @@ internal class Program
                     case "c":
                         break;
                     case "d":
-                        getDirectors(apiClient);
+                        getEntities<Director>(apiClient, "FullName");
+                        break;
+                    case "f":
+                        getEntities<Format>(apiClient, "Description");
                         break;
                     case "m":
-                        getMovies(apiClient);
+                        getEntities<Movie>(apiClient, "Title");
                         break;
                     case "x":
                         break;

@@ -2,7 +2,7 @@
 {
     public class ShoppingCartController : GenericController<ShoppingCart>
     {
-        public ShoppingCartController(HttpClient httpClient,
+        public ShoppingCartController(ApiClient httpClient,
                                    ILogger<GenericController<ShoppingCart>> logger)
                                    : base(httpClient, logger)
         { }

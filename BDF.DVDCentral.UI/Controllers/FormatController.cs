@@ -2,7 +2,7 @@
 {
     public class FormatController : GenericController<Format>
     {
-        public FormatController(HttpClient httpClient,
+        public FormatController(ApiClient httpClient,
                                    ILogger<GenericController<Format>> logger)
                                    : base(httpClient, logger)
         { }

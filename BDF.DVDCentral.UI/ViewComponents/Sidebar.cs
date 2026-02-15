@@ -1,12 +1,22 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BDF.DVDCentral.UI.Models;
+using FVTC.Utility;
+using Microsoft.AspNetCore.Mvc;
 
-namespace BDF.DVDCentral.UI.ViewComponents
+namespace FVTC.DVDCentral.UI.ViewComponents
 {
     public class Sidebar : ViewComponent
     {
+        private ApiClient apiClient;
+
+        public Sidebar(ApiClient apiClient)
+        {
+            this.apiClient = apiClient;
+        }
+
         public IViewComponentResult Invoke()
-        { 
-            return View(GenreManager.Load().OrderBy(g => g.Description)); 
+        {
+            var entities = apiClient.GetList<Genre>(typeof(Genre).Name);
+            return View(entities);
         }
     }
 }
