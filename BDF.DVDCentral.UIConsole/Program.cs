@@ -67,7 +67,7 @@ internal class Program
         try
         {
             var entities = apiclient.GetList<T>(typeof(T).Name);
-            entities.ForEach(e => Console.WriteLine(e.GetType().GetProperty(displayField).GetValue(e, null).ToString()));
+            entities.ForEach(e => Console.WriteLine(e.GetType().GetProperty(displayField)?.GetValue(e, null)?.ToString()));
             Console.ReadLine();
         }
         catch (Exception ex)
