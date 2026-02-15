@@ -29,6 +29,9 @@ internal class Program
                     case "d":
                         getDirectors(apiClient);
                         break;
+                    case "m":
+                        getMovies(apiClient);
+                        break;
                     case "x":
                         break;
 
@@ -50,6 +53,7 @@ internal class Program
 
         Console.WriteLine("Which operation do you wish to perform?");
         Console.WriteLine("Get Directors (d)");
+        Console.WriteLine("Get Movies (m)");
         Console.WriteLine("Exit (x)");
 
         string operation = Console.ReadLine();
@@ -59,6 +63,11 @@ internal class Program
     private static void getDirectors(ApiClient apiClient)
     {
         getEntities<Director>(apiClient, "FullName");
+    }
+
+    private static void getMovies(ApiClient apiClient)
+    {
+        getEntities<Movie>(apiClient, "Title");
     }
 
 
