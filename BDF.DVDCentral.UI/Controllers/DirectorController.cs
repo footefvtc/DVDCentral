@@ -8,5 +8,9 @@
         {
             logger.LogWarning("Help");
         }
+
+        public DirectorController() : base()
+        {
+        }
     }
 }

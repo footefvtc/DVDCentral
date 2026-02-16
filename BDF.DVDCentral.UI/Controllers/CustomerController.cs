@@ -6,5 +6,8 @@
                                    ILogger<GenericController<Customer>> logger)
                                    : base(httpClient, logger)
         { }
+        public CustomerController() : base()
+        {
+        }
     }
 }

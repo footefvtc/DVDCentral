@@ -25,6 +25,11 @@ namespace BDF.DVDCentral.UI.Controllers
             this.logger = logger;
         }
 
+        public GenericController()
+        {
+            this.apiClient = new ApiClient("https://fvtcdp.azurewebsites.net/api/");
+        }
+
         public virtual IActionResult Index()
         {
             try
