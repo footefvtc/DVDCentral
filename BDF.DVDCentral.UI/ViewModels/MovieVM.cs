@@ -15,20 +15,20 @@ namespace BDF.DVDCentral.UI.ViewModels
         [SetsRequiredMembers]
         public MovieVM()
         {
-            Genres = GenreManager.Load();
-            Directors = DirectorManager.Load();
-            Ratings = RatingManager.Load();
-            Formats = FormatManager.Load();
+            //Genres = GenreManager.Load();
+            //Directors = DirectorManager.Load();
+            //Ratings = RatingManager.Load();
+            //Formats = FormatManager.Load();
         }
         [SetsRequiredMembers]
         public MovieVM(int id)
         {
-            Movie = MovieManager.LoadById(id);
-            Directors = DirectorManager.Load();
-            Ratings = RatingManager.Load();
-            Formats = FormatManager.Load();
-            Genres = GenreManager.Load();
-            GenreIds = Movie.Genres.Select(g => g.Id);
+            //Movie = MovieManager.LoadById(id);
+            //Directors = DirectorManager.Load();
+            //Ratings = RatingManager.Load();
+            //Formats = FormatManager.Load();
+            //Genres = GenreManager.Load();
+            //GenreIds = Movie.Genres.Select(g => g.Id);
         }
     }
 }

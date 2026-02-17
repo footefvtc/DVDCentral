@@ -32,6 +32,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FVTC.Utility", "FVTC.Utilit
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BDF.DVDCentrol.UIConsole", "BDF.DVDCentrol.UIConsole\BDF.DVDCentrol.UIConsole.csproj", "{2A5F0C41-B5DC-4BFA-9B40-A9A61147F1F6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BDF.DVDCentral.WPFUI", "BDF.DVDCentral.WPFUI\BDF.DVDCentral.WPFUI.csproj", "{4AE55907-2FA9-41BE-AA1D-A03D3C730857}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -88,6 +90,10 @@ Global
 		{2A5F0C41-B5DC-4BFA-9B40-A9A61147F1F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2A5F0C41-B5DC-4BFA-9B40-A9A61147F1F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2A5F0C41-B5DC-4BFA-9B40-A9A61147F1F6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4AE55907-2FA9-41BE-AA1D-A03D3C730857}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4AE55907-2FA9-41BE-AA1D-A03D3C730857}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4AE55907-2FA9-41BE-AA1D-A03D3C730857}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4AE55907-2FA9-41BE-AA1D-A03D3C730857}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,3 +1,5 @@
+using FVTC.Utility;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -13,12 +15,22 @@ builder.Services.AddSession(options =>
     options.Cookie.IsEssential = true;
 });
 
+//builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:7156/api/") });
+builder.Services.AddSingleton(sp => new ApiClient("https://localhost:7156/api/"));
+//builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://dvdcentralapi-120212964.azurewebsites.net/api/") });
+
+builder.Services
+    .AddLogging(c => c.AddDebug())
+    .AddLogging(c => c.AddConsole());
+
 var app = builder.Build();
+
+app.Logger.LogWarning("Here");
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Home/Error");
+    app.UseExceptionHandler("/Movie/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
@@ -34,6 +46,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Movie}/{action=Index}/{id?}");
 
 app.Run();

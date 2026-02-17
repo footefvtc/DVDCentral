@@ -29,6 +29,9 @@ internal class Program
                     case "d":
                         getDirectors(apiClient);
                         break;
+                    case "g":
+                        getGenres(apiClient);
+                        break;
                     case "m":
                         getMovies(apiClient);
                         break;
@@ -46,13 +49,17 @@ internal class Program
 
     }
 
-
+    private static void getGenres(ApiClient apiClient)
+    {
+        getEntities<Genre>(apiClient, "Description");
+    }
 
     private static string DrawMenu()
     {
 
         Console.WriteLine("Which operation do you wish to perform?");
         Console.WriteLine("Get Directors (d)");
+        Console.WriteLine("Get Genres (g)");
         Console.WriteLine("Get Movies (m)");
         Console.WriteLine("Exit (x)");
 
