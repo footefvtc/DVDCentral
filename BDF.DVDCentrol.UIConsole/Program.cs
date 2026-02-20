@@ -1,4 +1,5 @@
 ﻿using BDF.DVDCentral.BL.Models;
+using BDF.DVDCentral.UIConsole;
 using FVTC.Utility;
 
 internal class Program
@@ -8,14 +9,16 @@ internal class Program
 
         string user = "Brian F.";
         string apiAddress = "https://localhost:7156/api/";
-        //apiAddress = "https://dvdcentralapi-120212964.azurewebsites.net/api/";
+        apiAddress = "https://dvdcentralapi-120212964.azurewebsites.net/api/";
         ApiClient apiClient = new ApiClient(apiAddress);
 
+        string hubAddress = "https://fvtcdp.azurewebsites.net/BingoHub";
+        //hubAddress = "https://localhost:7156/dvdcentralhub";
 
         try
         {
             string operation = DrawMenu();
-
+            var signalRClient = new SignalRClient(hubAddress);
             while (operation != "x")
             {
                 switch (operation)
@@ -25,6 +28,7 @@ internal class Program
                     case "b":
                         break;
                     case "c":
+                        signalRClient.ConnectToChannel(user);
                         break;
                     case "d":
                         getDirectors(apiClient);
@@ -34,6 +38,11 @@ internal class Program
                         break;
                     case "m":
                         getMovies(apiClient);
+                        break;
+                    case "s":
+                        Console.WriteLine("Message?");
+                        string message = Console.ReadLine()!;
+                        signalRClient.SendMessageToChannel(user, message);
                         break;
                     case "x":
                         break;
@@ -58,9 +67,11 @@ internal class Program
     {
 
         Console.WriteLine("Which operation do you wish to perform?");
+        Console.WriteLine("Connect to the Hub (c)");
         Console.WriteLine("Get Directors (d)");
         Console.WriteLine("Get Genres (g)");
         Console.WriteLine("Get Movies (m)");
+        Console.WriteLine("Send Message to the Hub (s)");
         Console.WriteLine("Exit (x)");
 
         string operation = Console.ReadLine();
