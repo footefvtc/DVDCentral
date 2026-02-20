@@ -6,7 +6,6 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-
         string user = "Brian F.";
         string apiAddress = "https://localhost:7156/api/";
         apiAddress = "https://dvdcentralapi-120212964.azurewebsites.net/api/";
@@ -17,7 +16,7 @@ internal class Program
 
         try
         {
-            string operation = DrawMenu();
+            string? operation = DrawMenu();
             var signalRClient = new SignalRClient(hubAddress);
             while (operation != "x")
             {
@@ -63,7 +62,7 @@ internal class Program
         getEntities<Genre>(apiClient, "Description");
     }
 
-    private static string DrawMenu()
+    private static string? DrawMenu()
     {
 
         Console.WriteLine("Which operation do you wish to perform?");
@@ -74,7 +73,7 @@ internal class Program
         Console.WriteLine("Send Message to the Hub (s)");
         Console.WriteLine("Exit (x)");
 
-        string operation = Console.ReadLine();
+        string? operation = Console.ReadLine();
         return operation;
     }
 
@@ -94,7 +93,9 @@ internal class Program
         try
         {
             var entities = apiclient.GetList<T>(typeof(T).Name);
-            entities.ForEach(e => Console.WriteLine(e?.GetType().GetProperty(displayField)?.GetValue(e, null)?.ToString()));
+            entities.ForEach(e => Console.WriteLine(e?.GetType()
+                .GetProperty(displayField)?
+                .GetValue(e, null)?.ToString()));
             Console.ReadLine();
         }
         catch (Exception ex)
