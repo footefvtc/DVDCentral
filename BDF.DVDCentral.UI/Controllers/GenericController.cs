@@ -33,7 +33,7 @@ namespace BDF.DVDCentral.UI.Controllers
             try
             {
                 ViewBag.Title = "List of " + typeof(T).Name + "s";
-                var entities = apiClient.GetList<T>(typeof(T).Name);
+                var entities = apiClient.GetList<T>();
                 return View(entities);
             }
             catch (Exception ex)

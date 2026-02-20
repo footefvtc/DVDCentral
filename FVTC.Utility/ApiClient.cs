@@ -13,6 +13,29 @@ namespace FVTC.Utility
             BaseAddress = new Uri(baseAddress);
         }
 
+
+        /// <summary>
+        /// Gets a list of items by performing an http get operation from an API controller
+        /// </summary>
+        /// <typeparam name="T">Object type for which a list will be returned by the API call</typeparam>
+        /// <param name="controller">API controller to call</param>
+        /// <returns>List of objects of type T</returns>
+        public List<T> GetList<T>()
+        {
+            var response = this.GetAsync(typeof(T).Name).Result;
+            var result = response.Content.ReadAsStringAsync().Result;
+            if (response.IsSuccessStatusCode)
+            {
+                var items = (JArray)JsonConvert.DeserializeObject(result);
+                return items.ToObject<List<T>>();
+            }
+            else
+            {
+                var values = JsonConvert.DeserializeObject<Dictionary<string, string>>(result);
+                throw new Exception(response.ToString());
+            }
+        }
+
         /// <summary>
         /// Gets a list of items by performing an http get operation from an API controller
         /// </summary>

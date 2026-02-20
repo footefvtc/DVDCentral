@@ -8,7 +8,7 @@ internal class Program
     {
         string user = "Brian F.";
         string apiAddress = "https://localhost:7156/api/";
-        apiAddress = "https://dvdcentralapi-120212964.azurewebsites.net/api/";
+        //apiAddress = "https://dvdcentralapi-120212964.azurewebsites.net/api/";
         ApiClient apiClient = new ApiClient(apiAddress);
 
         string hubAddress = "https://fvtcdp.azurewebsites.net/BingoHub";
