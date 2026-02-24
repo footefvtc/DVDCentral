@@ -1,4 +1,5 @@
 ﻿using BDF.DVDCentral.BL.Models;
+using BDF.DVDCentrol.UIConsole;
 using FVTC.Utility;
 
 internal class Program
@@ -11,10 +12,13 @@ internal class Program
         //apiAddress = "https://dvdcentralapi-120212964.azurewebsites.net/api/";
         ApiClient apiClient = new ApiClient(apiAddress);
 
+        string hubAddress = "https://fvtcdp.azurewebsites.net/BingoHub";
+
 
         try
         {
             string operation = DrawMenu();
+            var signalRClient = new SignalRClient(hubAddress);
 
             while (operation != "x")
             {
@@ -25,6 +29,7 @@ internal class Program
                     case "b":
                         break;
                     case "c":
+                        signalRClient.ConnectToChannel(user);
                         break;
                     case "d":
                         getDirectors(apiClient);
@@ -34,6 +39,11 @@ internal class Program
                         break;
                     case "m":
                         getMovies(apiClient);
+                        break;
+                    case "s":
+                        Console.WriteLine("Message?");
+                        string message = Console.ReadLine();
+                        signalRClient.SendMessageToChannel(user, message);
                         break;
                     case "x":
                         break;
@@ -58,9 +68,11 @@ internal class Program
     {
 
         Console.WriteLine("Which operation do you wish to perform?");
+        Console.WriteLine("Connect to the Hub (c)");
         Console.WriteLine("Get Directors (d)");
         Console.WriteLine("Get Genres (g)");
         Console.WriteLine("Get Movies (m)");
+        Console.WriteLine("Send a Message (s)");
         Console.WriteLine("Exit (x)");
 
         string operation = Console.ReadLine();
