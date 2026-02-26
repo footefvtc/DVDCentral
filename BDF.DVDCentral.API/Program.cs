@@ -1,3 +1,6 @@
+using BDF.DVDCentral.API.Helpers;
+using BDF.DVDCentral.API.Hubs;
+using BDF.DVDCentral.API.Services;
 using Microsoft.Extensions.Configuration;
 using Serilog;
 
@@ -13,6 +16,18 @@ public class Program
             options.UseSqlServer(builder.Configuration.GetConnectionString("DVDCentralConnection"));
             options.UseLazyLoadingProxies();
         });
+
+        builder.Services.AddSignalR()
+           .AddJsonProtocol(options =>
+           {
+               options.PayloadSerializerOptions.PropertyNamingPolicy = null;
+           });
+
+        // configure strongly typed settings object
+        builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
+        // configure DI for application services
+        builder.Services.AddScoped<IUserService, UserService>();
+
 
         builder.Services.AddControllers();
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -37,6 +52,8 @@ public class Program
 
         var app = builder.Build();
 
+        app.Logger.LogInformation("Starting DVDCentral API...");
+
         // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())
         {
@@ -44,11 +61,18 @@ public class Program
             app.UseSwaggerUI();
         }
 
+        app.UseMiddleware<JwtMiddleware>();
         app.UseHttpsRedirection();
-
+        app.UseRouting();
         app.UseAuthorization();
 
-        app.MapControllers();
+        //app.MapControllers();
+
+        app.UseEndpoints(endpoint =>
+        {
+            endpoint.MapControllers();
+            endpoint.MapHub<DVDCentralHub>("/dvdcentralhub");
+        });
 
         app.Run();
     }
