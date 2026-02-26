@@ -13,6 +13,7 @@ internal class Program
         ApiClient apiClient = new ApiClient(apiAddress);
 
         string hubAddress = "https://fvtcdp.azurewebsites.net/BingoHub";
+        hubAddress = "https://localhost:7156/dvdcentralhub";
 
 
         try
