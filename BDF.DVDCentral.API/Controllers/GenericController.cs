@@ -1,4 +1,5 @@
-﻿namespace BDF.DVDCentral.API.Controllers
+﻿
+namespace BDF.DVDCentral.API.Controllers
 {
     // T - Entity type - Director
     // U - Manager Type - DirectorManager

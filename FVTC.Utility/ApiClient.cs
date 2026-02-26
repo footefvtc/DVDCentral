@@ -8,10 +8,73 @@ namespace FVTC.Utility
 {
     public class ApiClient : HttpClient
     {
+        public string Token { get; set; }
+        public User loggedInUser { get; set; }
+
+        public void ClearToken()
+        {
+            Token = string.Empty;
+        }
         public ApiClient(string baseAddress)
         {
             BaseAddress = new Uri(baseAddress);
         }
+
+        private HttpStatusCode GetToken(string userid, string password)
+        {
+            HttpClient client = new HttpClient();
+            client.BaseAddress = BaseAddress;
+
+            var user = new Dictionary<string, string>();
+            user.Add("userid", userid);
+            user.Add("password", password);
+
+            Token = string.Empty;
+
+            string serializedUser = JsonConvert.SerializeObject(user);
+            var content = new StringContent(serializedUser);
+            content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
+
+            HttpResponseMessage response = client.PostAsync("user/authenticate", content).Result;
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                var result = response.Content.ReadAsStringAsync().Result;
+                var values = JsonConvert.DeserializeObject<Dictionary<string, string>>(result);
+                Token = values["token"];
+                loggedInUser = new User
+                {
+                    Id = Guid.Parse(values["id"]),
+                    FirstName = values["firstName"],
+                    LastName = values["lastName"],
+                    UserId = values["userId"],
+                };
+
+            }
+            else if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+            {
+                var result = response.Content.ReadAsStringAsync().Result;
+                var values = JsonConvert.DeserializeObject<Dictionary<string, string>>(result);
+                throw new Exception(values["message"]);
+            }
+            return response.StatusCode;
+        }
+
+
+        public HttpStatusCode Authenticate(string userId, string password)
+        {
+            if (string.IsNullOrEmpty(Token))
+            {
+                if (GetToken(userId, password) == HttpStatusCode.OK)
+                {
+                    this.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
+                    return HttpStatusCode.OK;
+                }
+                else
+                    return HttpStatusCode.BadRequest;
+            }
+            return HttpStatusCode.BadRequest;
+        }
+
 
         /// <summary>
         /// Gets a list of items by performing an http get operation from an API controller
