@@ -23,8 +23,39 @@ internal class Program
                 switch (operation)
                 {
                     case "a":
+                        try
+                        {
+                            var result = apiClient.Authenticate("bfoote", "maple1");
+                            Console.WriteLine($"Authenticate: {result}");
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine();
+                            Console.WriteLine($"Authenticate failed: {ex.Message}");
+                            Console.WriteLine();
+                            Console.ForegroundColor = ConsoleColor.White;
+                        }
                         break;
                     case "b":
+                        try
+                        {
+                            var result = apiClient.Authenticate("bfoote", "maple");
+                            Console.ForegroundColor = ConsoleColor.Blue;
+                            Console.WriteLine();
+                            Console.WriteLine($"Authenticate: {result}");
+                            Console.WriteLine($"Token: {apiClient.Token}");
+                            Console.WriteLine();
+                            Console.ForegroundColor = ConsoleColor.White;
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine();
+                            Console.WriteLine($"Authenticate failed: {ex.Message}");
+                            Console.WriteLine();
+                            Console.ForegroundColor = ConsoleColor.White;
+                        }
                         break;
                     case "c":
                         signalRClient.ConnectToChannel(user);

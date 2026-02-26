@@ -25,7 +25,7 @@ public class JwtMiddleware
         if (token != null)
             attachUserToContext(context, userService, token);
 
-        await _next(context);
+            await _next(context);
     }
 
     private void attachUserToContext(HttpContext context, IUserService userService, string token)
