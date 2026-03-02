@@ -47,6 +47,7 @@ namespace BDF.DVDCentral.API.Controllers
             }
         }
 
+        [Authorize]
         [HttpPost("{rollback?}")]
         public async Task<ActionResult> Post([FromBody] T entity, bool rollback = false)
         {

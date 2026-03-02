@@ -7,6 +7,32 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="White"/>
+                <GradientStop Color="#FF06C5C0" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="321*"/>
+            <ColumnDefinition Width="479*"/>
+        </Grid.ColumnDefinitions>
+        <GroupBox x:Name="gbxMain" Header="Main Dishes" Margin="0,0,0,200" Grid.Column="0">
+            <StackPanel x:Name="spMain" Margin="0,0,0,0">
+                <RadioButton x:Name="rbtnMain1" Margin="20, 17" Tag="0" Checked="MainDishCheckedChanged"/>
+                <RadioButton x:Name="rbtnMain2" Margin="20, 17" Tag="1" Checked="MainDishCheckedChanged"/>
+                <RadioButton x:Name="rbtnMain3" Margin="20, 17" Tag="2" Checked="MainDishCheckedChanged"/>
+            </StackPanel>
+        </GroupBox>
+        <GroupBox x:Name="gbxAddOn" Header="Add-Ons" Margin="0,0,0,200" Grid.Column="1">
+            <StackPanel x:Name="spAddOns" Margin="0,0,0,0">
+                <CheckBox x:Name="chkAddOn1" Margin="20, 17" Tag="0" Checked="AddOnCheckedChanged" Unchecked="AddOnCheckedChanged"/>
+                <CheckBox x:Name="chkAddOn2" Margin="20, 17" Tag="1" Checked="AddOnCheckedChanged" Unchecked="AddOnCheckedChanged"/>
+                <CheckBox x:Name="chkAddOn3" Margin="20, 17" Tag="2" Checked="AddOnCheckedChanged" Unchecked="AddOnCheckedChanged"/>
+            </StackPanel>
+        </GroupBox>
+        <Label x:Name="lblCost" Content="" HorizontalAlignment="Left" Margin="114,265,0,0" VerticalAlignment="Top" Width="169"/>
+        <Button x:Name="btnSendMessage" Grid.Column="1" Content="Send Message" HorizontalAlignment="Left" Margin="317,312,0,0" VerticalAlignment="Top" Height="42" Width="116" Click="btnSendMessage_Click"/>
 
-    </Grid>
+    </Grid> 
 </Window>

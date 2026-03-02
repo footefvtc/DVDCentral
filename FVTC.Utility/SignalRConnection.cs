@@ -6,6 +6,9 @@ namespace FVTC.Utility
     {
         private string hubAddress;
         HubConnection connection;
+        public string User { get; set; }
+        public string Message { get; set; }
+
         string owner;
         public SignalRConnection(string hubAddress)
         {

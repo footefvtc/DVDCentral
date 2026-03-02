@@ -8,6 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BDF.DVDCentral.BL.Models\BDF.DVDCentral.BL.Models.csproj" />
+    <ProjectReference Include="..\BDF.DVDCentral.BL\BDF.DVDCentral.BL.csproj" />
     <ProjectReference Include="..\FVTC.Utility\FVTC.Utility.csproj" />
   </ItemGroup>
 
