@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BDF.DVDCentral.MAUI.LunchOrderPage"
+             Title="LunchOrderPage">
+    <ScrollView>
+        <Grid x:Name="grdMain">
+            <Grid.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="White"/>
+                    <GradientStop Color="#FF06C5C0" Offset="1"/>
+                </LinearGradientBrush>
+            </Grid.Background>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="400*"/>
+                <ColumnDefinition Width="400*"/>
+            </Grid.ColumnDefinitions>
+            <AbsoluteLayout Margin="10, 525, 0, 10">
+                <Label x:Name="lblCostText"
+                    TextColor="Blue"
+                    FontSize="24"
+                    Text="Sub-Total:"/>
+                <Label x:Name="lblCost"
+                   AbsoluteLayout.LayoutBounds ="135,0"
+                   HorizontalTextAlignment="End"    
+                   TextColor="Blue"
+                   FontSize="24"
+                   Text="33.66"/>
+                <Label x:Name="lblTaxText"
+                    AbsoluteLayout.LayoutBounds ="0,25"
+                    TextColor="Blue"
+                    FontSize="24"
+                    Text="Tax:"/>
+                <Label x:Name="lblTax"
+                    AbsoluteLayout.LayoutBounds ="135,25"
+                    TextColor="Blue"
+                    FontSize="24"
+                    HorizontalTextAlignment="End"    
+                    Text="33.66"/>
+                <Label x:Name="lblTotalText"
+                    AbsoluteLayout.LayoutBounds ="0,50"
+                    TextColor="Blue"
+                    FontSize="24"
+                    Text="Total:"/>
+                <Label x:Name="lblTotal"
+                    AbsoluteLayout.LayoutBounds ="135,50"
+                    TextColor="Blue"
+                    FontSize="24"
+                    HorizontalTextAlignment="End"    
+                    Text="33.66"/>
+                <Button x:Name="btnSendMessage" 
+                    AbsoluteLayout.LayoutBounds ="75,100"
+                    Text="Send Message" 
+                    Clicked="OnButtonClicked"/>
+            </AbsoluteLayout>
+
+
+        </Grid>
+    </ScrollView>
+</ContentPage>
