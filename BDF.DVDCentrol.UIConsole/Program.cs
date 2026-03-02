@@ -8,6 +8,7 @@ internal class Program
     {
 
         string user = "Brian F.";
+        List<int> pickedNumbers = new List<int>();
         string apiAddress = "https://localhost:7156/api/";
         //apiAddress = "https://dvdcentralapi-120212964.azurewebsites.net/api/";
         ApiClient apiClient = new ApiClient(apiAddress);
@@ -72,6 +73,10 @@ internal class Program
                     case "m":
                         getMovies(apiClient);
                         break;
+                    case "n":
+                        string nextNumber = SendNumberToBingoChannel(pickedNumbers);
+                        signalRClient.SendMessageToChannel("Caller", nextNumber);
+                        break;
                     case "o":
                         signalRClient.SendMessageToChannel(user, "Salad");
                         break;
@@ -111,6 +116,7 @@ internal class Program
         Console.WriteLine("Get Directors (d)");
         Console.WriteLine("Get Genres (g)");
         Console.WriteLine("Get Movies (m)");
+        Console.WriteLine("New Number (n)");
         Console.WriteLine("Order a Salad (o)");
         Console.WriteLine("Send a Message (s)");
         Console.WriteLine("Exit (x)");
@@ -129,6 +135,24 @@ internal class Program
         getEntities<Movie>(apiClient, "Title");
     }
 
+    public static string SendNumberToBingoChannel(List<int> pickedNumbers)
+    {
+        int newnumber;
+        Random generator = new Random();
+
+        do
+        {
+            newnumber = generator.Next(1, 76);
+        }
+        while (pickedNumbers.Any(n => n == newnumber) && pickedNumbers.Count < 75);
+
+        pickedNumbers.Add(newnumber);
+
+        string message = newnumber.ToString();
+        Console.WriteLine("Sending: " + message);
+        return newnumber.ToString();
+       
+    }
 
     private static void getEntities<T>(ApiClient apiclient, string displayField)
     {
