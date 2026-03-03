@@ -7,13 +7,13 @@ internal class Program
     private static void Main(string[] args)
     {
 
-        string user = "Brian F.";
+        string user = "Brian 2";
         string apiAddress = "https://localhost:7156/api/";
         //apiAddress = "https://dvdcentralapi-120212964.azurewebsites.net/api/";
         ApiClient apiClient = new ApiClient(apiAddress);
 
         string hubAddress = "https://fvtcdp.azurewebsites.net/BingoHub";
-        hubAddress = "https://localhost:7156/dvdcentralhub";
+        //hubAddress = "https://localhost:7156/dvdcentralhub";
 
 
         try
@@ -72,6 +72,9 @@ internal class Program
                     case "m":
                         getMovies(apiClient);
                         break;
+                    case "o":
+                        signalRClient.SendMessageToChannel(user, "Salad");
+                        break;
                     case "s":
                         Console.WriteLine("Message?");
                         string message = Console.ReadLine();
@@ -106,6 +109,7 @@ internal class Program
         Console.WriteLine("Get Directors (d)");
         Console.WriteLine("Get Genres (g)");
         Console.WriteLine("Get Movies (m)");
+        Console.WriteLine("Order a Salad (o)");
         Console.WriteLine("Send a Message (s)");
         Console.WriteLine("Exit (x)");
 

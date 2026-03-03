@@ -16,6 +16,8 @@ namespace BDF.DVDCentrol.UIConsole
 
         public override void OnSend(string user, string message)
         {
+            User = user;
+            Message = message;
             Console.WriteLine($"{user}: {message}");
         }
     }
