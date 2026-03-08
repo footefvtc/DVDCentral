@@ -54,7 +54,9 @@ namespace BDF.DVDCentral.API.Controllers
             try
             {
                 Guid id = await manager.InsertAsync(entity, rollback);
-                return Ok(id);
+                var result = new Dictionary<string, string>();
+                result.Add("id", id.ToString());
+                return Ok(result);
             }
             catch (Exception ex)
             {
