@@ -34,7 +34,7 @@ namespace BDF.DVDCentral.PL.Test
         public void UpdateTest()
         {
             // SELECT * FROM tblOrderItems - use the first one
-            tblOrderItem entity = dc.tblOrderItems.FirstOrDefault();
+            tblOrderItem entity = dc.tblOrderItems.FirstOrDefault()!;
 
             // Change a property value
             entity.MovieId = dc.tblMovies.FirstOrDefault(x => x.Title == "Other")!.Id;
@@ -47,11 +47,11 @@ namespace BDF.DVDCentral.PL.Test
         public void DeleteTest()
         {
             // Select * from tblOrderItem where id = 3
-            tblOrderItem entity = dc.tblOrderItems.FirstOrDefault();
+            tblOrderItem entity = dc.tblOrderItems.FirstOrDefault()!;
 
             dc.tblOrderItems.Remove(entity);
             int result = dc.SaveChanges();
-            Assert.AreNotEqual(result, 0);
+            Assert.IsGreaterThan(0, result);
         }
     }
 }

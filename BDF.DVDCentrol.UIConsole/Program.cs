@@ -82,7 +82,7 @@ internal class Program
                         break;
                     case "s":
                         Console.WriteLine("Message?");
-                        string message = Console.ReadLine();
+                        string message = Console.ReadLine()!;
                         signalRClient.SendMessageToChannel(user, message);
                         break;
                     case "x":
@@ -121,7 +121,7 @@ internal class Program
         Console.WriteLine("Send a Message (s)");
         Console.WriteLine("Exit (x)");
 
-        string operation = Console.ReadLine();
+        string operation = Console.ReadLine()!;
         return operation;
     }
 

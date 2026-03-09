@@ -48,7 +48,7 @@
         {
             OrderItem orderitem = (await new OrderItemManager(options, logger)
             .LoadAsync())
-            .FirstOrDefault();
+            .FirstOrDefault()!;
 
             Assert.AreEqual((await new OrderItemManager(options, logger)
                             .LoadByIdAsync(orderitem.Id)).Id, orderitem.Id);

@@ -15,8 +15,8 @@
         {
             // Make an entity
             tblMovieGenre entity = new tblMovieGenre();
-            entity.MovieId = base.LoadTest().FirstOrDefault()!.MovieId;
-            entity.GenreId = base.LoadTest().FirstOrDefault()!.GenreId;
+            entity.MovieId = dc.tblMovieGenres.FirstOrDefault()!.MovieId;
+            entity.GenreId = dc.tblMovieGenres.FirstOrDefault()!.GenreId;
 
             int result = InsertTest(entity);
             Assert.AreEqual(1, result);
@@ -25,7 +25,7 @@
         [TestMethod]
         public void LoadByIdTest()
         {
-            tblMovieGenre item = base.LoadTest()!.FirstOrDefault()!;
+            tblMovieGenre item = dc.tblMovieGenres.FirstOrDefault()!;
             tblMovieGenre entity = dc.tblMovieGenres.Where(e => e.Id == item.Id).FirstOrDefault()!;
             Assert.AreEqual(item.Id, entity.Id);
         }

@@ -41,7 +41,7 @@
         [TestMethod]
         public async Task LoadByIdTest()
         {
-            Genre entity = (await new GenreManager(options, logger).LoadAsync()).FirstOrDefault();
+            Genre entity = (await new GenreManager(options, logger).LoadAsync()).FirstOrDefault()!;
             Assert.AreEqual(new GenreManager(options, logger).LoadByIdAsync(entity.Id).Result.Id, entity.Id);
 
         }

@@ -9,8 +9,7 @@ namespace BDF.DVDCentral.PL.Test
         [TestMethod]
         public void LoadTest()
         {
-            var list = base.LoadTest();
-            Assert.AreEqual(4, list.Count());
+            base.LoadTest(4);
         }
 
         [TestMethod]
@@ -30,13 +29,13 @@ namespace BDF.DVDCentral.PL.Test
         public void UpdateTest()
         {
             // SELECT * FROM tblFormat - use the first one
-            var item = base.LoadTest().FirstOrDefault();
+            var item = dc.tblFormats.FirstOrDefault()!;
 
             // Change a property value
             item.Description = "Test";
 
             int result = UpdateTest(item);
-            Assert.IsTrue(result > 0);
+            Assert.IsGreaterThan(0, result);
         }
 
         [TestMethod]
@@ -51,10 +50,8 @@ namespace BDF.DVDCentral.PL.Test
         [TestMethod]
         public void LoadByIdTest()
         {
-            var item = base.LoadTest().FirstOrDefault();
-
-            // Select * from tblFormat where id = 2
-            tblFormat entity = dc.tblFormats.Where(e => e.Id == item.Id).FirstOrDefault();
+            var item = dc.tblFormats.FirstOrDefault()!;
+            tblFormat entity = dc.tblFormats.Where(e => e.Id == item.Id).FirstOrDefault()!;
             Assert.AreEqual(entity.Id, item.Id);
         }
 

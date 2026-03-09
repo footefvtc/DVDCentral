@@ -35,7 +35,6 @@
             }
         }
 
-
         public async Task<List<Customer>> LoadAsync()
         {
             try

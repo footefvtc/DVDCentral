@@ -58,7 +58,7 @@ public class UserService : IUserService
 
     public async Task<User> GetById(Guid id)
     {
-        return new UserManager(dbOptions).LoadAsync().Result.FirstOrDefault(x => x.Id == id);
+        return new UserManager(dbOptions).LoadAsync().Result.FirstOrDefault(x => x.Id == id)!;
     }
 
     // helper methods

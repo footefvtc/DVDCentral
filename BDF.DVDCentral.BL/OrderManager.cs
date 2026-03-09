@@ -56,7 +56,7 @@
                 includeProperties[1] = x => x.OrderItems;
                 includeProperties[2] = x => x.User;
 
-                Expression<Func<tblOrder, bool>> filter = null;
+                Expression<Func<tblOrder, bool>>? filter = null;
 
                 if (customerId != null)
                     filter = o => o.CustomerId == customerId;
@@ -80,7 +80,7 @@
             }
         }
 
-        public async Task<Order> LoadByIdAsync(Guid id)
+        public new async Task<Order> LoadByIdAsync(Guid id)
         {
             try
             {

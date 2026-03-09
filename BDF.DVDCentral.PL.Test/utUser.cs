@@ -9,7 +9,7 @@ namespace BDF.DVDCentral.PL.Test
         [TestMethod]
         public void LoadTest()
         {
-            Assert.AreEqual(4, dc.tblUsers.Count());
+            LoadTest(4);
         }
 
         [TestMethod]
@@ -34,7 +34,7 @@ namespace BDF.DVDCentral.PL.Test
         public void UpdateTest()
         {
             // SELECT * FROM tblUsers - use the first one
-            tblUser entity = dc.tblUsers.FirstOrDefault();
+            tblUser entity = dc.tblUsers.FirstOrDefault()!;
 
             // Change a property value
             entity.FirstName = "Test";
@@ -47,11 +47,11 @@ namespace BDF.DVDCentral.PL.Test
         public void DeleteTest()
         {
             // Select * from tblUser where id = 2
-            tblUser entity = dc.tblUsers.FirstOrDefault(x => x.FirstName == "Other");
+            tblUser entity = dc.tblUsers.FirstOrDefault(x => x.FirstName == "Other")!;
 
             dc.tblUsers.Remove(entity);
             int result = dc.SaveChanges();
-            Assert.AreNotEqual(result, 0);
+            Assert.IsGreaterThan(0, result);
         }
 
         [TestMethod]

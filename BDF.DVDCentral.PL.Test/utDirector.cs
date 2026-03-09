@@ -9,8 +9,7 @@ namespace BDF.DVDCentral.PL.Test
         [TestMethod]
         public void LoadTest()
         {
-            var list = base.LoadTest();
-            Assert.AreEqual(6, list.Count());
+            base.LoadTest(6);
         }
 
         [TestMethod]
@@ -31,30 +30,29 @@ namespace BDF.DVDCentral.PL.Test
         public void UpdateTest()
         {
             // SELECT * FROM tblDirector - use the first one
-            var item = base.LoadTest().FirstOrDefault();
+            tblDirector entity = dc.tblDirectors.FirstOrDefault(e => e.FirstName == "Other")!;
 
             // Change a property value
-            item.FirstName = "Test";
+            entity.FirstName = "Test";
 
-            int result = UpdateTest(item);
-            Assert.IsTrue(result > 0);
+            int result = UpdateTest(entity);
+            Assert.IsGreaterThan(0, result);
         }
 
         [TestMethod]
         public void DeleteTest()
         {
             // Select * from tblDirector where id = 3
-            tblDirector entity = dc.tblDirectors.FirstOrDefault(e => e.FirstName == "Other");
+            tblDirector entity = dc.tblDirectors.FirstOrDefault(e => e.FirstName == "Other")!;
             int result = DeleteTest(entity);
-            Assert.AreNotEqual(result, 0);
+            Assert.IsGreaterThan(0, result);
         }
 
         [TestMethod]
         public void LoadByIdTest()
         {
-            var item = base.LoadTest().FirstOrDefault();
+            var item = dc.tblDirectors.FirstOrDefault()!;
 
-            // Select * from tblDirector where id = 2
             tblDirector entity = dc.tblDirectors.Where(e => e.Id == item.Id).FirstOrDefault()!;
 
             Assert.IsGreaterThan(0, entity!.Movies.Count);

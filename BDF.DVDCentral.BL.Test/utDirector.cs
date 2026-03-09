@@ -12,7 +12,6 @@ namespace BDF.DVDCentral.BL.Test
         [TestMethod]
         public async Task InsertTest()
         {
-            int id = 0;
             Director entity = new Director()
             {
                 FirstName = "Test",

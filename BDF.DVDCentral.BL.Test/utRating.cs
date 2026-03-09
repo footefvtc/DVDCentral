@@ -40,7 +40,7 @@
         [TestMethod]
         public async Task LoadByIdTest()
         {
-            Rating entity = (await new RatingManager(options, logger).LoadAsync()).FirstOrDefault();
+            Rating entity = (await new RatingManager(options, logger).LoadAsync()).FirstOrDefault()!;
             Assert.AreEqual(new RatingManager(options, logger).LoadByIdAsync(entity.Id).Result.Id, entity.Id);
         }
     }

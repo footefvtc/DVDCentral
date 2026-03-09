@@ -7,9 +7,8 @@
         [TestMethod]
         public async Task InsertTest()
         {
-            int id = 0;
-            Guid genreId = (await new GenreManager(options, logger).LoadAsync()).FirstOrDefault().Id;
-            Guid movieId = (await new MovieManager(options, logger).LoadAsync()).FirstOrDefault().Id;
+            Guid genreId = (await new GenreManager(options, logger).LoadAsync()!).FirstOrDefault()!.Id;
+            Guid movieId = (await new MovieManager(options, logger).LoadAsync()!).FirstOrDefault()!.Id;
             MovieGenre movieGenre = new MovieGenre()
             {
                 MovieId = movieId,
@@ -23,7 +22,7 @@
         [TestMethod]
         public async Task DeleteTest()
         {
-            Guid id = (await new MovieGenreManager(options, logger).LoadAsync()).FirstOrDefault().Id;
+            Guid id = (await new MovieGenreManager(options, logger).LoadAsync()).FirstOrDefault()!.Id;
             int results = await new MovieGenreManager(options, logger).DeleteAsync(id, true);
             Assert.AreEqual(1, results);
         }

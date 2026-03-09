@@ -22,5 +22,5 @@ public partial class tblCustomer : IEntity
 
     public virtual ICollection<tblOrder> Orders { get; set; }
 
-    public virtual tblUser User { get; set; }
+    public virtual tblUser User { get; set; } = new tblUser();
 }
