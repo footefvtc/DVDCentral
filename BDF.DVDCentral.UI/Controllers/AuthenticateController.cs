@@ -1,6 +1,6 @@
 ﻿using BDF.DVDCentral.UI.Models;
 using Microsoft.AspNetCore.Http.Extensions;
-//using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BDF.DVDCentral.UI.Controllers
 {
