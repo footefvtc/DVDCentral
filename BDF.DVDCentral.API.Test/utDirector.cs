@@ -2,7 +2,7 @@
 namespace BDF.DVDCentral.API.Test
 {
     [TestClass]
-    public class utDirector : utBase<Director>
+    public class utDirector : utBase
     {
 
         [TestMethod]

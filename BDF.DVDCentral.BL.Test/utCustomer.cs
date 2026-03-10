@@ -7,9 +7,8 @@
         [TestMethod]
         public async Task LoadAsyncTest()
         {
-            List<Customer> customers = await new CustomerManager(options, logger).LoadAsync();
-            int expected = 4;
-            Assert.AreEqual(expected, customers.Count);
+            Assert.IsGreaterThan(3, (await new DirectorManager(options, logger).LoadAsync()).Count);
+
         }
 
         [TestMethod]

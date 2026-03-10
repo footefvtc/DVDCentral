@@ -58,7 +58,7 @@ namespace BDF.DVDCentral.WPFUI
             LunchItem mainDish = mainDishes[whichMainDish];
             double cost = mainDish.Cost;
             addOnDishCheckboxes.ToList().ForEach(item => {
-                cost += (bool)item.IsChecked ? mainDish.AddOnCost : 0;
+                cost += (item.IsChecked == true) ? mainDish.AddOnCost : 0;
             });
             lblCost.Content = cost.ToString("C");
         }

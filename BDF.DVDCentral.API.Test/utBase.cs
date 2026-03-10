@@ -10,10 +10,10 @@
     }
 
     [TestClass]
-    public abstract class utBase<T> where T : class
+    public abstract class utBase
     {
         public HttpClient client { get; }
-        public Type type;
+        public required Type type;
 
         public utBase()
         {
@@ -104,9 +104,9 @@
                 T result = values.Where(filter).FirstOrDefault()!;
                 return (Guid)result.GetType().GetProperty("Id")!.GetValue(result, null)!;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
 
         }

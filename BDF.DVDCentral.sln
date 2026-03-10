@@ -9,6 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BDF.DVDCentral.PL", "BDF.DV
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CC634E7B-1084-4035-84EE-519C361FE8A5}"
 	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
 		TextFile1.txt = TextFile1.txt
 	EndProjectSection
 EndProject

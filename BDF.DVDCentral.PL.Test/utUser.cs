@@ -40,7 +40,7 @@ namespace BDF.DVDCentral.PL.Test
             entity.FirstName = "Test";
 
             int result = dc.SaveChanges();
-            Assert.IsTrue(result > 0);
+            Assert.IsGreaterThan(0, result);
         }
 
         [TestMethod]

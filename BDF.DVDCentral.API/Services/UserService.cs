@@ -10,7 +10,7 @@ namespace BDF.DVDCentral.API.Services;
 
 public interface IUserService
 {
-    AuthenticateResponse Authenticate(AuthenticateRequest model);
+    AuthenticateResponse? Authenticate(AuthenticateRequest model);
     Task<IEnumerable<User>> GetAll();
     Task<User> GetById(Guid id);
 }
@@ -33,7 +33,7 @@ public class UserService : IUserService
 
     }
 
-    public AuthenticateResponse Authenticate(AuthenticateRequest model)
+    public AuthenticateResponse? Authenticate(AuthenticateRequest model)
     {
         var user = new UserManager(dbOptions)
                         .LoadAsync()

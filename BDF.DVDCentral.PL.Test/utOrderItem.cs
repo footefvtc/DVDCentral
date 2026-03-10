@@ -40,7 +40,7 @@ namespace BDF.DVDCentral.PL.Test
             entity.MovieId = dc.tblMovies.FirstOrDefault(x => x.Title == "Other")!.Id;
 
             int result = dc.SaveChanges();
-            Assert.IsTrue(result > 0);
+            Assert.IsGreaterThan(0, result);
         }
 
         [TestMethod]

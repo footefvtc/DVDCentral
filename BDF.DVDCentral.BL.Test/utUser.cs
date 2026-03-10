@@ -13,69 +13,40 @@
         [TestMethod]
         public async Task LoginFailTestNoUserId()
         {
-            try
+            await Assert.ThrowsAsync<LoginFailureException>(async () =>
             {
-                Assert.IsTrue(await new UserManager(options, logger).Login(new User { UserId = "", Password = "maple" }));
-            }
-            catch (LoginFailureException)
-            {
-                Assert.IsTrue(true);
-            }
-            catch (Exception ex)
-            {
-                Assert.Fail(ex.Message);
-            }
+                await new UserManager(options, logger).Login(new User { UserId = "", Password = "birch" });
+            });
         }
 
         [TestMethod]
         public async Task LoginFailTestBadPassword()
         {
-            try
+            await Assert.ThrowsAsync<LoginFailureException>(async () =>
             {
-                Assert.IsTrue(await new UserManager(options, logger).Login(new User { UserId = "bfoote", Password = "birch" }));
-            }
-            catch (LoginFailureException)
-            {
-                Assert.IsTrue(true);
-            }
-            catch (Exception ex)
-            {
-                Assert.Fail(ex.Message);
-            }
-        }
+                await new UserManager(options, logger).Login(new User { UserId = "bfoote", Password = "birch" });
+            });
+        }            
 
         [TestMethod]
         public async Task LoginFailTestBadUserId()
         {
-            try
+            await Assert.ThrowsAsync<LoginFailureException>(async () =>
             {
-                Assert.IsTrue(await new UserManager(options, logger).Login(new User { UserId = "foote", Password = "maple" }));
-            }
-            catch (LoginFailureException)
-            {
-                Assert.IsTrue(true);
-            }
-            catch (Exception ex)
-            {
-                Assert.Fail(ex.Message);
-            }
+                await new UserManager(options, logger).Login(new User { UserId = "foote", Password = "maple" });
+            });
+            
         }
 
+       
         [TestMethod]
         public async Task LoginFailTestNoPassword()
         {
-            try
+            await Assert.ThrowsAsync<LoginFailureException>(async () =>
             {
-                Assert.IsTrue(await new UserManager(options, logger).Login(new User { UserId = "bfoote", Password = "" }));
-            }
-            catch (LoginFailureException)
-            {
-                Assert.IsTrue(true);
-            }
-            catch (Exception ex)
-            {
-                Assert.Fail(ex.Message);
-            }
+                await new UserManager(options, logger).Login(new User { UserId = "bfoote", Password = "" });
+            });
+            
         }
 
         [TestMethod]

@@ -39,7 +39,7 @@ namespace BDF.DVDCentral.PL.Test
             entity.OrderDate = DateTime.Now.AddDays(-5);
 
             int result = dc.SaveChanges();
-            Assert.IsTrue(result > 0);
+            Assert.IsGreaterThan(0, result);
         }
 
         [TestMethod]

@@ -1,7 +1,7 @@
 ﻿namespace BDF.DVDCentral.API.Test
 {
     [TestClass]
-    public class utRating : utBase<Rating>
+    public class utRating : utBase
     {
         [TestMethod]
         public async Task LoadTestAsync()

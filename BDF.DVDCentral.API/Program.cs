@@ -40,7 +40,7 @@ public class Program
         Log.Logger = new LoggerConfiguration()
              .ReadFrom.Configuration(configSettings)
              .CreateLogger();
-
+#pragma warning disable CA1416
         builder.Services
             .AddLogging(c => c.AddDebug())
             .AddLogging(c => c.AddSerilog())
@@ -63,13 +63,14 @@ public class Program
         app.UseRouting();
         app.UseAuthorization();
 
-        //app.MapControllers();
+        app.MapControllers();
+        app.MapHub<DVDCentralHub>("/dvdcentralhub");
 
-        app.UseEndpoints(endpoints =>
-        {
-            endpoints.MapControllers();
-            endpoints.MapHub<DVDCentralHub>("/dvdcentralhub");
-        });
+        //app.UseEndpoints(endpoints =>
+        //{
+        //    endpoints.MapControllers();
+        //    endpoints.MapHub<DVDCentralHub>("/dvdcentralhub");
+        //});
 
         app.Run();
     }
