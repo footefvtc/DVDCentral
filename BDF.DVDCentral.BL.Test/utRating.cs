@@ -25,7 +25,7 @@
         [TestMethod]
         public async Task UpdateTest()
         {
-            Rating entity = (await new RatingManager(options, logger).LoadAsync()).FirstOrDefault();
+            Rating entity = (await new RatingManager(options, logger).LoadAsync()).FirstOrDefault()!;
             entity.Description = "Blah blah";
             Assert.IsTrue(new RatingManager(options, logger).UpdateAsync(entity, true).Result > 0);
         }
@@ -33,7 +33,7 @@
         [TestMethod]
         public async Task DeleteTest()
         {
-            Rating entity = (await new RatingManager(options, logger).LoadAsync()).FirstOrDefault(x => x.Description == "Other");
+            Rating entity = (await new RatingManager(options, logger).LoadAsync()).FirstOrDefault(x => x.Description == "Other")!;
             Assert.IsTrue(new RatingManager(options, logger).DeleteAsync(entity.Id, true).Result > 0);
         }
 

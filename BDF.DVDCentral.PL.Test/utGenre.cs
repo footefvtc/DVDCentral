@@ -29,13 +29,13 @@ namespace BDF.DVDCentral.PL.Test
         public void UpdateTest()
         {
             // SELECT * FROM tblGenre - use the first one
-            var item = dc.tblGenres.FirstOrDefault();
+            var item = dc.tblGenres.FirstOrDefault()!;
 
             // Change a property value
             item.Description = "Test";
 
             int result = UpdateTest(item);
-            Assert.IsTrue(result > 0);
+            Assert.IsGreaterThan(0, result);
         }
 
         [TestMethod]
@@ -44,7 +44,7 @@ namespace BDF.DVDCentral.PL.Test
             // Select * from tblGenre where id = 3
             tblGenre entity = dc.tblGenres.FirstOrDefault(e => e.Description == "Other")!;
             int result = DeleteTest(entity);
-            Assert.AreNotEqual(result, 0);
+            Assert.IsGreaterThan(0, result);
         }
 
         [TestMethod]

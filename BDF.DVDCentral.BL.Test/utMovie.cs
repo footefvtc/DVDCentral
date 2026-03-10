@@ -32,9 +32,9 @@ namespace BDF.DVDCentral.BL.Test
                 Title = "XXXXX",
                 Description = "XXXXX",
                 Cost = 9.99f,
-                RatingId = (await new RatingManager(options, logger).LoadAsync()).FirstOrDefault().Id,
-                FormatId = (await new FormatManager(options, logger).LoadAsync()).FirstOrDefault().Id,
-                DirectorId = (await new DirectorManager(options, logger).LoadAsync()).FirstOrDefault().Id,
+                RatingId = (await new RatingManager(options, logger).LoadAsync()).FirstOrDefault()!.Id,
+                FormatId = (await new FormatManager(options, logger).LoadAsync()).FirstOrDefault()!.Id,
+                DirectorId = (await new DirectorManager(options, logger).LoadAsync()).FirstOrDefault()!.Id,
                 InStkQty = 0,
                 ImagePath = "XXXXXXX"
             };

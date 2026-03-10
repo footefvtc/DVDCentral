@@ -25,7 +25,7 @@
         [TestMethod]
         public async Task UpdateTest()
         {
-            Format entity = (await new FormatManager(options, logger).LoadAsync()).FirstOrDefault();
+            Format entity = (await new FormatManager(options, logger).LoadAsync()).FirstOrDefault()!;
             entity.Description = "Blah blah";
             Assert.IsTrue(new FormatManager(options, logger).UpdateAsync(entity, true).Result > 0);
         }
@@ -33,14 +33,14 @@
         [TestMethod]
         public async Task DeleteTest()
         {
-            Format entity = (await new FormatManager(options, logger).LoadAsync()).FirstOrDefault(x => x.Description == "Other");
+            Format entity = (await new FormatManager(options, logger).LoadAsync()).FirstOrDefault(x => x.Description == "Other")!;
             Assert.IsTrue(new FormatManager(options, logger).DeleteAsync(entity.Id, true).Result > 0);
         }
 
         [TestMethod]
         public async Task LoadByIdTest()
         {
-            Format entity = (await new FormatManager(options, logger).LoadAsync()).FirstOrDefault();
+            Format entity = (await new FormatManager(options, logger).LoadAsync()).FirstOrDefault()!;
             Assert.AreEqual(new FormatManager(options, logger).LoadByIdAsync(entity.Id).Result.Id, entity.Id);
         }
     }

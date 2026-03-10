@@ -17,9 +17,9 @@ namespace BDF.DVDCentral.PL.Test
         {
             // Make an entity
             tblOrderItem entity = new tblOrderItem();
-            entity.OrderId = base.LoadTest().FirstOrDefault().OrderId;
+            entity.OrderId = dc.tblOrderItems.FirstOrDefault()!.OrderId;
             entity.Quantity = 2;
-            entity.MovieId = base.LoadTest().FirstOrDefault().MovieId;
+            entity.MovieId = dc.tblOrderItems.FirstOrDefault()!.MovieId;
             entity.Cost = 16.00;
 
             // Add the entity to the database

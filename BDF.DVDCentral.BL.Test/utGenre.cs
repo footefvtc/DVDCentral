@@ -26,7 +26,7 @@
         [TestMethod]
         public async Task UpdateTest()
         {
-            Genre entity = (await new GenreManager(options, logger).LoadAsync()).FirstOrDefault();
+            Genre entity = (await new GenreManager(options, logger).LoadAsync()).FirstOrDefault()!;
             entity.Description = "Blah blah";
             Assert.IsTrue(new GenreManager(options, logger).UpdateAsync(entity, true).Result > 0);
         }
@@ -34,7 +34,7 @@
         [TestMethod]
         public async Task DeleteTest()
         {
-            Genre entity = (await new GenreManager(options, logger).LoadAsync()).FirstOrDefault(x => x.Description == "Other");
+            Genre entity = (await new GenreManager(options, logger).LoadAsync()).FirstOrDefault(x => x.Description == "Other")!;
             Assert.IsTrue(new GenreManager(options, logger).DeleteAsync(entity.Id, true).Result > 0);
         }
 

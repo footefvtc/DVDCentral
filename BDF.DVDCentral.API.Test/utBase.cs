@@ -102,7 +102,7 @@
                 dynamic items = (JArray)JsonConvert.DeserializeObject(response)!;
                 List<T> values = items.ToObject<List<T>>();
                 T result = values.Where(filter).FirstOrDefault()!;
-                return (Guid)result.GetType().GetProperty("Id").GetValue(result, null);
+                return (Guid)result.GetType().GetProperty("Id")!.GetValue(result, null)!;
             }
             catch (Exception ex)
             {

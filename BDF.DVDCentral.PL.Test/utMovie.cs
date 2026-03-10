@@ -66,7 +66,7 @@ namespace BDF.DVDCentral.PL.Test
                 .Where(e => e.Id == item!.Id).FirstOrDefault()!;
             Assert.AreEqual(entity.Id, item!.Id);
             Assert.IsNotNull(entity.Director);
-            var row = entity.MovieGenres.FirstOrDefault();
+            var row = entity.MovieGenres.FirstOrDefault()!;
 
             Assert.IsNotNull(row.Genre);
 

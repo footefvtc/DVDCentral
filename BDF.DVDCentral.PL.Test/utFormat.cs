@@ -42,9 +42,9 @@ namespace BDF.DVDCentral.PL.Test
         public void DeleteTest()
         {
             // Select * from tblFormat where id = 3
-            tblFormat entity = dc.tblFormats.FirstOrDefault(e => e.Description == "Other");
+            tblFormat entity = dc.tblFormats.FirstOrDefault(e => e.Description == "Other")!;
             int result = DeleteTest(entity);
-            Assert.AreNotEqual(result, 0);
+            Assert.IsGreaterThan(0, result);
         }
 
         [TestMethod]

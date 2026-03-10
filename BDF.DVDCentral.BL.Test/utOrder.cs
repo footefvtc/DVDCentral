@@ -14,9 +14,9 @@
         {
             Order order = new Order
             {
-                CustomerId = (await new CustomerManager(options, logger).LoadAsync()).FirstOrDefault().Id,
+                CustomerId = (await new CustomerManager(options, logger).LoadAsync()).FirstOrDefault()!.Id,
                 OrderDate = DateTime.Now,
-                UserId = (await new UserManager(options, logger).LoadAsync()).FirstOrDefault().Id,
+                UserId = (await new UserManager(options, logger).LoadAsync()).FirstOrDefault()!.Id,
                 ShipDate = DateTime.Now,
                 OrderItems = new List<OrderItem>()
             };
@@ -30,19 +30,19 @@
         {
             Order order = new Order
             {
-                CustomerId = (await new CustomerManager(options, logger).LoadAsync()).FirstOrDefault().Id,
+                CustomerId = (await new CustomerManager(options, logger).LoadAsync()).FirstOrDefault()!.Id,
                 OrderDate = DateTime.Now,
-                UserId = (await new UserManager(options, logger).LoadAsync()).FirstOrDefault().Id,
+                UserId = (await new UserManager(options, logger).LoadAsync()).FirstOrDefault()!.Id,
                 ShipDate = DateTime.Now,
                 OrderItems = new List<OrderItem>
                 {
                     new OrderItem { Id = Guid.NewGuid(),
-                                    MovieId = (await new MovieManager(options, logger).LoadAsync()).FirstOrDefault(x => x.Title.Contains("Jaws")).Id,
+                                    MovieId = (await new MovieManager(options, logger).LoadAsync()).FirstOrDefault(x => x.Title.Contains("Jaws"))!.Id,
                                     Cost = 9.99f,
                                     Quantity = 3},
 
                     new OrderItem { Id = Guid.NewGuid(),
-                                    MovieId = (await new MovieManager(options, logger).LoadAsync()).FirstOrDefault(x => x.Title.Contains("Star")).Id,
+                                    MovieId = (await new MovieManager(options, logger).LoadAsync()).FirstOrDefault(x => x.Title.Contains("Star"))!.Id,
                                     Cost = 8.99f,
                                     Quantity = 2}
                 }

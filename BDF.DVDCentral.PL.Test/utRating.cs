@@ -50,10 +50,10 @@ namespace BDF.DVDCentral.PL.Test
         [TestMethod]
         public void LoadByIdTest()
         {
-            var item = base.LoadTest().FirstOrDefault();
+            var item = dc.tblRatings.FirstOrDefault()!;
 
             // Select * from tblRating where id = 2
-            tblRating entity = dc.tblRatings.Where(e => e.Id == item.Id).FirstOrDefault();
+            tblRating entity = dc.tblRatings.Where(e => e.Id == item.Id).FirstOrDefault()!;
             Assert.AreEqual(entity.Id, item.Id);
         }
 
