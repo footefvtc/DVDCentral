@@ -3,7 +3,9 @@ Connect and use the Azure Open AI
 
 # Steps
 Configure Azure
-1. 
+1. Create Open AI Foundary
+2. Create Models
+3. Get Key
 
 Guide users through connecting a Console Application with Open AI
 1.	Installation process
