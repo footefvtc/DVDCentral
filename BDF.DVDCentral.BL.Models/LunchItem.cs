@@ -15,7 +15,7 @@
             get { return $"{description} - {cost.ToString("C")}"; }
         }
 
-        private string description;
+        private string description = string.Empty;
 
         public string Description
         {
@@ -39,7 +39,7 @@
             set { addOnCost = value; }
         }
 
-        private List<AddOnItem> addOnItems;
+        private List<AddOnItem> addOnItems = new List<AddOnItem>();
 
         public List<AddOnItem> AddOnItems
         {

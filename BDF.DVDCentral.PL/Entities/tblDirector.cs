@@ -8,5 +8,5 @@ public partial class tblDirector : IEntity
 
     public string LastName { get; set; } = null!;
 
-    public virtual ICollection<tblMovie> Movies { get; set; }
+    public virtual ICollection<tblMovie> Movies { get; set; } = new List<tblMovie>();
 }
