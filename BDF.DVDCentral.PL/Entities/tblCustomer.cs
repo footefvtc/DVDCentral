@@ -20,7 +20,7 @@ public partial class tblCustomer : IEntity
 
     public string Phone { get; set; } = null!;
 
-    public virtual ICollection<tblOrder> Orders { get; set; } = new List<tblOrder>();
+    public virtual ICollection<tblOrder> Orders { get; set; }
 
-    public virtual tblUser User { get; set; } = new tblUser();
+    public virtual tblUser User { get; set; }
 }
