@@ -181,7 +181,7 @@ internal class Program
             string gamestate = "E|X|O|X|E|E|O|E|E")
     {
         gamestate = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR";
-        gamestate = "r1bk3r/p2pBpNp/n4n2/1p1NP2P/6P1/3P4/P1P1K3/q5b1";
+        //gamestate = "r1bk3r/p2pBpNp/n4n2/1p1NP2P/6P1/3P4/P1P1K3/q5b1";
         string apiKey = "3Kfy8AtfW2w2DSfJEtQlmguqG6rpzvZWVB1auzGZpnPs2ovt0WlOJQQJ99BJACYeBjFXJ3w3AAABACOGQ2wd";
         string endpoint = "https://instructional.openai.azure.com/openai/deployments/gpt-5-mini/chat/completions?api-version=2025-01-01-preview";
 
