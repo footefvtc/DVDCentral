@@ -14,7 +14,7 @@ namespace BDF.DVDCentral.MAUI
             FormatLabel.Text = movie.FormatDescription;
             DirectorLabel.Text = movie.DirectorFullName;
             DescriptionLabel.Text = movie.Description;
-            MovieImage.Source = movie.ImagePath;
+            //MovieImage.Source = movie.ImagePath;
         }
     }
 }

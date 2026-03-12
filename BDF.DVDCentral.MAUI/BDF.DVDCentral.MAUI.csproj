@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFrameworks>net10.0-android</TargetFrameworks>
@@ -56,7 +56,23 @@
 
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
+		<MauiImage Update="Resources\Images\breakfastclub.jpg">
+		  <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+		  <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+		</MauiImage>
 		<MauiImage Update="Resources\Images\dotnet_bot.png" Resize="True" BaseSize="300,185" />
+		<MauiImage Update="Resources\Images\owl.jpg">
+		  <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+		  <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+		</MauiImage>
+		<MauiImage Update="Resources\Images\somewhereintime.jpg">
+		  <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+		  <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+		</MauiImage>
+		<MauiImage Update="Resources\Images\starwars.jpg">
+		  <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+		  <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+		</MauiImage>
 		
 		<!-- Custom Fonts -->
 		<MauiFont Include="Resources\Fonts\*" />

@@ -8,16 +8,17 @@
     xmlns:local="clr-namespace:BDF.DVDCentral.MAUI"
     mc:Ignorable="d">
     <VerticalStackLayout Padding="20" Spacing="10" BackgroundColor="CornflowerBlue">
-        <Label x:Name="NameLabel" FontSize="24" FontAttributes="Bold"/>
-        <Label x:Name="GenreLabel" FontSize="16"/>
-        <Label x:Name="RatingLabel" FontSize="16"/>
-        <Label x:Name="FormatLabel" FontSize="16"/>
-        <Label x:Name="DirectorLabel" FontSize="16"/>
-        <Label x:Name="DescriptionLabel" FontSize="16"/>
+        <Label x:Name="NameLabel" FontSize="24" FontAttributes="Bold" TextColor="White"/>
+        <Label x:Name="GenreLabel" FontSize="16" TextColor="White"/>
+        <Label x:Name="RatingLabel" FontSize="16" TextColor="White"/>
+        <Label x:Name="FormatLabel" FontSize="16" TextColor="White"/>
+        <Label x:Name="DirectorLabel" FontSize="16" TextColor="White"/>
+        <Label x:Name="DescriptionLabel" FontSize="16" TextColor="White"/>
         <Image x:Name="MovieImage"
-            Source="{Binding ImagePath}" 
+            Source="starwars.jpg" 
             Aspect="AspectFill"
-            HeightRequest="200" 
-            WidthRequest="200"/>
+            Margin="25" 
+            HeightRequest="300" 
+            WidthRequest="300"/>
     </VerticalStackLayout>
 </ContentPage>

@@ -8,23 +8,9 @@
                         ItemsSource="{Binding movies}" 
                         SelectionMode="Single"
                         SelectionChanged="cvMovies_SelectionChanged">
-            <!--<CollectionView.Resources>
-                <Style TargetType="Grid">
-                    <Setter Property="VisualStateManager.VisualStateGroups">
-                        <VisualStateGroupList>
-                            <VisualStateGroup Name="CommonStates">
-                                <VisualState Name="Normal" />
-                                <VisualState Name="Selected">
-                                    <Setter Property="BackgroundColor" Value="LightGray" />
-                                </VisualState>
-                            </VisualStateGroup>
-                        </VisualStateGroupList>
-                    </Setter>
-                </Style>
-            </CollectionView.Resources>-->
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Grid Padding="10">
+                    <Grid Padding="5">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
@@ -33,19 +19,22 @@
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="100" />
+                            <ColumnDefinition Width="150" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
-                        <Image Grid.RowSpan="2" 
-                               Source="{Binding ImagePath}" 
+                        <Border StrokeShape="RoundRectangle 10"
+                                StrokeThickness="0"
+                                Grid.RowSpan="4">
+                            <Image 
+                               Source="starwars.jpg" 
                                Aspect="AspectFill"
                                HeightRequest="100" 
                                WidthRequest="100"/>
+                        </Border>
                         <Label Grid.Column="1" 
                             Text="{Binding Title}" 
                             TextColor="Yellow"
                             FontSize="24"
-                            BackgroundColor="#663399"
                             FontAttributes="Bold" />
                         <Label Grid.Column="1" 
                                Grid.Row="4" 
