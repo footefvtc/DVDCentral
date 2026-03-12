@@ -9,10 +9,12 @@ namespace BDF.DVDCentral.MAUI
             InitializeComponent();
             this.movie = movie;
             NameLabel.Text = movie.Title;
-            GenreLabel.Text = movie.DirectorFullName;
+            GenreLabel.Text = movie.GenreDescription;
             RatingLabel.Text = movie.RatingDescription;
             FormatLabel.Text = movie.FormatDescription;
+            DirectorLabel.Text = movie.DirectorFullName;
             DescriptionLabel.Text = movie.Description;
+            MovieImage.Source = movie.ImagePath;
         }
     }
 }

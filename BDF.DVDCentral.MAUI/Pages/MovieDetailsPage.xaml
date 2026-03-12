@@ -12,6 +12,12 @@
         <Label x:Name="GenreLabel" FontSize="16"/>
         <Label x:Name="RatingLabel" FontSize="16"/>
         <Label x:Name="FormatLabel" FontSize="16"/>
+        <Label x:Name="DirectorLabel" FontSize="16"/>
         <Label x:Name="DescriptionLabel" FontSize="16"/>
+        <Image x:Name="MovieImage"
+            Source="{Binding ImagePath}" 
+            Aspect="AspectFill"
+            HeightRequest="200" 
+            WidthRequest="200"/>
     </VerticalStackLayout>
 </ContentPage>

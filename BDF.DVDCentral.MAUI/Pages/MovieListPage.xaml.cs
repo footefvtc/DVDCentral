@@ -17,8 +17,8 @@ public partial class MovieListPage : ContentPage
     public MovieListPage()
     {
         InitializeComponent();
-        //APIAddress = "https://localhost:7054/api/Movie";
-        APIAddress = "https://fvtcdp.azurewebsites.net/api/Movie";
+        APIAddress = "https://localhost:7156/api/Movie";
+        //APIAddress = "https://fvtcdp.azurewebsites.net/api/Movie";
         //APIAddress = "https://d0a6-72-135-194-142.ngrok-free.app/api/Movie";
 
         NavigateCommand = new Command<Type>(
