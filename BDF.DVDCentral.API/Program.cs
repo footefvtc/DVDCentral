@@ -1,6 +1,7 @@
 using BDF.DVDCentral.API.Helpers;
 using BDF.DVDCentral.API.Hubs;
 using BDF.DVDCentral.API.Services;
+using FVTC.Utility;
 using Microsoft.Extensions.Configuration;
 using Serilog;
 
@@ -9,11 +10,23 @@ public class Program
     private static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
-
+        string? connectionString = null;
+        connectionString = KeyVaultClient.GetSecret("Connection-String-Prod").Result;
+        //Task.Run(async () =>
+        //{
+        //    connectionString = await KeyVaultClient.GetSecret("Connection-String-Prod");
+        //});
+        
+        if (connectionString == null)
+        {
+            connectionString = builder.Configuration.GetConnectionString("DVDCentralConnection");
+        }
+        
         // Add services to the container.
         builder.Services.AddDbContextPool<DVDCentralEntities>(options =>
         {
-            options.UseSqlServer(builder.Configuration.GetConnectionString("DVDCentralConnection"));
+            //options.UseSqlServer(builder.Configuration.GetConnectionString("DVDCentralConnection"));
+            options.UseSqlServer(connectionString);
             options.UseLazyLoadingProxies();
         });
 
@@ -50,6 +63,7 @@ public class Program
         var app = builder.Build();
 
         app.Logger.LogInformation("Starting DVDCentral API...");
+        
 
         // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())
