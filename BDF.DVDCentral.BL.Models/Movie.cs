@@ -29,5 +29,19 @@ namespace BDF.DVDCentral.BL.Models
         public List<Genre> Genres { get; set; } = new List<Genre>();
         [DisplayName("Quantity")]
         public int Count { get; set; }
+
+        public string GenreDescription
+        {
+            get
+            {
+
+                string result = "";
+                foreach (Genre genre in Genres)
+                {
+                    result += genre.Description + " ";
+                }
+                return result;
+            }
+        }
     }
 }

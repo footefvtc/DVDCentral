@@ -4,31 +4,43 @@
              x:Class="BDF.DVDCentral.MAUI.MovieListPage"
              Title="Movie List" Loaded="ContentPage_Loaded">
     <StackLayout Margin="0" BackgroundColor="CornflowerBlue">
-        <CollectionView x:Name="cvMovies" ItemsSource="{Binding movies}">
+        <CollectionView x:Name="cvMovies" 
+                        ItemsSource="{Binding movies}" 
+                        SelectionMode="Single"
+                        SelectionChanged="cvMovies_SelectionChanged">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Grid Padding="10">
+                    <Grid Padding="5">
                         <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="150" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
-                        <Image Grid.RowSpan="2" 
-                               Source="{Binding ImagePath}" 
+                        <Border StrokeShape="RoundRectangle 10"
+                                StrokeThickness="0"
+                                Grid.RowSpan="4">
+                            <Image 
+                               Source="starwars.jpg" 
                                Aspect="AspectFill"
-                               HeightRequest="60" 
-                               WidthRequest="60" />
+                               HeightRequest="100" 
+                               WidthRequest="100"/>
+                        </Border>
                         <Label Grid.Column="1" 
-                               Text="{Binding Title}" 
-                               TextColor="Yellow"
-                               FontSize="24"
-                               BackgroundColor="#663399"
-                               FontAttributes="Bold" />
+                            Text="{Binding Title}" 
+                            TextColor="Yellow"
+                            FontSize="24"
+                            FontAttributes="Bold" />
+                        <Label Grid.Column="1" 
+                               Grid.Row="4" 
+                               Text="{Binding GenreDescription}" 
+                               TextColor="White"
+                               FontSize="24" />
                         <Label Grid.Row="1"
                                Grid.Column="1" 
                                Text="{Binding FormatDescription}"

@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 
-namespace BDF.DVDCentral.MAUI
+namespace BDF.DVDCentral.MAUI.Pages
 {
     public static class MauiProgram
     {

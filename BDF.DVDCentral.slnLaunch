@@ -1,30 +1,15 @@
 [
   {
-    "Name": "New Profile",
+    "Name": "MAUI & API",
     "Projects": [
-      {
-        "Path": "BDF.DVDCentrol.UIConsole\\BDF.DVDCentrol.UIConsole.csproj",
-        "Action": "Start"
-      },
-      {
-        "Path": "BDF.DVDCentral.WinFormUI\\BDF.DVDCentral.WinFormUI.csproj",
-        "Action": "Start"
-      },
-      {
-        "Path": "BDF.DVDCentral.WPFUI\\BDF.DVDCentral.WPFUI.csproj",
-        "Action": "Start"
-      },
-      {
-        "Path": "BDF.DVDCentral.UI\\BDF.DVDCentral.UI.csproj",
-        "Action": "Start"
-      },
       {
         "Path": "BDF.DVDCentral.API\\BDF.DVDCentral.API.csproj",
         "Action": "Start"
       },
       {
         "Path": "BDF.DVDCentral.MAUI\\BDF.DVDCentral.MAUI.csproj",
-        "Action": "Start"
+        "Action": "Start",
+        "DebugTarget": "Medium Phone API 35 (Android 15.0 - API 35)"
       }
     ]
   }

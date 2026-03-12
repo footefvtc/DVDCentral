@@ -1,4 +1,5 @@
-﻿using Foundation;
+﻿using BDF.DVDCentral.MAUI.Pages;
+using Foundation;
 
 namespace BDF.DVDCentral.MAUI
 {
