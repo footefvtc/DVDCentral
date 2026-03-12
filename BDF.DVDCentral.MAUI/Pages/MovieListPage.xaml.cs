@@ -34,6 +34,13 @@ public partial class MovieListPage : ContentPage
 
     }
 
+    async void OnItemClicked(object sender, EventArgs e)
+    {
+        string dataToPass = "Detailed Information";
+        //Movie movie = (Movie)(sender).BindingContext;
+        //await Navigation.PushAsync(new MovieDetailsPage(movie));
+    }
+
     private async void Reload()
     {
         ApiClient apiClient = new ApiClient(APIAddress);
@@ -47,38 +54,27 @@ public partial class MovieListPage : ContentPage
         cvMovies.ItemsSource = movies;
     }
 
-    private void StackLayout_Loaded(object sender, EventArgs e)
-    {
-
-    }
-
     private void ContentPage_Loaded(object sender, EventArgs e)
     {
         Reload();
     }
 
-    //private async void Reload()
-    //{
-    //    try
-    //    {
-    //        Movies = (List<Movie>)await MovieManager.Load();
+    async void cvMovies_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        if (e.CurrentSelection != null && e.CurrentSelection.Any())
+        {
+            // Get the selected image data model
+            var movie = (Movie)e.CurrentSelection.FirstOrDefault();
 
-    //        dgMovies.ItemsSource = null;
-    //        dgMovies.ItemsSource = Movies;
+            // Handle the click (e.g., navigate to a detail page, show a popup)
+            //DisplayAlert("Image Clicked", $"You clicked on image: {selectedImage.ImageSourceUrl}", "OK");
 
-    //        dgMovies.Columns[0].Visibility = Visibility.Hidden;
-    //        dgMovies.Columns[1].Visibility = Visibility.Hidden;
-    //        dgMovies.Columns[2].Visibility = Visibility.Hidden;
-    //        dgMovies.Columns[3].Visibility = Visibility.Hidden;
+            // Optional: clear the selection so another click on the same item is registered
+            ((CollectionView)sender).SelectedItem = null;
+            await Navigation.PushAsync(new MovieDetailsPage(movie));
+        }
 
-
-    //    }
-    //    catch (Exception ex)
-    //    {
-
-    //        throw ex;
-    //    }
-
-    //}
+        
+    }
 }
 

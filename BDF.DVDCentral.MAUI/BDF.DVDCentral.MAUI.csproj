@@ -77,16 +77,22 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="MovieListPage.xaml.cs">
+	  <Compile Update="Pages\MovieDetailsPage.xaml.cs">
+	    <DependentUpon>MovieDetailsPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Pages\MovieListPage.xaml.cs">
 	    <DependentUpon>MovieListPage.xaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="LunchOrderPage.xaml">
+	  <MauiXaml Update="Pages\LunchOrderPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="MovieListPage.xaml">
+	  <MauiXaml Update="Pages\MovieDetailsPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\MovieListPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

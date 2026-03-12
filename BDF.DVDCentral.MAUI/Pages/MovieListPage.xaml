@@ -4,7 +4,10 @@
              x:Class="BDF.DVDCentral.MAUI.MovieListPage"
              Title="Movie List" Loaded="ContentPage_Loaded">
     <StackLayout Margin="0" BackgroundColor="CornflowerBlue">
-        <CollectionView x:Name="cvMovies" ItemsSource="{Binding movies}">
+        <CollectionView x:Name="cvMovies" 
+                        ItemsSource="{Binding movies}" 
+                        SelectionMode="Single"
+                        SelectionChanged="cvMovies_SelectionChanged">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Grid Padding="10">
@@ -22,7 +25,7 @@
                                Source="{Binding ImagePath}" 
                                Aspect="AspectFill"
                                HeightRequest="60" 
-                               WidthRequest="60" />
+                               WidthRequest="60"/>
                         <Label Grid.Column="1" 
                                Text="{Binding Title}" 
                                TextColor="Yellow"
