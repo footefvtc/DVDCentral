@@ -49,11 +49,9 @@
                             FontAttributes="Bold" />
                         <Label Grid.Column="1" 
                                Grid.Row="4" 
-                               Text="{Binding ImagePath}" 
-                               TextColor="Yellow"
-                               FontSize="24"
-                               BackgroundColor="#663399"
-                               FontAttributes="Bold" />
+                               Text="{Binding GenreDescription}" 
+                               TextColor="White"
+                               FontSize="24" />
                         <Label Grid.Row="1"
                                Grid.Column="1" 
                                Text="{Binding FormatDescription}"

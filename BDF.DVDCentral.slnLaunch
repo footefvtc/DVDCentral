@@ -1,6 +1,6 @@
 [
   {
-    "Name": "New Profile",
+    "Name": "MAUI & API",
     "Projects": [
       {
         "Path": "BDF.DVDCentral.API\\BDF.DVDCentral.API.csproj",
@@ -8,7 +8,8 @@
       },
       {
         "Path": "BDF.DVDCentral.MAUI\\BDF.DVDCentral.MAUI.csproj",
-        "Action": "Start"
+        "Action": "Start",
+        "DebugTarget": "Medium Phone API 35 (Android 15.0 - API 35)"
       }
     ]
   }
