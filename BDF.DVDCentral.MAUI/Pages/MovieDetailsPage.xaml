@@ -14,11 +14,13 @@
         <Label x:Name="FormatLabel" FontSize="16" TextColor="White"/>
         <Label x:Name="DirectorLabel" FontSize="16" TextColor="White"/>
         <Label x:Name="DescriptionLabel" FontSize="16" TextColor="White"/>
+        <Entry x:Name="txtTitle"></Entry>
         <Image x:Name="MovieImage"
             Source="starwars.jpg" 
             Aspect="AspectFill"
             Margin="25" 
             HeightRequest="300" 
             WidthRequest="300"/>
+        <Button x:Name="btnEdit" Text="Edit" Clicked="btnEdit_Clicked"/>
     </VerticalStackLayout>
 </ContentPage>

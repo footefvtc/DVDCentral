@@ -1,6 +1,7 @@
 ﻿using BDF.DVDCentral.BL.Models;
 using FVTC.Utility;
 using Microsoft.Extensions.Logging;
+using System.Net;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -31,6 +32,7 @@ namespace BDF.DVDCentral.WPFUI
         {
             InitializeComponent();
             screenMode = screenmode;
+            APIAddress = "https://dvdcentralapi-120212964.azurewebsites.net/api/";
 
             Reload();
 
