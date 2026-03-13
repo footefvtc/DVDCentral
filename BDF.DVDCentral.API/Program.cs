@@ -12,15 +12,11 @@ public class Program
         var builder = WebApplication.CreateBuilder(args);
         string? connectionString = null;
         connectionString = KeyVaultClient.GetSecret("Connection-String-Prod").Result;
-        //Task.Run(async () =>
+                
+        //if (connectionString == null)
         //{
-        //    connectionString = await KeyVaultClient.GetSecret("Connection-String-Prod");
-        //});
-        
-        if (connectionString == null)
-        {
-            connectionString = builder.Configuration.GetConnectionString("DVDCentralConnection");
-        }
+        //    connectionString = builder.Configuration.GetConnectionString("DVDCentralConnection");
+        //}
         
         // Add services to the container.
         builder.Services.AddDbContextPool<DVDCentralEntities>(options =>
