@@ -30,7 +30,17 @@ namespace BDF.DVDCentral.MAUI
             ApiClient apiClient = new ApiClient(APIAddress);
             var response = apiClient.Put<Movie>(movie, "Movie", movie.Id);
             string result = response.Content.ReadAsStringAsync().Result;
-            
+            DisplayAlertAsync("Edit", result, "OK");
+        }
+
+        private void btnInsert_Clicked(object sender, EventArgs e)
+        {
+            Movie movie = new Movie();  
+            movie.Title = txtTitle.Text;
+            ApiClient apiClient = new ApiClient(APIAddress);
+            var response = apiClient.Post<Movie>(movie, "Movie");
+            string result = response.Content.ReadAsStringAsync().Result;
+            DisplayAlertAsync("Insert", result, "OK");
         }
     }
 }

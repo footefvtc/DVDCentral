@@ -21,6 +21,9 @@
             Margin="25" 
             HeightRequest="300" 
             WidthRequest="300"/>
-        <Button x:Name="btnEdit" Text="Edit" Clicked="btnEdit_Clicked"/>
+        <HorizontalStackLayout Spacing="10">
+            <Button x:Name="btnEdit" Text="Edit" Clicked="btnEdit_Clicked"/>
+            <Button x:Name="btnInsert" Text="Insert" Clicked="btnInsert_Clicked"/>
+        </HorizontalStackLayout>
     </VerticalStackLayout>
 </ContentPage>
