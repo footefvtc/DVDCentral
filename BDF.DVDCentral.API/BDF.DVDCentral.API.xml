@@ -4,6 +4,17 @@
         <name>BDF.DVDCentral.API</name>
     </assembly>
     <members>
+        <member name="M:BDF.DVDCentral.API.Controllers.CustomerController.#ctor(Microsoft.Extensions.Logging.ILogger{BDF.DVDCentral.API.Controllers.CustomerController},Microsoft.EntityFrameworkCore.DbContextOptions{BDF.DVDCentral.PL.Data.DVDCentralEntities})">
+            <summary>
+            Initializes a new instance of the CustomerController class with the specified logger and database context
+            options.
+            </summary>
+            <remarks>This constructor is intended for use with dependency injection to supply the required
+            services for the controller.</remarks>
+            <param name="logger">The logger used to record diagnostic and operational information for the CustomerController. Cannot be null.</param>
+            <param name="options">The options used to configure the DVDCentralEntities database context, including connection settings. Cannot
+            be null.</param>
+        </member>
         <member name="M:BDF.DVDCentral.API.Controllers.GenericController`3.Get">
             <summary>
             Get all records of type T from the database and return as JSON

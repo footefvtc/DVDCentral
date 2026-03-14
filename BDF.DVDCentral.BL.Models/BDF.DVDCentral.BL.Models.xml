@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>BDF.DVDCentral.BL.Models</name>
+    </assembly>
+    <members>
+        <member name="T:BDF.DVDCentral.BL.Models.Customer">
+            <summary>
+            Represents a customer and provides access to their personal and contact information.
+            </summary>
+            <remarks>The Customer class encapsulates details such as the customer's name, address, phone number,
+            and associated user identifier. The CustomerFullName property combines the first and last names for convenience.
+            This class is typically used to store and retrieve customer information within the application.</remarks>
+        </member>
+        <member name="P:BDF.DVDCentral.BL.Models.Customer.FirstName">
+            <summary>
+            Gets or sets the first name of the customer.[DisplayName("First Name")]
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -2,6 +2,8 @@ using BDF.DVDCentral.API.Helpers;
 using BDF.DVDCentral.API.Hubs;
 using BDF.DVDCentral.API.Services;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
+using Microsoft.OpenApi;
 using Serilog;
 using System.Reflection;
 
@@ -35,6 +37,26 @@ public class Program
         // config project documentation
         builder.Services.AddSwaggerGen(c =>
         {
+            c.SwaggerDoc("v1", new OpenApiInfo
+            {
+                Version = "v1",
+                Title = "DVDCentral API",
+                Description = "An ASP.NET Core Web API for managing DVDCentral items",
+                TermsOfService = new Uri("https://example.com/terms"),
+                Contact = new OpenApiContact
+                {
+                    Name = "Brian Foote",
+                    Email = "120212964@fvtc.edu", 
+                    Url = new Uri("https://example.com/contact")
+                },
+                License = new OpenApiLicense
+                {
+                    Name = "Example License",
+                    Url = new Uri("https://example.com/license")
+                }
+            });
+
+
             var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
             var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
             c.IncludeXmlComments(xmlPath);
@@ -63,7 +85,14 @@ public class Program
         if (app.Environment.IsDevelopment())
         {
             app.UseSwagger();
-            app.UseSwaggerUI();
+            app.UseSwaggerUI(options =>
+            {
+                options.DocumentTitle = "My API Explorer";
+                options.SwaggerEndpoint("/swagger/v1/swagger.json", "API v1");
+                options.InjectStylesheet("/swagger-ui/custom.css");
+                
+
+            });
         }
 
         app.UseMiddleware<JwtMiddleware>();
