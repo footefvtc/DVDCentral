@@ -8,13 +8,12 @@
       "BDF.DVDCentral.BL.Test\\BDF.DVDCentral.BL.Test.csproj",
       "BDF.DVDCentral.BL\\BDF.DVDCentral.BL.csproj",
       "BDF.DVDCentral.DB\\BDF.DVDCentral.DB.sqlproj",
-      "BDF.DVDCentral.MAUI\\BDF.DVDCentral.MAUI.csproj",
       "BDF.DVDCentral.MigrationHandler\\BDF.DVDCentral.MigrationHandler.csproj",
       "BDF.DVDCentral.PL.Test\\BDF.DVDCentral.PL.Test.csproj",
       "BDF.DVDCentral.PL\\BDF.DVDCentral.PL.csproj",
       "BDF.DVDCentral.UI\\BDF.DVDCentral.UI.csproj",
-      "BDF.DVDCentral.WPFUI\\BDF.DVDCentral.WPFUI.csproj",
       "BDF.DVDCentrol.UIConsole\\BDF.DVDCentrol.UIConsole.csproj",
+      "BDF.LunchOrder.Web\\BDF.LunchOrder.Web.csproj",
       "FVTC.Utility\\FVTC.Utility.csproj"
     ]
   }
