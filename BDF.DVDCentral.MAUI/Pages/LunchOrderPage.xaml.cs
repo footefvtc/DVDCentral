@@ -48,7 +48,7 @@ namespace BDF.DVDCentral.MAUI
                 {
                     LocalNotificationCenter.Current.Show(request);
                 }
-            }
+            } 
             else
             {
                 LocalNotificationCenter.Current.Show(request);
