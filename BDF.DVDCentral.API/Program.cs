@@ -3,6 +3,7 @@ using BDF.DVDCentral.API.Hubs;
 using BDF.DVDCentral.API.Services;
 using Microsoft.Extensions.Configuration;
 using Serilog;
+using System.Reflection;
 
 public class Program
 {
@@ -31,7 +32,14 @@ public class Program
         builder.Services.AddControllers();
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
-        builder.Services.AddSwaggerGen();
+        // config project documentation
+        builder.Services.AddSwaggerGen(c =>
+        {
+            var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+            var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+            c.IncludeXmlComments(xmlPath);
+
+        });
 
         var configSettings = new ConfigurationBuilder()
           .AddJsonFile("appsettings.json")
