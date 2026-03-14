@@ -69,6 +69,7 @@ namespace BDF.DVDCentral.WPFUI
             LunchItem mainDish = mainDishes[whichMainDish];
             string hubAddress = "https://fvtcdp.azurewebsites.net/BingoHub";
             //hubAddress = "https://localhost:7156/dvdcentralhub";
+            hubAddress = "https://dvdcentralapi-120212964.azurewebsites.net/DVDCentralHub";
             var signalRClient = new SignalRClient(hubAddress);
             signalRClient.CallSignalR += new SignalRClient.SignalREventHandler(trigger_CallSignalR);
 

@@ -41,7 +41,7 @@ namespace BDF.DVDCentral.MAUI
                     NotifyTime = DateTime.Now.AddSeconds(5) // Schedule the notification to appear after 5 seconds.
                 }
             };
-
+#if ANDROID     
             if (!LocalNotificationCenter.Current.AreNotificationsEnabled().Result)
             {
                 if (LocalNotificationCenter.Current.RequestNotificationPermission().Result)
@@ -53,11 +53,12 @@ namespace BDF.DVDCentral.MAUI
             {
                 LocalNotificationCenter.Current.Show(request);
             }
+#endif
         }
 
-        async void OnButtonClicked(object sender, EventArgs e)
+            async void OnButtonClicked(object sender, EventArgs e)
         {
-            string user = "Frank";
+            string user = "Bob";
             LunchItem mainDish = mainDishes[whichMainDish];
             string hubAddress = "https://fvtcdp.azurewebsites.net/BingoHub";
             hubAddress = "https://dvdcentralapi-120212964.azurewebsites.net/DVDCentralHub";

@@ -9,6 +9,14 @@
       {
         "Path": "BDF.DVDCentrol.UIConsole\\BDF.DVDCentrol.UIConsole.csproj",
         "Action": "Start"
+      },
+      {
+        "Path": "BDF.DVDCentral.WPFUI\\BDF.DVDCentral.WPFUI.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "BDF.DVDCentral.WinFormUI\\BDF.DVDCentral.WinFormUI.csproj",
+        "Action": "Start"
       }
     ]
   }

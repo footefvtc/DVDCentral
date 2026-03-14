@@ -56,6 +56,7 @@ namespace BDF.DVDCentral.WinFormUI
             string user = "Brian";
             LunchItem mainDish = mainDishes[whichMainDish];
             string hubAddress = "https://fvtcdp.azurewebsites.net/BingoHub";
+            hubAddress = "https://dvdcentralapi-120212964.azurewebsites.net/DVDCentralHub";
             //hubAddress = "https://localhost:7156/dvdcentralhub";
 
             var signalRClient = new SignalRClient(hubAddress);
