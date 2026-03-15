@@ -14,7 +14,7 @@
       "BDF.DVDCentral.UI\\BDF.DVDCentral.UI.csproj",
       "BDF.DVDCentral.WPFUI\\BDF.DVDCentral.WPFUI.csproj",
       "BDF.DVDCentral.WinFormUI\\BDF.DVDCentral.WinFormUI.csproj",
-      "BDF.DVDCentrol.UIConsole\\BDF.DVDCentrol.UIConsole.csproj",
+      "BDF.DVDCentrol.UIConsole\\BDF.DVDCentral.UIConsole.csproj",
       "BDF.LunchOrder.Web\\BDF.LunchOrder.Web.csproj",
       "FVTC.Utility\\FVTC.Utility.csproj"
     ]
