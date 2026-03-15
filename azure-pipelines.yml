@@ -20,7 +20,7 @@ steps:
   inputs:
     azureSubscription: 'AzureConnection'                ## YOUR_SERVICE_CONNECTION_NAME
     KeyVaultName: 'kv-101521081-120212964'                         ## YOUR_KEY_VAULT_NAME
-    SecretsFilter: 'DVDCentral-ConnectionString'         ## YOUR_SECRET_NAME. Default value: *
+    SecretsFilter: 'Connection-String-Prod'         ## YOUR_SECRET_NAME. Default value: *
     RunAsPreJob: false                                   ## Make the secret(s) available to the whole job
 
 - task: PowerShell@2
