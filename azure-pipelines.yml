@@ -10,7 +10,7 @@ pool:
   vmImage: 'windows-latest'
 
 variables:
-  solution: '**/*.slnf'
+  solution: '**/*.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
 
@@ -21,14 +21,30 @@ steps:
   inputs:
     restoreSolution: '$(solution)'
 
-- task: VSBuild@1
+- task: DotNetCoreCLI@2
+  displayName: Build Console App
   inputs:
-    solution: '$(solution)'
-    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactStagingDirectory)"'
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
+    command: build
+    projects: 'BDF.DVDCentral/BDF.DVDCentral.ConsoleApp/BDF.DVDCentral.ConsoleApp.csproj'
+    arguments: '--configuration Debug' 
 
-- task: VSTest@2
+- task: DotNetCoreCLI@2
+  displayName: Build API Project
   inputs:
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
+    command: build
+    projects: 'BDF.DVDCentral/BDF.DVDCentral.API/BDF.DVDCentral.API.csproj'
+    arguments: '--configuration Debug'
+
+- task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: 'BDF.DVDCentral\BDF.DVDCentral.ConsoleApp\bin\Debug\net10.0'
+    includeRootFolder: false
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)/BDF.DVDCentral.ConsoleApp.zip'
+    replaceExistingArchive: true   
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container' 
