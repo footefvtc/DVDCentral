@@ -39,15 +39,15 @@ steps:
   displayName: Test PL
   inputs:
     command: test
-    projects: 'BDF.DVDCentral.PL.Test/BDF.DVDCentral.PL.Test.csproj'
+    projects: 'BDF.DVDCentral/BDF.DVDCentral.PL.Test/BDF.DVDCentral.PL.Test.csproj'
     arguments: '--configuration Debug' 
 
 - task: DotNetCoreCLI@2
   displayName: Test BL
   inputs:
     command: test
-    projects: 'BDF.DVDCentral.BL.Test/BDF.DVDCentral.BL.Test.csproj'
-    arguments: '--configuration Debug'     
+    projects: 'BDF.DVDCentral/BDF.DVDCentral.BL.Test/BDF.DVDCentral.BL.Test.csproj'
+    arguments: '--configuration $(BuildConfiguration) --collect "XPlat Code coverage" -- RunConfiguration.DisableAppDomain=true' 
     
 - task: ArchiveFiles@2
   inputs:
