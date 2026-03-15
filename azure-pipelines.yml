@@ -56,12 +56,12 @@ steps:
     projects: 'BDF.DVDCentral.PL.Test/BDF.DVDCentral.PL.Test.csproj'
     arguments: '--configuration Debug' 
 
-#- task: DotNetCoreCLI@2
-# displayName: Test BL
-#  inputs:
-#    command: test
-#    projects: 'BDF.DVDCentral.BL.Test/BDF.DVDCentral.BL.Test.csproj'
-#    arguments: '--configuration $(BuildConfiguration) --collect "XPlat Code coverage" -- RunConfiguration.DisableAppDomain=true'
+- task: DotNetCoreCLI@2
+  displayName: Test BL
+  inputs:
+    command: test
+    projects: 'BDF.DVDCentral.BL.Test/BDF.DVDCentral.BL.Test.csproj'
+    arguments: '--configuration $(BuildConfiguration) --collect "XPlat Code coverage" -- RunConfiguration.DisableAppDomain=true'
     
 - script: 'dotnet tool install --global dotnet-reportgenerator-globaltool --version 5.1.19'  
   displayName: 'Install ReportGenerator tool'  
