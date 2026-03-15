@@ -41,6 +41,13 @@ steps:
     command: test
     projects: 'BDF.DVDCentral.PL.Test/BDF.DVDCentral.PL.Test.csproj'
     arguments: '--configuration Debug' 
+
+- task: DotNetCoreCLI@2
+  displayName: Test BL
+  inputs:
+    command: test
+    projects: 'BDF.DVDCentral.BL.Test/BDF.DVDCentral.BL.Test.csproj'
+    arguments: '--configuration Debug'     
     
 - task: ArchiveFiles@2
   inputs:
