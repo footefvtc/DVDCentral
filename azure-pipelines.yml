@@ -35,6 +35,13 @@ steps:
     projects: 'BDF.DVDCentral.API/BDF.DVDCentral.API.csproj'
     arguments: '--configuration Debug'
 
+- task: DotNetCoreCLI@2
+  displayName: Test PL
+  inputs:
+    command: test
+    projects: 'BDF.DVDCentral.PL.Test/BDF.DVDCentral.PL.Test.csproj'
+    arguments: '--configuration Debug' 
+    
 - task: ArchiveFiles@2
   inputs:
     rootFolderOrFile: 'BDF.DVDCentral.UIConsole\bin\Debug\net10.0'
