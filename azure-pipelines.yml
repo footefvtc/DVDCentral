@@ -25,19 +25,19 @@ steps:
   displayName: Build Console App
   inputs:
     command: build
-    projects: 'BDF.DVDCentral/BDF.DVDCentral.UIConsole/BDF.DVDCentral.UIConsole.csproj'
+    projects: 'DVDCentral/BDF.DVDCentral.UIConsole/BDF.DVDCentral.UIConsole.csproj'
     arguments: '--configuration Debug' 
 
 - task: DotNetCoreCLI@2
   displayName: Build API Project
   inputs:
     command: build
-    projects: 'BDF.DVDCentral/BDF.DVDCentral.API/BDF.DVDCentral.API.csproj'
+    projects: 'DVDCentral/BDF.DVDCentral.API/BDF.DVDCentral.API.csproj'
     arguments: '--configuration Debug'
 
 - task: ArchiveFiles@2
   inputs:
-    rootFolderOrFile: 'BDF.DVDCentral\BDF.DVDCentral.ConsoleApp\bin\Debug\net10.0'
+    rootFolderOrFile: 'DVDCentral\BDF.DVDCentral.ConsoleApp\bin\Debug\net10.0'
     includeRootFolder: false
     archiveType: 'zip'
     archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)/BDF.DVDCentral.ConsoleApp.zip'
