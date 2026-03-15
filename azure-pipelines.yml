@@ -37,10 +37,10 @@ steps:
 
 - task: ArchiveFiles@2
   inputs:
-    rootFolderOrFile: 'BDF.DVDCentral\BDF.DVDCentral.ConsoleApp\bin\Debug\net10.0'
+    rootFolderOrFile: 'BDF.DVDCentral.UIConsole\bin\Debug\net10.0'
     includeRootFolder: false
     archiveType: 'zip'
-    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)/BDF.DVDCentral.ConsoleApp.zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)/BDF.DVDCentral.UIConsole.zip'
     replaceExistingArchive: true   
 
 - task: PublishBuildArtifacts@1
