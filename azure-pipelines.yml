@@ -25,7 +25,7 @@ steps:
   displayName: Build Console App
   inputs:
     command: build
-    projects: 'BDF.DVDCentral/BDF.DVDCentral.ConsoleApp/BDF.DVDCentral.ConsoleApp.csproj'
+    projects: 'BDF.DVDCentral/BDF.DVDCentral.UIConsole/BDF.DVDCentral.UIConsole.csproj'
     arguments: '--configuration Debug' 
 
 - task: DotNetCoreCLI@2
