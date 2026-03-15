@@ -28,6 +28,6 @@ steps:
   inputs:
     targetType: 'inline'
     #script: 'Write-Host "Connection String: $(Connection-String-Prod)"' 
-    script: 'Callers ID: $(Build.RequestedForId)'
+    script: 'Write-Host "Callers ID: $(Build.RequestedForId)"'
 
 
