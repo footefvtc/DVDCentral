@@ -27,6 +27,6 @@ steps:
   displayName: Display version of app
   inputs:
     targetType: 'inline'
-    script: 'Write-Host "Connection String: $(DVDCentral-ConnectionString)"' 
+    script: 'Write-Host "Connection String: $(Connection-String-Prod)"' 
 
 
