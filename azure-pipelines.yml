@@ -35,16 +35,16 @@ steps:
     projects: 'BDF.DVDCentral.API/BDF.DVDCentral.API.csproj'
     arguments: '--configuration Debug'
 
-- task: ArchiveFiles@2
-  inputs:
-    rootFolderOrFile: 'BDF.DVDCentral.UIConsole\bin\Debug\net10.0'
-    includeRootFolder: false
-    archiveType: 'zip'
-    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)/BDF.DVDCentral.UIConsole.zip'
-    replaceExistingArchive: true   
+#- task: ArchiveFiles@2
+#  inputs:
+#    rootFolderOrFile: 'BDF.DVDCentral.UIConsole\bin\Debug\net10.0'
+#    includeRootFolder: false
+#    archiveType: 'zip'
+#    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)/BDF.DVDCentral.UIConsole.zip'
+#    replaceExistingArchive: true   
 
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'drop'
-    publishLocation: 'Container' 
+#- task: PublishBuildArtifacts@1
+#  inputs:
+#    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+#    ArtifactName: 'drop'
+#    publishLocation: 'Container' 
