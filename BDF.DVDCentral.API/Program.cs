@@ -1,8 +1,10 @@
 using BDF.DVDCentral.API.Helpers;
 using BDF.DVDCentral.API.Hubs;
 using BDF.DVDCentral.API.Services;
+using FVTC.Utility;
 using Microsoft.Extensions.Configuration;
 using Serilog;
+using static Microsoft.CodeAnalysis.CSharp.SyntaxTokenParser;
 
 public class Program
 {
@@ -10,10 +12,14 @@ public class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
+        string? connectionString = KeyVaultClient.GetSecret("DVDCentralConnection").Result;
+        if(connectionString == null)
+            connectionString = builder.Configuration.GetConnectionString("DVDCentralConnection");
+
         // Add services to the container.
         builder.Services.AddDbContextPool<DVDCentralEntities>(options =>
         {
-            options.UseSqlServer(builder.Configuration.GetConnectionString("DVDCentralConnection"));
+            options.UseSqlServer(connectionString);
             options.UseLazyLoadingProxies();
         });
 

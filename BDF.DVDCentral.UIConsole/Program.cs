@@ -70,6 +70,9 @@ internal class Program
                     case "g":
                         getGenres(apiClient);
                         break;
+                    case "k":
+                        KeyVaultClient.GetSecret("Connection-String-Prod");
+                        break;
                     case "m":
                         getMovies(apiClient);
                         break;
@@ -115,6 +118,7 @@ internal class Program
         Console.WriteLine("Connect to the Hub (c)");
         Console.WriteLine("Get Directors (d)");
         Console.WriteLine("Get Genres (g)");
+        Console.WriteLine("Get Secret (k)");
         Console.WriteLine("Get Movies (m)");
         Console.WriteLine("New Number (n)");
         Console.WriteLine("Order a Salad (o)");
