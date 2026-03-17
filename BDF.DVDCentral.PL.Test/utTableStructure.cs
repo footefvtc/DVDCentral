@@ -18,7 +18,7 @@ namespace BDF.DVDCentral.PL.Test
     [TestClass]
     public class utTableStructure
     {
-        const string connstrlocal = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=BDF.DVDCentral.DB;Integrated Security=True";
+        const string connstrlocal = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=BDFX.DVDCentral.DB;Integrated Security=True";
 
 
         public int GetRowCount<T>(DbContext context)
