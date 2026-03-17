@@ -39,7 +39,7 @@ namespace FVTC.Utility
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
                 var result = response.Content.ReadAsStringAsync().Result;
-                var values = JsonConvert.DeserializeObject<Dictionary<string, string>>(result);
+                var values = JsonConvert.DeserializeObject<Dictionary<string, string>>(result)!;
                 Token = values["token"];
                 loggedInUser = new User
                 {
@@ -53,7 +53,7 @@ namespace FVTC.Utility
             else if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
             {
                 var result = response.Content.ReadAsStringAsync().Result;
-                var values = JsonConvert.DeserializeObject<Dictionary<string, string>>(result);
+                var values = JsonConvert.DeserializeObject<Dictionary<string, string>>(result)!;
                 throw new Exception(values["message"]);
             }
             return response.StatusCode;
@@ -88,8 +88,8 @@ namespace FVTC.Utility
             var result = response.Content.ReadAsStringAsync().Result;
             if (response.IsSuccessStatusCode)
             {
-                var items = (JArray)JsonConvert.DeserializeObject(result);
-                return items.ToObject<List<T>>();
+                var items = (JArray)JsonConvert.DeserializeObject(result)!;
+                return items.ToObject<List<T>>()!;
             }
             else
             {
@@ -161,7 +161,7 @@ namespace FVTC.Utility
             {
                 var response = this.GetAsync(controller).Result;
                 var result = response.Content.ReadAsStringAsync().Result;
-                var item = JsonConvert.DeserializeObject(result, typeof(T));
+                var item = JsonConvert.DeserializeObject(result, typeof(T))!;
 
                 return (T)item;
             }

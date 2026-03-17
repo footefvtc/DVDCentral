@@ -5,11 +5,11 @@ namespace FVTC.Utility
     public abstract class SignalRConnection
     {
         private string hubAddress;
-        HubConnection connection;
-        public string User { get; set; }
-        public string Message { get; set; }
+        HubConnection? connection;
+        public string? User { get; set; }
+        public string? Message { get; set; }
 
-        string owner;
+        string owner = string.Empty;
         public SignalRConnection(string hubAddress)
         {
             this.hubAddress = hubAddress;
@@ -21,7 +21,7 @@ namespace FVTC.Utility
             this.owner = owner;
         }
 
-        public HubConnection HubConnection
+        public HubConnection? HubConnection
         {
             get { return connection; } 
         }
@@ -37,7 +37,7 @@ namespace FVTC.Utility
 
         public void Stop()
         {
-            connection.StopAsync();
+            connection?.StopAsync();
         }
 
         public void ConnectToChannel(string user)
@@ -46,7 +46,7 @@ namespace FVTC.Utility
             {
                 Start();
                 string message = user + " connected...";
-                connection.InvokeAsync("SendMessage", "System", message);
+                connection?.InvokeAsync("SendMessage", "System", message);
             }
             catch (Exception)
             {
@@ -59,7 +59,7 @@ namespace FVTC.Utility
         {
             try
             {
-                connection.InvokeAsync("SendMessage", user, message);
+                connection?.InvokeAsync("SendMessage", user, message);
             }
             catch (Exception)
             {

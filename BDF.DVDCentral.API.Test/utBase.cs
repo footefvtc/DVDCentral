@@ -10,10 +10,10 @@
     }
 
     [TestClass]
-    public abstract class utBase<T> where T : class
+    public abstract class utBase
     {
         public HttpClient client { get; }
-        public Type type;
+        public required Type type;
 
         public utBase()
         {
@@ -31,7 +31,7 @@
                 dynamic items;
                 Debug.Write($"Testing Load of {typeof(T).Name}: ");
                 var response = await client.GetStringAsync(typeof(T).Name);
-                items = (JArray)JsonConvert.DeserializeObject(response);
+                items = (JArray)JsonConvert.DeserializeObject(response)!;
                 List<T> values = items.ToObject<List<T>>();
                 Debug.WriteLine($"{values.Count}");
                 Assert.IsTrue(values.Count >= expected);
@@ -58,7 +58,7 @@
                 HttpResponseMessage authResponse = client.PostAsync("user/authenticate", content).Result;
 
                 string result = authResponse.Content.ReadAsStringAsync().Result;
-                Dictionary<string, string> authResults = JsonConvert.DeserializeObject<Dictionary<string, string>>(result);
+                Dictionary<string, string> authResults = JsonConvert.DeserializeObject<Dictionary<string, string>>(result)!;
 
                 if (HttpStatusCode.BadRequest == authResponse.StatusCode)
                 {
@@ -84,7 +84,7 @@
             bool rollback = true;
             HttpResponseMessage response = client.DeleteAsync(typeof(T).Name + "/" + id + "/" + rollback).Result;
             string result = response.Content.ReadAsStringAsync().Result;
-            Dictionary<string, string> dict = JsonConvert.DeserializeObject<Dictionary<string, string>>(result);
+            Dictionary<string, string> dict = JsonConvert.DeserializeObject<Dictionary<string, string>>(result)!;
             int resultValue = 0;
             foreach (var kvp in dict)
             {
@@ -102,11 +102,11 @@
                 dynamic items = (JArray)JsonConvert.DeserializeObject(response)!;
                 List<T> values = items.ToObject<List<T>>();
                 T result = values.Where(filter).FirstOrDefault()!;
-                return (Guid)result.GetType().GetProperty("Id").GetValue(result, null);
+                return (Guid)result.GetType().GetProperty("Id")!.GetValue(result, null)!;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
 
         }

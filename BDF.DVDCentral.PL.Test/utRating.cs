@@ -9,8 +9,7 @@ namespace BDF.DVDCentral.PL.Test
         [TestMethod]
         public void LoadTest()
         {
-            var list = base.LoadTest();
-            Assert.AreEqual(5, list.Count());
+            LoadTest(5);
         }
 
         [TestMethod]
@@ -30,31 +29,31 @@ namespace BDF.DVDCentral.PL.Test
         public void UpdateTest()
         {
             // SELECT * FROM tblRating - use the first one
-            var item = base.LoadTest().FirstOrDefault();
+            var item = dc.tblRatings.FirstOrDefault()!;
 
             // Change a property value
             item.Description = "Test";
 
             int result = UpdateTest(item);
-            Assert.IsTrue(result > 0);
+            Assert.IsGreaterThan(0, result);
         }
 
         [TestMethod]
         public void DeleteTest()
         {
             // Select * from tblRating where id = 3
-            tblRating entity = dc.tblRatings.FirstOrDefault(e => e.Description == "Other");
+            tblRating entity = dc.tblRatings.FirstOrDefault(e => e.Description == "Other")!;
             int result = DeleteTest(entity);
-            Assert.AreNotEqual(result, 0);
+            Assert.IsGreaterThan(0, result);
         }
 
         [TestMethod]
         public void LoadByIdTest()
         {
-            var item = base.LoadTest().FirstOrDefault();
+            var item = dc.tblRatings.FirstOrDefault()!;
 
             // Select * from tblRating where id = 2
-            tblRating entity = dc.tblRatings.Where(e => e.Id == item.Id).FirstOrDefault();
+            tblRating entity = dc.tblRatings.Where(e => e.Id == item.Id).FirstOrDefault()!;
             Assert.AreEqual(entity.Id, item.Id);
         }
 

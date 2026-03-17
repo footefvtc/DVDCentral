@@ -9,8 +9,8 @@ namespace BDF.DVDCentral.API.Controllers;
 public class UserController : GenericController<User, UserManager, DVDCentralEntities>
 {
     private IUserService _userService;
-    private readonly ILogger<UserController> logger;
-    private readonly DbContextOptions<DVDCentralEntities> options;
+    private new readonly ILogger<UserController> logger;
+    private new readonly DbContextOptions<DVDCentralEntities> options;
 
     public UserController(IUserService userService,
                           ILogger<UserController> logger,
@@ -47,15 +47,4 @@ public class UserController : GenericController<User, UserManager, DVDCentralEnt
         var users = _userService.GetAll();
         return Ok(users);
     }
-
-    //[Authorize]
-    //[HttpGet]
-
-    //public IEnumerable<User> Get1()
-    //{
-    //    logger.LogWarning("Get Users");
-    //    //return await new UserManager(options).LoadAsync().Result;
-    //    return null;
-    //    //return _userService.GetAll();
-    //}
 }

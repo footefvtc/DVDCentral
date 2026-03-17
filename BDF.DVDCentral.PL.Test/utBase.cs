@@ -28,10 +28,10 @@ namespace BDF.DVDCentral.PL.Test
             dc = new DVDCentralEntities(options);
         }
 
-        public List<T> LoadTest()
-        {
-            return dc.Set<T>().ToList();
-        }
+        //public List<T> LoadTest()
+        //{
+        //    return dc.Set<T>().ToList();
+        //}
 
         //public T LoadByIdTest(Guid id)
         //{

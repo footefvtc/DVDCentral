@@ -73,7 +73,7 @@ namespace BDF.DVDCentral.UI.Controllers
                 var response = apiClient.Post<T>(entity, typeof(T).Name);
                 var result = response.Content.ReadAsStringAsync().Result;
 
-                // TODO Get the id
+                // TODO bdf Get the id
 
                 return RedirectToAction(nameof(Index));
             }

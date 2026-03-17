@@ -10,13 +10,14 @@
             set { id = value; }
         }
 
-        private string description;
+        private string description = string.Empty;
 
         public string Description
         {
             get { return description; }
             set { description = value; }
-        }
+        } 
+
 
     }
 }

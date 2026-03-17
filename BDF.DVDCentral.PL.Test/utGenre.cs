@@ -9,8 +9,7 @@ namespace BDF.DVDCentral.PL.Test
         [TestMethod]
         public void LoadTest()
         {
-            var list = base.LoadTest();
-            Assert.AreEqual(10, list.Count());
+            LoadTest(10);
         }
 
         [TestMethod]
@@ -30,31 +29,31 @@ namespace BDF.DVDCentral.PL.Test
         public void UpdateTest()
         {
             // SELECT * FROM tblGenre - use the first one
-            var item = base.LoadTest().FirstOrDefault();
+            var item = dc.tblGenres.FirstOrDefault()!;
 
             // Change a property value
             item.Description = "Test";
 
             int result = UpdateTest(item);
-            Assert.IsTrue(result > 0);
+            Assert.IsGreaterThan(0, result);
         }
 
         [TestMethod]
         public void DeleteTest()
         {
             // Select * from tblGenre where id = 3
-            tblGenre entity = dc.tblGenres.FirstOrDefault(e => e.Description == "Other");
+            tblGenre entity = dc.tblGenres.FirstOrDefault(e => e.Description == "Other")!;
             int result = DeleteTest(entity);
-            Assert.AreNotEqual(result, 0);
+            Assert.IsGreaterThan(0, result);
         }
 
         [TestMethod]
         public void LoadByIdTest()
         {
-            var item = base.LoadTest().FirstOrDefault();
+            var item = dc.tblGenres.FirstOrDefault()!;
 
             // Select * from tblGenre where id = 2
-            tblGenre entity = dc.tblGenres.Where(e => e.Id == item.Id).FirstOrDefault();
+            tblGenre entity = dc.tblGenres.Where(e => e.Id == item.Id).FirstOrDefault()!;
             Assert.AreEqual(entity.Id, item.Id);
         }
 

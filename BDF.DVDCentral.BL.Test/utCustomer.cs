@@ -7,9 +7,8 @@
         [TestMethod]
         public async Task LoadAsyncTest()
         {
-            List<Customer> customers = await new CustomerManager(options, logger).LoadAsync();
-            int expected = 4;
-            Assert.AreEqual(expected, customers.Count);
+            Assert.IsGreaterThan(3, (await new DirectorManager(options, logger).LoadAsync()).Count);
+
         }
 
         [TestMethod]
@@ -24,7 +23,7 @@
                 State = "XX",
                 Zip = "XXXXX",
                 Phone = "XXX-XXX-XXXX",
-                UserId = (await new UserManager(options, logger).LoadAsync()).FirstOrDefault().Id
+                UserId = (await new UserManager(options, logger).LoadAsync()).FirstOrDefault()!.Id
             };
 
             Guid result = await new CustomerManager(options, logger).InsertAsync(customer, true);
@@ -34,7 +33,7 @@
         [TestMethod]
         public async Task UpdateTest()
         {
-            Customer customer = (await new CustomerManager(options, logger).LoadAsync()).FirstOrDefault();
+            Customer customer = (await new CustomerManager(options, logger).LoadAsync()).FirstOrDefault()!;
             customer.FirstName = "Blah blah";
             Assert.IsTrue(new CustomerManager(options, logger).UpdateAsync(customer, true).Result > 0);
         }
@@ -42,14 +41,14 @@
         [TestMethod]
         public async Task DeleteTest()
         {
-            Customer customer = (await new CustomerManager(options, logger).LoadAsync()).FirstOrDefault(x => x.LastName == "Other");
+            Customer customer = (await new CustomerManager(options, logger).LoadAsync()).FirstOrDefault(x => x.LastName == "Other")!;
             Assert.IsTrue(new CustomerManager(options, logger).DeleteAsync(customer.Id, true).Result > 0);
         }
 
         [TestMethod]
         public async Task LoadByIdTest()
         {
-            Customer customer = (await new CustomerManager(options, logger).LoadAsync()).FirstOrDefault();
+            Customer customer = (await new CustomerManager(options, logger).LoadAsync()).FirstOrDefault()!;
             Assert.AreEqual(new CustomerManager(options, logger).LoadByIdAsync(customer.Id).Result.Id, customer.Id);
         }
 

@@ -17,9 +17,9 @@ namespace BDF.DVDCentral.PL.Test
         {
             // Make an entity
             tblOrderItem entity = new tblOrderItem();
-            entity.OrderId = base.LoadTest().FirstOrDefault().OrderId;
+            entity.OrderId = dc.tblOrderItems.FirstOrDefault()!.OrderId;
             entity.Quantity = 2;
-            entity.MovieId = base.LoadTest().FirstOrDefault().MovieId;
+            entity.MovieId = dc.tblOrderItems.FirstOrDefault()!.MovieId;
             entity.Cost = 16.00;
 
             // Add the entity to the database
@@ -34,24 +34,24 @@ namespace BDF.DVDCentral.PL.Test
         public void UpdateTest()
         {
             // SELECT * FROM tblOrderItems - use the first one
-            tblOrderItem entity = dc.tblOrderItems.FirstOrDefault();
+            tblOrderItem entity = dc.tblOrderItems.FirstOrDefault()!;
 
             // Change a property value
             entity.MovieId = dc.tblMovies.FirstOrDefault(x => x.Title == "Other")!.Id;
 
             int result = dc.SaveChanges();
-            Assert.IsTrue(result > 0);
+            Assert.IsGreaterThan(0, result);
         }
 
         [TestMethod]
         public void DeleteTest()
         {
             // Select * from tblOrderItem where id = 3
-            tblOrderItem entity = dc.tblOrderItems.FirstOrDefault();
+            tblOrderItem entity = dc.tblOrderItems.FirstOrDefault()!;
 
             dc.tblOrderItems.Remove(entity);
             int result = dc.SaveChanges();
-            Assert.AreNotEqual(result, 0);
+            Assert.IsGreaterThan(0, result);
         }
     }
 }

@@ -24,7 +24,7 @@ namespace BDF.DVDCentral.WPFUI
 
             foreach (var rb in mainRadioButtons)
             {
-                RadioButton rbtnMainDish = (rb as RadioButton);
+                RadioButton rbtnMainDish = (rb as RadioButton)!;
                 int index = Convert.ToInt32(rbtnMainDish.Tag);
                 mainDishRadioButtons[index] = rbtnMainDish;
                 rbtnMainDish.Content = mainDishes[index].ItemText;
@@ -32,7 +32,7 @@ namespace BDF.DVDCentral.WPFUI
 
             foreach (var cb in addOnCheckboxes)
             {
-                CheckBox cbxAddOn = (cb as CheckBox);
+                CheckBox cbxAddOn = (cb as CheckBox)!;
                 int index = Convert.ToInt32(cbxAddOn.Tag);
                 addOnDishCheckboxes[index] = cbxAddOn;
             }
@@ -58,7 +58,7 @@ namespace BDF.DVDCentral.WPFUI
             LunchItem mainDish = mainDishes[whichMainDish];
             double cost = mainDish.Cost;
             addOnDishCheckboxes.ToList().ForEach(item => {
-                cost += (bool)item.IsChecked ? mainDish.AddOnCost : 0;
+                cost += (item.IsChecked == true) ? mainDish.AddOnCost : 0;
             });
             lblCost.Content = cost.ToString("C");
         }

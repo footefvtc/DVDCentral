@@ -58,7 +58,7 @@
                 includeProperties[3] = x => x.MovieGenres;
 
 
-                Expression<Func<tblMovie, bool>> filter = null;
+                Expression<Func<tblMovie, bool>>? filter = null;
                 if (genreId != null)
                     filter = mg => mg.MovieGenres.Any(_ => _.GenreId == genreId);
 
@@ -81,21 +81,21 @@
                 throw;
             }
         }
-        public async Task<Movie> LoadByIdAsync(Guid id)
-        {
-            try
-            {
-                List<tblMovie> rows = await base.LoadAsync(e => e.Id == id);
-                if (rows[0] != null)
-                    return Map<tblMovie, Movie>(rows[0]);
-                else
-                    throw new Exception("No row");
+        //public async Task<Movie> LoadByIdAsync(Guid id)
+        //{
+        //    try
+        //    {
+        //        List<tblMovie> rows = await base.LoadAsync(e => e.Id == id);
+        //        if (rows[0] != null)
+        //            return Map<tblMovie, Movie>(rows[0]);
+        //        else
+        //            throw new Exception("No row");
 
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
+        //    }
+        //    catch (Exception)
+        //    {
+        //        throw;
+        //    }
+        //}
     }
 }

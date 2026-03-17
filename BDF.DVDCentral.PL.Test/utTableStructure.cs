@@ -18,14 +18,14 @@ namespace BDF.DVDCentral.PL.Test
     [TestClass]
     public class utTableStructure
     {
-        const string connstrlocal = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=BDF.DVDCentral.DB;Integrated Security=True";
+        const string connstrlocal = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=BDFX.DVDCentral.DB;Integrated Security=True";
 
 
         public int GetRowCount<T>(DbContext context)
         {
             // Get the generic type definition
             var method = typeof(DbContext).GetMethod(
-                nameof(DbContext.Set), BindingFlags.Public | BindingFlags.Instance);
+                nameof(DbContext.Set), BindingFlags.Public | BindingFlags.Instance)!;
 
             // Build a method with the specific type argument you're interested in
             method = method.MakeGenericMethod(typeof(T));
@@ -96,7 +96,7 @@ namespace BDF.DVDCentral.PL.Test
 
                 if (tableType.GetProperty(columnName) != null)
                 {
-                    var property = tableType.GetProperty(columnName);
+                    var property = tableType.GetProperty(columnName)!;
                     if (property.PropertyType.Name.Equals(dataType.ToString()))
                     {
                         message += "Passed: " + tableType.Name + "." + columnName + " (" + dataType.ToString() + ")\r\n";
@@ -180,12 +180,12 @@ namespace BDF.DVDCentral.PL.Test
             foreach (Structure structure1 in structures)
             {
                 Type myType = typeof(utTableStructure);
-                string[] namespaceNames = myType.Namespace.ToString().Split(".");
+                string[] namespaceNames = myType.Namespace!.ToString().Split(".");
                 string namespaceName = namespaceNames[0] + "." + namespaceNames[1] + "." + namespaceNames[2]; // + "2.Entities";
 
                 string tableTypeName = structure1.Type.Replace("BDF", namespaceNames[0]).Split(",")[0];
 
-                Type tableType = Type.GetType(tableTypeName + ", " + namespaceName);
+                Type tableType = Type.GetType(tableTypeName + ", " + namespaceName)!;
 
                 foreach (ColumnInfo column in structure1.ColumnInfos)
                 {
@@ -216,7 +216,7 @@ namespace BDF.DVDCentral.PL.Test
                 client.BaseAddress = new Uri("https://fvtcdp.azurewebsites.net/api/");
                 HttpResponseMessage response = client.GetAsync("TableStructure/DVDCentralV2").Result;
                 string result = response.Content.ReadAsStringAsync().Result;
-                structures = JsonConvert.DeserializeObject<List<Structure>>(result);
+                structures = JsonConvert.DeserializeObject<List<Structure>>(result)!;
                 //TestContext.Out.WriteLine(structures.Count + " structures found.");
                 Debug.WriteLine(structures.Count + " structures found.");
             }

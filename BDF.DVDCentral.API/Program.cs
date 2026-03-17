@@ -1,6 +1,7 @@
 using BDF.DVDCentral.API.Helpers;
 using BDF.DVDCentral.API.Hubs;
 using BDF.DVDCentral.API.Services;
+using FVTC.Utility;
 using Microsoft.Extensions.Configuration;
 using Serilog;
 
@@ -9,11 +10,16 @@ public class Program
     private static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
-
+        string? connectionString = null;
+        connectionString = KeyVaultClient.GetSecret("Connection-String-Prod").Result;
+        
+        //connectionString = connectionString ?? builder.Configuration.GetConnectionString("DVDCentralConnection");
+        
         // Add services to the container.
         builder.Services.AddDbContextPool<DVDCentralEntities>(options =>
         {
-            options.UseSqlServer(builder.Configuration.GetConnectionString("DVDCentralConnection"));
+            //options.UseSqlServer(builder.Configuration.GetConnectionString("DVDCentralConnection"));
+            options.UseSqlServer(connectionString);
             options.UseLazyLoadingProxies();
         });
 
@@ -40,7 +46,7 @@ public class Program
         Log.Logger = new LoggerConfiguration()
              .ReadFrom.Configuration(configSettings)
              .CreateLogger();
-
+#pragma warning disable CA1416
         builder.Services
             .AddLogging(c => c.AddDebug())
             .AddLogging(c => c.AddSerilog())
@@ -50,6 +56,7 @@ public class Program
         var app = builder.Build();
 
         app.Logger.LogInformation("Starting DVDCentral API...");
+        
 
         // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())
@@ -63,13 +70,14 @@ public class Program
         app.UseRouting();
         app.UseAuthorization();
 
-        //app.MapControllers();
+        app.MapControllers();
+        app.MapHub<DVDCentralHub>("/dvdcentralhub");
 
-        app.UseEndpoints(endpoints =>
-        {
-            endpoints.MapControllers();
-            endpoints.MapHub<DVDCentralHub>("/dvdcentralhub");
-        });
+        //app.UseEndpoints(endpoints =>
+        //{
+        //    endpoints.MapControllers();
+        //    endpoints.MapHub<DVDCentralHub>("/dvdcentralhub");
+        //});
 
         app.Run();
     }

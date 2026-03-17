@@ -29,7 +29,7 @@
         [TestMethod]
         public async Task UpdateTest()
         {
-            OrderItem orderitem = (await new OrderItemManager(options, logger).LoadAsync()).FirstOrDefault();
+            OrderItem orderitem = (await new OrderItemManager(options, logger).LoadAsync()).FirstOrDefault()!;
             orderitem.Quantity = -50;
 
             Assert.IsTrue(new OrderItemManager(options, logger).UpdateAsync(orderitem, true).Result > 0);
@@ -38,7 +38,7 @@
         [TestMethod]
         public async Task DeleteTest()
         {
-            OrderItem orderitem = (await new OrderItemManager(options, logger).LoadAsync()).FirstOrDefault();
+            OrderItem orderitem = (await new OrderItemManager(options, logger).LoadAsync()).FirstOrDefault()!;
 
             Assert.IsTrue(new OrderItemManager(options, logger).DeleteAsync(orderitem.Id, true).Result > 0);
         }
@@ -48,7 +48,7 @@
         {
             OrderItem orderitem = (await new OrderItemManager(options, logger)
             .LoadAsync())
-            .FirstOrDefault();
+            .FirstOrDefault()!;
 
             Assert.AreEqual((await new OrderItemManager(options, logger)
                             .LoadByIdAsync(orderitem.Id)).Id, orderitem.Id);

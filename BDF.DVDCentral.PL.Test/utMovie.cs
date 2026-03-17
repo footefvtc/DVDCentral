@@ -9,8 +9,7 @@ namespace BDF.DVDCentral.PL.Test
         [TestMethod]
         public void LoadTest()
         {
-            var list = base.LoadTest();
-            Assert.AreEqual(7, list.Count());
+            LoadTest(7);
         }
 
         [TestMethod]
@@ -23,9 +22,9 @@ namespace BDF.DVDCentral.PL.Test
             entity.ImagePath = string.Empty;
             entity.Description = string.Empty;
             entity.Cost = 3;
-            entity.DirectorId = base.LoadTest().FirstOrDefault()!.DirectorId;
-            entity.RatingId = base.LoadTest().FirstOrDefault()!.RatingId;
-            entity.FormatId = base.LoadTest().FirstOrDefault()!.FormatId;
+            entity.DirectorId = dc.tblMovies.FirstOrDefault()!.DirectorId;
+            entity.RatingId = dc.tblMovies.FirstOrDefault()!.RatingId;
+            entity.FormatId = dc.tblMovies.FirstOrDefault()!.FormatId;
             entity.InStkQty = 3;
 
             int result = InsertTest(entity);
@@ -37,28 +36,28 @@ namespace BDF.DVDCentral.PL.Test
         public void UpdateTest()
         {
             // SELECT * FROM tblMovie - use the first one
-            var item = base.LoadTest().FirstOrDefault();
+            var item = dc.tblMovies.FirstOrDefault()!;
 
             // Change a property value
             item.Title = "Test";
 
             int result = UpdateTest(item);
-            Assert.IsTrue(result > 0);
+            Assert.IsGreaterThan(0, result);
         }
 
         [TestMethod]
         public void DeleteTest()
         {
             // Select * from tblMovie where id = 3
-            tblMovie entity = dc.tblMovies.FirstOrDefault(e => e.Title == "Other");
+            tblMovie entity = dc.tblMovies.FirstOrDefault(e => e.Title == "Other")!;
             int result = DeleteTest(entity);
-            Assert.AreNotEqual(result, 0);
+            Assert.IsGreaterThan(0, result);
         }
 
         [TestMethod]
         public void LoadByIdTest()
         {
-            var item = base.LoadTest().FirstOrDefault();
+            var item = dc.tblMovies.FirstOrDefault();
 
             // Select * from tblMovie where id = 2
             tblMovie entity = dc.tblMovies
@@ -67,7 +66,7 @@ namespace BDF.DVDCentral.PL.Test
                 .Where(e => e.Id == item!.Id).FirstOrDefault()!;
             Assert.AreEqual(entity.Id, item!.Id);
             Assert.IsNotNull(entity.Director);
-            var row = entity.MovieGenres.FirstOrDefault();
+            var row = entity.MovieGenres.FirstOrDefault()!;
 
             Assert.IsNotNull(row.Genre);
 

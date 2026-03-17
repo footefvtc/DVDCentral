@@ -1,5 +1,6 @@
 ﻿using Android.App;
 using Android.Runtime;
+using BDF.DVDCentral.MAUI.Pages;
 
 namespace BDF.DVDCentral.MAUI
 {

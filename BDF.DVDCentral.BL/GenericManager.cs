@@ -53,16 +53,16 @@
 
         public V Map<U, V>(U objfrom)
         {
-            V objTo = (V)Activator.CreateInstance(typeof(V));
+            V objTo = (V)Activator.CreateInstance(typeof(V))!;
 
-            var ToProperties = objTo.GetType().GetProperties();
-            var FromProperties = objfrom.GetType().GetProperties();
+            var ToProperties = objTo?.GetType().GetProperties();
+            var FromProperties = objfrom?.GetType().GetProperties();
 
-            ToProperties
+            ToProperties?
                 .ToList()
                 .ForEach(o =>
                 {
-                    var fromp = FromProperties.FirstOrDefault(x => x.Name == o.Name
+                    var fromp = FromProperties?.FirstOrDefault(x => x.Name == o.Name
                                                           && x.PropertyType == o.PropertyType);
                     if (fromp != null)
                     {
@@ -206,7 +206,7 @@
                         (!dc.Set<T>().Any(expression))))
                     {
 
-                        IDbContextTransaction transaction = null;
+                        IDbContextTransaction? transaction = null;
                         if (rollback) transaction = dc.Database.BeginTransaction();
                         entity.Id = Guid.NewGuid();
                         dc.Set<T>().Add(entity);

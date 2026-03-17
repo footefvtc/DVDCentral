@@ -16,10 +16,10 @@ namespace BDF.DVDCentral.PL.Test
         {
             // Make an entity
             tblOrder entity = new tblOrder();
-            entity.CustomerId = dc.tblOrders.FirstOrDefault().CustomerId;
+            entity.CustomerId = dc.tblOrders.FirstOrDefault()!.CustomerId;
             entity.OrderDate = DateTime.Now;
             entity.ShipDate = DateTime.Now;
-            entity.UserId = dc.tblOrders.FirstOrDefault().UserId; ;
+            entity.UserId = dc.tblOrders.FirstOrDefault()!.UserId; ;
 
             // Add the entity to the database
             dc.tblOrders.Add(entity);
@@ -39,16 +39,16 @@ namespace BDF.DVDCentral.PL.Test
             entity.OrderDate = DateTime.Now.AddDays(-5);
 
             int result = dc.SaveChanges();
-            Assert.IsTrue(result > 0);
+            Assert.IsGreaterThan(0, result);
         }
 
         [TestMethod]
         public void DeleteTest()
         {
-            tblOrder entity = base.LoadTest()
+            tblOrder entity = dc.tblOrders
                                 .First(x => x.OrderDate.Year == 2017);
 
-            Assert.AreNotEqual(base.DeleteTest(entity), 0);
+            Assert.IsGreaterThan(0, base.DeleteTest(entity));
         }
 
         [TestMethod]
