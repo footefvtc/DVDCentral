@@ -3,7 +3,7 @@
     "Name": "New Profile",
     "Projects": [
       {
-        "Path": "BDF.DVDCentrol.UIConsole\\BDF.DVDCentrol.UIConsole.csproj",
+        "Path": "BDF.DVDCentrol.UIConsole\\BDF.DVDCentral.UIConsole.csproj",
         "Action": "Start"
       },
       {

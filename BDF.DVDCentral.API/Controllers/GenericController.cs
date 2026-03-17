@@ -65,6 +65,7 @@ namespace BDF.DVDCentral.API.Controllers
             }
         }
 
+        [Authorize]
         [HttpPut("{id}/{rollback?}")]
         public async Task<ActionResult> Put(Guid id, [FromBody] T entity, bool rollback = false)
         {
@@ -84,6 +85,7 @@ namespace BDF.DVDCentral.API.Controllers
             }
         }
 
+        [Authorize]
         [HttpDelete("{id}/{rollback?}")]
         public async Task<ActionResult> Delete(Guid id, bool rollback = false)
         {
