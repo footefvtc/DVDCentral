@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BDF.DVDCentral.MAUI.MovieListPage"
+             Title="Movie List" Loaded="ContentPage_Loaded">
+    <StackLayout Margin="0" BackgroundColor="CornflowerBlue">
+        <CollectionView x:Name="cvMovies" 
+                        ItemsSource="{Binding movies}" 
+                        SelectionMode="Single"
+                        SelectionChanged="cvMovies_SelectionChanged">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Padding="5">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="150" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Border StrokeShape="RoundRectangle 10"
+                                StrokeThickness="0"
+                                Grid.RowSpan="4">
+                            <Image 
+                               Source="starwars.jpg" 
+                               Aspect="AspectFill"
+                               HeightRequest="100" 
+                               WidthRequest="100"/>
+                        </Border>
+                        <Label Grid.Column="1" 
+                            Text="{Binding Title}" 
+                            TextColor="Yellow"
+                            FontSize="24"
+                            FontAttributes="Bold" />
+                        <Label Grid.Column="1" 
+                               Grid.Row="4" 
+                               Text="{Binding GenreDescription}" 
+                               TextColor="White"
+                               FontSize="24" />
+                        <Label Grid.Row="1"
+                               Grid.Column="1" 
+                               Text="{Binding FormatDescription}"
+                               FontAttributes="Italic" 
+                               TextColor="White"
+                               FontSize="24"
+                               VerticalOptions="End" />
+                        <Label Grid.Row="2"
+                                Grid.Column="1" 
+                                Text="{Binding DirectorFullName}"
+                                FontAttributes="Italic" 
+                                TextColor="White"
+                                FontSize="24"
+                                VerticalOptions="End" />
+                        <Label Grid.Row="3"
+                                Grid.Column="1" 
+                                Text="{Binding RatingDescription}"
+                                FontAttributes="Italic" 
+                                TextColor="White"
+                                FontSize="24"
+                                VerticalOptions="End" />
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </StackLayout>
+</ContentPage>

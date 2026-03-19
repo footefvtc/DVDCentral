@@ -77,9 +77,19 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="LunchOrderPage.xaml">
+	  <MauiXaml Update="Pages\LunchOrderPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Pages\MovieDetailsPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\MovieListPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Resources\NewFolder\" />
 	</ItemGroup>
 
 </Project>

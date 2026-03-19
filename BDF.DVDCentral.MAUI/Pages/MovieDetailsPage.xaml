@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    x:Class="BDF.DVDCentral.MAUI.MovieDetailsPage"
+    xmlns="http://schemas.microsoft.com/dotnet/maui/global"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://schemas.microsoft.com/dotnet/maui/global/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="clr-namespace:BDF.DVDCentral.MAUI"
+    mc:Ignorable="d">
+    <VerticalStackLayout Padding="20" Spacing="10" BackgroundColor="CornflowerBlue">
+        <Label x:Name="NameLabel" FontSize="24" FontAttributes="Bold" TextColor="White"/>
+        <Label x:Name="GenreLabel" FontSize="16" TextColor="White"/>
+        <Label x:Name="RatingLabel" FontSize="16" TextColor="White"/>
+        <Label x:Name="FormatLabel" FontSize="16" TextColor="White"/>
+        <Label x:Name="DirectorLabel" FontSize="16" TextColor="White"/>
+        <Label x:Name="DescriptionLabel" FontSize="16" TextColor="White"/>
+        <Entry x:Name="txtTitle"></Entry>
+        <Image x:Name="MovieImage"
+            Source="starwars.jpg" 
+            Aspect="AspectFill"
+            Margin="25" 
+            HeightRequest="300" 
+            WidthRequest="300"/>
+        <HorizontalStackLayout Spacing="10">
+            <Button x:Name="btnEdit" Text="Edit" Clicked="btnEdit_Clicked"/>
+            <Button x:Name="btnInsert" Text="Insert" Clicked="btnInsert_Clicked"/>
+        </HorizontalStackLayout>
+    </VerticalStackLayout>
+</ContentPage>

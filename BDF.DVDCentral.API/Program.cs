@@ -12,7 +12,7 @@ public class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
-        string? connectionString = KeyVaultClient.GetSecret("DVDCentralConnection").Result;
+        string? connectionString = KeyVaultClient.GetSecret("Connection-String-Prod").Result;
         if(connectionString == null)
             connectionString = builder.Configuration.GetConnectionString("DVDCentralConnection");
 
