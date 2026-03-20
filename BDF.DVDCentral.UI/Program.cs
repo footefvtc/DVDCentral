@@ -1,9 +1,25 @@
 using FVTC.Utility;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.Identity.Web;
+using Microsoft.Identity.Web.UI;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
+    .AddMicrosoftIdentityWebApp(builder.Configuration.GetSection("AzureAd"));
+
+builder.Services.AddControllersWithViews(options =>
+{
+    var policy = new AuthorizationPolicyBuilder()
+        .RequireAuthenticatedUser()
+        .Build();
+    options.Filters.Add(new AuthorizeFilter(policy));
+});
+builder.Services.AddRazorPages()
+    .AddMicrosoftIdentityUI();
 
 // Add the ability to access http context (session in this case)
 builder.Services.AddHttpContextAccessor();
@@ -16,8 +32,9 @@ builder.Services.AddSession(options =>
 });
 
 //builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:7156/api/") });
-builder.Services.AddSingleton(sp => new ApiClient("https://localhost:7156/api/"));
+//builder.Services.AddSingleton(sp => new ApiClient("https://localhost:7156/api/"));
 //builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://dvdcentralapi-120212964.azurewebsites.net/api/") });
+builder.Services.AddSingleton(sp => new ApiClient("https://dvdcentralapi-120212964.azurewebsites.net/api/"));
 
 builder.Services
     .AddLogging(c => c.AddDebug())
