@@ -14,7 +14,7 @@ namespace FVTC.Utility
 
                 var client = new SecretClient(new Uri(kvUri), new DefaultAzureCredential());
                 var secret = await client.GetSecretAsync(secretName);
-                Console.WriteLine(secret.Value.Value.ToString());
+                //Console.WriteLine(secret.Value.Value.ToString());
                 return secret.Value.Value.ToString();
 
 

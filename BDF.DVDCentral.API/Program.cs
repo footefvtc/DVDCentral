@@ -1,10 +1,7 @@
-using BDF.DVDCentral.API.Helpers;
 using BDF.DVDCentral.API.Hubs;
 using BDF.DVDCentral.API.Services;
 using FVTC.Utility;
-using Microsoft.Extensions.Configuration;
 using Serilog;
-using static Microsoft.CodeAnalysis.CSharp.SyntaxTokenParser;
 
 public class Program
 {
@@ -13,8 +10,12 @@ public class Program
         var builder = WebApplication.CreateBuilder(args);
 
         string? connectionString = KeyVaultClient.GetSecret("Connection-String-Prod").Result;
-        if(connectionString == null)
+        string info = "Connection string retrieved from Key Vault: " + (connectionString != null ? "Yes" : "No");
+        if (connectionString == null)
+        {
             connectionString = builder.Configuration.GetConnectionString("DVDCentralConnection");
+            info += " (fallback to appsettings.json)";
+        }
 
         // Add services to the container.
         builder.Services.AddDbContextPool<DVDCentralEntities>(options =>
@@ -56,6 +57,7 @@ public class Program
         var app = builder.Build();
 
         app.Logger.LogInformation("Starting DVDCentral API...");
+        app.Logger.LogWarning(info);
 
         // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())
