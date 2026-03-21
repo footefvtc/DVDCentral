@@ -110,6 +110,7 @@
 
                 info += rows.Count() + " records returned...";
                 logger?.LogWarning(info + "{UserId}", "bfoote");
+                //logger?.LogWarning($"{info}", "bfoote");
                 return rows.ToList();
 
             }

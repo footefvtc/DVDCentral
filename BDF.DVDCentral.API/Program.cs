@@ -1,8 +1,7 @@
-using BDF.DVDCentral.API.Helpers;
+using Azure.Identity;
 using BDF.DVDCentral.API.Hubs;
 using BDF.DVDCentral.API.Services;
 using FVTC.Utility;
-using Microsoft.Extensions.Configuration;
 using Serilog;
 
 public class Program
@@ -12,9 +11,13 @@ public class Program
         var builder = WebApplication.CreateBuilder(args);
         string? connectionString = null;
         connectionString = KeyVaultClient.GetSecret("Connection-String-Prod").Result;
-        
-        //connectionString = connectionString ?? builder.Configuration.GetConnectionString("DVDCentralConnection");
-        
+        string info = "Connection string retrieved from Key Vault: " + (connectionString != null ? "Yes" : "No");
+        if (connectionString == null)
+        {
+            connectionString = builder.Configuration.GetConnectionString("DVDCentralConnection");
+            info += " (fallback to appsettings.json)";
+        }
+
         // Add services to the container.
         builder.Services.AddDbContextPool<DVDCentralEntities>(options =>
         {
@@ -57,9 +60,12 @@ public class Program
 
         app.Logger.LogInformation("Starting DVDCentral API...");
         
+        //ManagedIdentityCredential credential = new ManagedIdentityCredential();
+        //DefaultAzureCredential credential = new DefaultAzureCredential();
+        app.Logger.LogWarning(info + " {UserId}", "System");
 
         // Configure the HTTP request pipeline.
-        if (app.Environment.IsDevelopment())
+        if (app.Environment.IsDevelopment() || true)
         {
             app.UseSwagger();
             app.UseSwaggerUI();
@@ -72,12 +78,6 @@ public class Program
 
         app.MapControllers();
         app.MapHub<DVDCentralHub>("/dvdcentralhub");
-
-        //app.UseEndpoints(endpoints =>
-        //{
-        //    endpoints.MapControllers();
-        //    endpoints.MapHub<DVDCentralHub>("/dvdcentralhub");
-        //});
 
         app.Run();
     }

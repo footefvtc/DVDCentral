@@ -62,33 +62,12 @@
                             <a class="nav-link text-light" asp-area="" asp-controller="User" asp-action="Seed">Seed Users</a>
                         </li>
                     </ul>
-                    <ul class="navbar-nav">
-                        @if (Authenticate.IsAuthenticated(HttpContextAccessor.HttpContext!))
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-light" asp-controller="User" asp-action="Logout">Logout</a>
-                            </li>
-                        }
-                        else
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-light" asp-controller="User" asp-action="Login">Login</a>
-                            </li>
-                        }
-                        <li class="nav-item">
-                            @{
-                                //BDF.DVDCentral.BL.UserManager.Seed();
-                                var fullname = HttpContextAccessor.HttpContext?.Session.GetString("fullname");
-                                if (fullname != null) fullname = fullname.Replace("\"", "");
-                            }
-                            <a class="nav-link text-light">@fullname</a>
-                        </li>
-                    </ul>
+                    <partial name="_LoginPartial" />
                 </div>
             </div>
         </nav>
     </header>
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-md-2 sidebar rounded-top">
                 <div class="header rounded-top p-1">
@@ -115,11 +94,11 @@
                 <div class="header rounded-top p-1">
                     <h4>@ViewBag.Title</h4>
                 </div>
+                <main role="main" class="pb-3">
+                    <div class="text-danger m-2">@ViewBag.Error</div>
+                    @RenderBody()
+                </main>
             </div>
-        <main role="main" class="pb-3">
-                <div class="text-danger m-2">@ViewBag.Error</div>
-            @RenderBody()
-        </main>
         </div>
     </div>
 
