@@ -2,7 +2,11 @@ using Azure.Identity;
 using BDF.DVDCentral.API.Hubs;
 using BDF.DVDCentral.API.Services;
 using FVTC.Utility;
+using Microsoft.EntityFrameworkCore;
 using Serilog;
+using Serilog.Ui.MsSqlServerProvider;
+using Serilog.Ui.Web;
+using Serilog.Ui.Web.Extensions;
 
 public class Program
 {
@@ -41,6 +45,12 @@ public class Program
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
+
+        builder.Services.AddSerilogUi(options =>
+        {
+            options.UseSqlServer(connectionString, "Logs");
+        });
+
 
         var configSettings = new ConfigurationBuilder()
           .AddJsonFile("appsettings.json")
