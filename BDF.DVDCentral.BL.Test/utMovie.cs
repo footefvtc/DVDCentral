@@ -1,4 +1,6 @@
-﻿using BDF.DVDCentral.PL.Entities;
+﻿using BDF.DVDCentral.BL.Models;
+using BDF.DVDCentral.PL.Entities;
+using FVTC.Utility.Reporting;
 using Microsoft.Extensions.Options;
 
 namespace BDF.DVDCentral.BL.Test
@@ -6,6 +8,19 @@ namespace BDF.DVDCentral.BL.Test
     [TestClass]
     public class utMovie : utBase<tblMovie>
     {
+
+        [TestMethod]
+        public async Task ExportDataTest()
+        {
+            var movies = await new MovieManager(options, logger).LoadAsync();
+            string[] columns = { "Title", "DirectorFullName", "RatingDescription", "FormatDescription", "Cost", "InStkQty" };
+            var data = MovieManager.ConvertData(movies, columns);
+            Excel.ExportToExcel(data, "Movies.xlsx");
+           
+            //Excel.ExportToExcel(movies, "Movies.xlsx");
+        }
+
+
 
         [TestMethod]
         public async Task LoadTest()

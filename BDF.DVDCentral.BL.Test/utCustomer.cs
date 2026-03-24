@@ -1,8 +1,21 @@
-﻿namespace BDF.DVDCentral.BL.Test
+﻿using FVTC.Utility.Reporting;
+
+namespace BDF.DVDCentral.BL.Test
 {
     [TestClass]
     public class utCustomer : utBase<tblCustomer>
     {
+
+        [TestMethod]
+        public async Task ExportDataTest()
+        {
+            var entities = await new CustomerManager(options, logger).LoadAsync();
+            string[] columns = { "FirstName", "LastName", "Address", "City" };
+            var data = CustomerManager.ConvertData(entities, columns);
+            Excel.ExportToExcel(data, "Customers.xlsx");
+
+            //Excel.ExportToExcel(movies, "Movies.xlsx");
+        }
 
         [TestMethod]
         public async Task LoadAsyncTest()
