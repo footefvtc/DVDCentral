@@ -1,7 +1,9 @@
 using BDF.DVDCentral.API.Hubs;
 using BDF.DVDCentral.API.Services;
 using FVTC.Utility;
+using Microsoft.OpenApi;
 using Serilog;
+using System.Reflection;
 
 public class Program
 {
@@ -38,7 +40,36 @@ public class Program
         builder.Services.AddControllers();
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
-        builder.Services.AddSwaggerGen();
+        builder.Services.AddSwaggerGen(c =>
+        {
+            c.SwaggerDoc("v1", new OpenApiInfo
+            {
+                Version = "v1",
+                Title = "DVDCentral API",
+                Description = "API for managing DVD rentals and inventory.",
+                TermsOfService = new Uri("https://www.fvtc.edu/terms"),
+                Contact = new OpenApiContact
+                {
+                    Name = "BDF Team",
+                    Email = "foote@fvtc.edu",
+                    Url = new Uri("https://www.fvtc.edu/")
+
+                },
+                License = new OpenApiLicense
+                {
+                    Name = "Use under MIT",
+                    Url = new Uri("https://opensource.org/licenses/MIT")
+                }
+            });
+
+
+            // API Documentation
+            var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+            var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+            c.IncludeXmlComments(xmlPath);
+        });
+        
+
 
         var configSettings = new ConfigurationBuilder()
           .AddJsonFile("appsettings.json")
@@ -60,7 +91,7 @@ public class Program
         app.Logger.LogWarning(info);
 
         // Configure the HTTP request pipeline.
-        if (app.Environment.IsDevelopment())
+        if (app.Environment.IsDevelopment() || true)
         {
             app.UseSwagger();
             app.UseSwaggerUI();
