@@ -4,6 +4,7 @@
     "projects": [
       "BDF.DVDCentral.API.Test\\BDF.DVDCentral.API.Test.csproj",
       "BDF.DVDCentral.API\\BDF.DVDCentral.API.csproj",
+      "BDF.DVDCentral.AzFunctions\\BDF.DVDCentral.AzFunctions.csproj",
       "BDF.DVDCentral.BL.Models\\BDF.DVDCentral.BL.Models.csproj",
       "BDF.DVDCentral.BL.Test\\BDF.DVDCentral.BL.Test.csproj",
       "BDF.DVDCentral.BL\\BDF.DVDCentral.BL.csproj",
@@ -13,7 +14,9 @@
       "BDF.DVDCentral.PL\\BDF.DVDCentral.PL.csproj",
       "BDF.DVDCentral.UI\\BDF.DVDCentral.UI.csproj",
       "BDF.DVDCentral.WPFUI\\BDF.DVDCentral.WPFUI.csproj",
+      "BDF.DVDCentral.WinFormUI\\BDF.DVDCentral.WinFormUI.csproj",
       "BDF.DVDCentrol.UIConsole\\BDF.DVDCentrol.UIConsole.csproj",
+      "BDF.LunchOrder.Web\\BDF.LunchOrder.Web.csproj",
       "FVTC.Utility\\FVTC.Utility.csproj"
     ]
   }
