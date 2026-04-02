@@ -42,12 +42,12 @@ public class GenreFunctions
         return $"Added {name}: {result1}.";
     }
 
-    [Function("GetGenres")]
+    [Function("Genre")]
     public List<Genre> Run3([HttpTrigger(AuthorizationLevel.Function, "get", "post")] HttpRequestData req)
     {
-        _logger.LogInformation("Get Directors");
+        _logger.LogInformation("Get Genres");
 
-        ApiClient apiClient = new ApiClient("https://fvtcdp.azurewebsites.net/api/Director");
+        ApiClient apiClient = new ApiClient("https://fvtcdp.azurewebsites.net/api/");
         var result = apiClient.Authenticate("bfoote", "maple");
         var list = apiClient.GetList<Genre>();
 
