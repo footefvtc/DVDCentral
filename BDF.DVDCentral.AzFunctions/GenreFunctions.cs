@@ -37,15 +37,14 @@ public class GenreFunctions
         Genre genre = new Genre { Description = name! };
         var response = apiClient.Post<Genre>(genre, "Genre");
         string result1 = response.Content.ReadAsStringAsync().Result;
-        //return new OkObjectResult($"Added {name}: {result1}.");
         _logger.LogWarning($"{result1}");
         return $"Added {name}: {result1}.";
     }
 
     [Function("GetGenres")]
-    public List<Genre> Run3([HttpTrigger(AuthorizationLevel.Function, "get", "post")] HttpRequestData req)
+    public IActionResult Run3([HttpTrigger(AuthorizationLevel.Function, "get", "post")] HttpRequestData req)
     {
-        _logger.LogInformation("Get Directors");
+        _logger.LogInformation("Get Genres");
 
         ApiClient apiClient = new ApiClient("https://fvtcdp.azurewebsites.net/api/Director");
         var result = apiClient.Authenticate("bfoote", "maple");
@@ -58,6 +57,6 @@ public class GenreFunctions
         var response1 = req.CreateResponse(HttpStatusCode.OK);
         response1.Headers.Add("Content-Type", "application/json; charset=utf-8");
         //response1.WriteAsJsonAsync(new StringContent(jsonToReturn, Encoding.UTF8, "application/json"));
-        return list;
+        return new OkObjectResult(list);
     }
 }
