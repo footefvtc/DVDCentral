@@ -10,8 +10,9 @@ internal class Program
         string user = "Brian F.";
         List<int> pickedNumbers = new List<int>();
         string apiAddress = "https://localhost:7156/api/";
+        string functionAddress = "http://localhost:7074/api/";
         //apiAddress = "https://dvdcentralapi-120212964.azurewebsites.net/api/";
-        ApiClient apiClient = new ApiClient(apiAddress);
+        ApiClient apiClient = new ApiClient(functionAddress);
 
         string hubAddress = "https://fvtcdp.azurewebsites.net/BingoHub";
         hubAddress = "https://dvdcentralapi-120212964.azurewebsites.net/DVDCentralHub";
@@ -68,6 +69,9 @@ internal class Program
                     case "d":
                         getDirectors(apiClient);
                         break;
+                    case "f":
+                        getGenres(apiClient);
+                        break;
                     case "g":
                         getGenres(apiClient);
                         break;
@@ -100,8 +104,7 @@ internal class Program
 
     }
 
-    
-
+   
     private static void getGenres(ApiClient apiClient)
     {
         getEntities<Genre>(apiClient, "Description");
@@ -115,6 +118,7 @@ internal class Program
         Console.WriteLine("Authenticate Success (b)");
         Console.WriteLine("Connect to the Hub (c)");
         Console.WriteLine("Get Directors (d)");
+        Console.WriteLine("Get Genres via Function (f)");
         Console.WriteLine("Get Genres (g)");
         Console.WriteLine("Get Movies (m)");
         Console.WriteLine("New Number (n)");
@@ -159,7 +163,7 @@ internal class Program
     {
         try
         {
-            var entities = apiclient.GetList<T>(typeof(T).Name);
+            var entities = apiclient.GetList<T>();
             entities.ForEach(e => Console.WriteLine(e?.GetType().GetProperty(displayField)?.GetValue(e, null)?.ToString()));
             Console.ReadLine();
         }
