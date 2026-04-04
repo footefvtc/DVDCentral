@@ -13,6 +13,7 @@
       "BDF.DVDCentral.MigrationHandler\\BDF.DVDCentral.MigrationHandler.csproj",
       "BDF.DVDCentral.PL.Test\\BDF.DVDCentral.PL.Test.csproj",
       "BDF.DVDCentral.PL\\BDF.DVDCentral.PL.csproj",
+      "BDF.DVDCentral.PWA\\BDF.DVDCentral.PWA.csproj",
       "BDF.DVDCentral.UI\\BDF.DVDCentral.UI.csproj",
       "BDF.DVDCentral.WPFUI\\BDF.DVDCentral.WPFUI.csproj",
       "BDF.DVDCentral.WinFormUI\\BDF.DVDCentral.WinFormUI.csproj",

@@ -1,8 +1,8 @@
 {
   "name": "BDF.DVDCentral.PWA",
-  "short_name": "BDF.DVDCentral.PWA",
+  "short_name": "DVDCentral",
   "id": "./",
-  "start_url": "./",
+  "start_url": "/?source=pwa",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#03173d",
