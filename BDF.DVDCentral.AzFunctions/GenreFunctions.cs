@@ -55,8 +55,8 @@ public class GenreFunctions
         {
             _logger.LogWarning($"{entity.Description}");
         }
-        var response1 = req.CreateResponse(HttpStatusCode.OK);
-        response1.WriteAsJsonAsync(list);
-        return response1;   
+        var response = req.CreateResponse(HttpStatusCode.OK);
+        response.WriteAsJsonAsync(list);
+        return response;   
     }
 }
