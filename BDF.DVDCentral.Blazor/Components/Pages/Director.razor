@@ -1,0 +1,115 @@
+﻿@page "/director"
+@using BDF.DVDCentral.BL.Models;
+@using FVTC.Utility;
+@inject IJSRuntime JsRuntime
+@inject NavigationManager NavigationManager
+
+@rendermode InteractiveServer
+@attribute [StreamRendering]
+
+<PageTitle>Director</PageTitle>
+<h1>Director</h1>
+<p>List Director Info</p>
+
+@if(items == null && ErrorMessage == null)
+{
+    <DisplaySpinner></DisplaySpinner>
+}
+else
+{
+    <DisplayError ErrorMessage="@ErrorMessage"></DisplayError>
+    <table>
+        <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var item in items)
+            {
+                <tr>
+                    <td>
+                        <input type="text" @bind="@item.FirstName"/>
+                    </td>
+                    <td>
+                        <input type="text" @bind="@item.LastName" />
+                    </td>
+                    <td>
+                        <button class="btn btn-success"
+                            @onclick="() => (Update(item))">
+                            <b>Update</b>
+                        </button>
+                        <button class="btn btn-success"
+                                @onclick="() => (Delete(item.Id))">
+                            <b>Delete</b>
+                        </button>
+
+                    </td>
+                </tr>
+            }
+            <tr>
+                <td>
+                    <input type="text" @bind="@newItem.FirstName" />
+                </td>
+                <td>
+                    <input type="text" @bind="@newItem.LastName" />
+                </td>
+                <td>
+                    <button class="btn btn-success"
+                            @onclick="() => (Add(new BL.Models.Director
+                            { FirstName = newItem.FirstName, LastName = newItem.LastName}))">
+                        <b>Insert</b>
+                    </button>
+                </td>
+            </tr>
+
+        </tbody>
+
+    </table>
+
+}
+@code {
+    private List<BL.Models.Director> items;
+    private BL.Models.Director newItem = new BL.Models.Director();
+    private const string APIUrl = "https://fvtcdp.azurewebsites.net/api/Director";
+    public string ErrorMessage { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        ApiClient apiclient = new ApiClient(APIUrl);
+        items = apiclient.GetList<BL.Models.Director>("Director");
+    }
+    protected async Task Update(BL.Models.Director entity)    {
+        ApiClient apiclient = new ApiClient(APIUrl);
+        var response = apiclient.Put<BDF.DVDCentral.BL.Models.Director>(entity, "Director", entity.Id);
+        var result = await response.Content.ReadAsStringAsync();
+        NavigationManager.NavigateTo(NavigationManager.Uri, forceLoad: true);
+
+    }
+    protected async Task Add(BL.Models.Director entity)
+    {
+        try
+        {
+            ApiClient apiclient = new ApiClient(APIUrl);
+            var response = apiclient.Post<BL.Models.Director>(entity, "Director");
+            if (!response.IsSuccessStatusCode)
+                throw new Exception($"Error on inserting {entity.FirstName}");
+            var result = response.Content.ReadAsStringAsync().Result;
+            NavigationManager.NavigateTo(NavigationManager.Uri, forceLoad: true);
+
+        }
+        catch (Exception e)
+        {
+            ErrorMessage = e.Message;
+        }
+        
+    }
+    protected async Task Delete(Guid id)
+    {
+        ApiClient apiclient = new ApiClient(APIUrl);
+        var response = apiclient.Delete("Director", id);
+        var result = response.Content.ReadAsStringAsync().Result;
+        NavigationManager.NavigateTo(NavigationManager.Uri, forceLoad: true);
+    }
+}
