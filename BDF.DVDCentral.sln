@@ -46,6 +46,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BDF.DVDCentral.Blazor", "BD
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{85D37AFF-78F7-4379-941A-73169DB2FA3F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BDF.DVDCentral.PWA", "BDF.DVDCentral.PWA\BDF.DVDCentral.PWA.csproj", "{0384BEDA-3AF2-42E3-B719-BD640EDB5D77}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -127,6 +129,10 @@ Global
 		{1EAD4F52-888D-EFEF-3D2D-BB5C7F7E810B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1EAD4F52-888D-EFEF-3D2D-BB5C7F7E810B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1EAD4F52-888D-EFEF-3D2D-BB5C7F7E810B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0384BEDA-3AF2-42E3-B719-BD640EDB5D77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0384BEDA-3AF2-42E3-B719-BD640EDB5D77}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0384BEDA-3AF2-42E3-B719-BD640EDB5D77}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0384BEDA-3AF2-42E3-B719-BD640EDB5D77}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
