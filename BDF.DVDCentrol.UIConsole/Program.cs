@@ -107,7 +107,15 @@ internal class Program
    
     private static void getGenres(ApiClient apiClient)
     {
-        getEntities<Genre>(apiClient, "Description");
+        try
+        {
+            getEntities<Genre>(apiClient, "Description");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error: {ex.Message}");
+        }
+
     }
 
     private static string DrawMenu()

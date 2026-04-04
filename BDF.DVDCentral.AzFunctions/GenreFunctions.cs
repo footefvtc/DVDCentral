@@ -26,7 +26,7 @@ public class GenreFunctions
     }
 
     [Function("MakeGenre")]
-    public string Run2([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post")] HttpRequestData req)
+    public IActionResult Run2([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post")] HttpRequestData req)
     {
         // Get the new genre
         string name = req.Query["name"];
@@ -38,15 +38,16 @@ public class GenreFunctions
         var response = apiClient.Post<Genre>(genre, "Genre");
         string result1 = response.Content.ReadAsStringAsync().Result;
         _logger.LogWarning($"{result1}");
-        return $"Added {name}: {result1}.";
+        //return $"Added {name}: {result1}.";
+        return new OkObjectResult($"Added {name}: {result1}.");
     }
 
-    [Function("GetGenres")]
-    public IActionResult Run3([HttpTrigger(AuthorizationLevel.Function, "get", "post")] HttpRequestData req)
+    [Function("Genre")]
+    public HttpResponseData Run3([HttpTrigger(AuthorizationLevel.Function, "get", "post")] HttpRequestData req)
     {
         _logger.LogInformation("Get Genres");
 
-        ApiClient apiClient = new ApiClient("https://fvtcdp.azurewebsites.net/api/Director");
+        ApiClient apiClient = new ApiClient("https://fvtcdp.azurewebsites.net/api/Genre");
         var result = apiClient.Authenticate("bfoote", "maple");
         var list = apiClient.GetList<Genre>();
 
@@ -55,8 +56,7 @@ public class GenreFunctions
             _logger.LogWarning($"{entity.Description}");
         }
         var response1 = req.CreateResponse(HttpStatusCode.OK);
-        response1.Headers.Add("Content-Type", "application/json; charset=utf-8");
-        //response1.WriteAsJsonAsync(new StringContent(jsonToReturn, Encoding.UTF8, "application/json"));
-        return new OkObjectResult(list);
+        response1.WriteAsJsonAsync(list);
+        return response1;   
     }
 }
