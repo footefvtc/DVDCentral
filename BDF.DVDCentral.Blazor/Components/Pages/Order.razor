@@ -1,0 +1,117 @@
+﻿@page "/order"
+@using BDF.DVDCentral.BL.Models;
+@using FVTC.Utility;
+@inject IJSRuntime JsRuntime
+@inject NavigationManager NavigationManager
+
+@rendermode InteractiveServer
+@attribute [StreamRendering]
+
+<PageTitle>Orders</PageTitle>
+<h1>Orders</h1>
+<p>List Orders Info</p>
+
+@if (items == null && ErrorMessage == null)
+{
+    <DisplaySpinner></DisplaySpinner>
+}
+else
+{
+    <DisplayError ErrorMessage="@ErrorMessage"></DisplayError>
+    <table>
+        <thead>
+            <tr>
+                <th>Description</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in items)
+            {
+                <tr>
+                    <td>
+                        <input type="text" @bind="@item.OrderDate" />
+                    </td>
+                    <td>
+                        <input type="text" @bind="@item.ShipDate" />
+                    </td>
+                    <td>
+                        <button class="btn btn-success"
+                                @onclick="() => (Update(item))">
+                            <b>Update</b>
+                        </button>
+                        <button class="btn btn-success"
+                                @onclick="() => (Delete(item.Id))">
+                            <b>Delete</b>
+                        </button>
+
+                    </td>
+                </tr>
+            }
+            <tr>
+                <td>
+                    <input type="text" @bind="@newItem.OrderDate" />
+                </td>
+                <td>
+                    <input type="text" @bind="@newItem.ShipDate" />
+                </td>
+                <td>
+                    <button class="btn btn-success"
+                            @onclick="() => (Add(new BL.Models.Order
+                                                    { OrderDate = newItem.OrderDate}))">
+                        <b>Insert</b>
+                    </button>
+                </td>
+            </tr>
+
+        </tbody>
+
+    </table>
+
+}
+@code {
+    private List<BL.Models.Order> items;
+    private BL.Models.Order newItem = new BL.Models.Order();
+    //private const string APIUrl = "https://fvtcdp.azurewebsites.net/api/Order";
+    private const string APIUrl = "https://dvdcentralapi-120212964.azurewebsites.net/api/Order";
+    public string ErrorMessage { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        ApiClient apiclient = new ApiClient(APIUrl);
+        items = apiclient.GetList<BL.Models.Order>("Order");
+    }
+    protected async Task Update(BL.Models.Order entity)
+    {
+        ApiClient apiclient = new ApiClient(APIUrl);
+        var response = apiclient.Put<BDF.DVDCentral.BL.Models.Order>(entity, "Order", entity.Id);
+        var result = await response.Content.ReadAsStringAsync();
+        NavigationManager.NavigateTo(NavigationManager.Uri, forceLoad: true);
+
+    }
+    protected async Task Add(BL.Models.Order entity)
+    {
+        try
+        {
+            ApiClient apiclient = new ApiClient(APIUrl);
+            var response = apiclient.Post<BL.Models.Order>(entity, "Order");
+            if (!response.IsSuccessStatusCode)
+                throw new Exception($"Error on inserting {entity.OrderDate}");
+            var result = response.Content.ReadAsStringAsync().Result;
+            NavigationManager.NavigateTo(NavigationManager.Uri, forceLoad: true);
+
+        }
+        catch (Exception e)
+        {
+            ErrorMessage = e.Message;
+        }
+        
+    }
+    protected async Task Delete(Guid id)
+    {
+        ApiClient apiclient = new ApiClient(APIUrl);
+        var response = apiclient.Delete("Order", id);
+        var result = response.Content.ReadAsStringAsync().Result;
+        NavigationManager.NavigateTo(NavigationManager.Uri, forceLoad: true);
+    }
+}

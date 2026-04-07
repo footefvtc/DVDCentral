@@ -107,7 +107,44 @@
                 throw;
             }
         }
+        public async Task<int> DeleteAsync(Guid id, bool rollback = false)
+        {
+            try
+            {
+                int results = 0;
 
+                using (DVDCentralEntities dc = new DVDCentralEntities(options))
+                {
+                    IDbContextTransaction? transaction = null;
+                    if (rollback) transaction = dc.Database.BeginTransaction();
 
+                    tblOrder deleteRow = dc.tblOrders.FirstOrDefault(r => r.Id == id)!;
+
+                    if (deleteRow != null)
+                    {
+                        dc.tblOrders.Remove(deleteRow);
+
+                        var deleteOrderItems = dc.tblOrderItems.Where(r => r.OrderId == id);
+
+                        dc.tblOrderItems.RemoveRange(deleteOrderItems);
+
+                        // Commit the changes and get the number of rows affected
+                        results = dc.SaveChanges();
+
+                        if (rollback) transaction?.Rollback();
+                    }
+                    else
+                    {
+                        throw new Exception("Row was not found.");
+                    }
+                }
+                return results;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+        }
     }
 }

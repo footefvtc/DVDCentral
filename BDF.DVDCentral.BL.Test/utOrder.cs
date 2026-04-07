@@ -61,12 +61,12 @@
             Assert.IsTrue(new OrderManager(options, logger).UpdateAsync(entity, true).Result > 0);
         }
 
-        //[TestMethod]
-        //public async Task DeleteTest()
-        //{
-        //    Order entity = (await new OrderManager(options, logger).LoadAsync()).FirstOrDefault(x => x.Description == "Other");
-        //    Assert.IsTrue(new OrderManager(options, logger).DeleteAsync(entity.Id, true).Result > 0);
-        //}
+        [TestMethod]
+        public async Task DeleteTest()
+        {
+            Order entity = (await new OrderManager(options, logger).LoadAsync()).FirstOrDefault();
+            Assert.IsTrue(new OrderManager(options, logger).DeleteAsync(entity.Id, true).Result > 0);
+        }
 
         [TestMethod]
         public async Task LoadByIdAsyncTest()

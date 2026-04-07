@@ -1,0 +1,110 @@
+﻿@page "/genre"
+@using BDF.DVDCentral.BL.Models;
+@using FVTC.Utility;
+@inject IJSRuntime JsRuntime
+@inject NavigationManager NavigationManager
+
+@rendermode InteractiveServer
+@attribute [StreamRendering]
+
+<PageTitle>Genres</PageTitle>
+<h1>Genres</h1>
+<p>List Genres Info</p>
+
+@if (items == null && ErrorMessage == null)
+{
+    <DisplaySpinner></DisplaySpinner>
+}
+else
+{
+    <DisplayError ErrorMessage="@ErrorMessage"></DisplayError>
+    <table>
+        <thead>
+            <tr>
+                <th>Description</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in items)
+            {
+                <tr>
+                    <td>
+                        <input type="text" @bind="@item.Description" />
+                    </td>
+                    <td>
+                        <button class="btn btn-success"
+                                @onclick="() => (Update(item))">
+                            <b>Update</b>
+                        </button>
+                        <button class="btn btn-success"
+                                @onclick="() => (Delete(item.Id))">
+                            <b>Delete</b>
+                        </button>
+
+                    </td>
+                </tr>
+            }
+            <tr>
+                <td>
+                    <input type="text" @bind="@newItem.Description" />
+                </td>
+                <td>
+                    <button class="btn btn-success"
+                            @onclick="() => (Add(new BL.Models.Genre
+                                                    { Description = newItem.Description}))">
+<b>Insert</b>
+</button>
+                </td>
+            </tr>
+
+        </tbody>
+
+    </table>
+
+}
+@code {
+    private List<BL.Models.Genre> items;
+    private BL.Models.Genre newItem = new BL.Models.Genre();
+    private const string APIUrl = "https://fvtcdp.azurewebsites.net/api/Genre";
+    public string ErrorMessage { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        ApiClient apiclient = new ApiClient(APIUrl);
+        items = apiclient.GetList<BL.Models.Genre>("Genre");
+    }
+    protected async Task Update(BL.Models.Genre entity)
+    {
+        ApiClient apiclient = new ApiClient(APIUrl);
+        var response = apiclient.Put<BDF.DVDCentral.BL.Models.Genre>(entity, "Genre", entity.Id);
+        var result = await response.Content.ReadAsStringAsync();
+        NavigationManager.NavigateTo(NavigationManager.Uri, forceLoad: true);
+
+    }
+    protected async Task Add(BL.Models.Genre entity)
+    {
+        try
+        {
+            ApiClient apiclient = new ApiClient(APIUrl);
+            var response = apiclient.Post<BL.Models.Genre>(entity, "Genre");
+            if (!response.IsSuccessStatusCode)
+                throw new Exception($"Error on inserting {entity.Description}");
+            var result = response.Content.ReadAsStringAsync().Result;
+            NavigationManager.NavigateTo(NavigationManager.Uri, forceLoad: true);
+
+        }
+        catch (Exception e)
+        {
+            ErrorMessage = e.Message;
+        }
+        
+    }
+    protected async Task Delete(Guid id)
+    {
+        ApiClient apiclient = new ApiClient(APIUrl);
+        var response = apiclient.Delete("Genre", id);
+        var result = response.Content.ReadAsStringAsync().Result;
+        NavigationManager.NavigateTo(NavigationManager.Uri, forceLoad: true);
+    }
+}
