@@ -13,7 +13,7 @@ public class Program
         string? connectionString = null;
         connectionString = KeyVaultClient.GetSecret("Connection-String-Prod").Result;
         
-        //connectionString = connectionString ?? builder.Configuration.GetConnectionString("DVDCentralConnection");
+        connectionString = connectionString ?? builder.Configuration.GetConnectionString("DVDCentralConnection");
         
         // Add services to the container.
         builder.Services.AddDbContextPool<DVDCentralEntities>(options =>

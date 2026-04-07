@@ -40,8 +40,14 @@
             List<OrderItem> orderItems = new List<OrderItem>();
             tblOrderItems
                 .ToList()
-                .ForEach(item => orderItems
-                .Add(Map<tblOrderItem, OrderItem>(item)));
+                .ForEach(item => {
+                    var entity = Map<tblOrderItem, OrderItem>(item);
+                    entity.Title = item.Movie.Title;
+                    entity.ImagePath = item.Movie.ImagePath;
+                    entity.Cost = (float)item.Cost;
+                    orderItems.Add(entity);
+                });
+
             return orderItems;
         }
 
