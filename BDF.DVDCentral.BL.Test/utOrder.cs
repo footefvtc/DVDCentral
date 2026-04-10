@@ -6,7 +6,9 @@
         [TestMethod]
         public async Task LoadTest()
         {
+            Order order = (await new OrderManager(options, logger).LoadAsync()).FirstOrDefault()!;
             Assert.AreEqual(3, (await new OrderManager(options, logger).LoadAsync()).Count);
+            Assert.AreNotEqual(order.OrderItems[0].Title, string.Empty);
         }
 
         [TestMethod]
@@ -14,9 +16,9 @@
         {
             Order order = new Order
             {
-                CustomerId = (await new CustomerManager(options, logger).LoadAsync()).FirstOrDefault().Id,
+                CustomerId = (await new CustomerManager(options, logger).LoadAsync()).FirstOrDefault()!.Id,
                 OrderDate = DateTime.Now,
-                UserId = (await new UserManager(options, logger).LoadAsync()).FirstOrDefault().Id,
+                UserId = (await new UserManager(options, logger).LoadAsync()).FirstOrDefault()!.Id,
                 ShipDate = DateTime.Now,
                 OrderItems = new List<OrderItem>()
             };
