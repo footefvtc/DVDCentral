@@ -85,6 +85,22 @@
 
         }
 
+        public async Task<List<V>> LoadAsync<V>(string storedproc) where V : class
+        {
+            try
+            {
+                return new DVDCentralEntities(options)
+                    .Set<V>()
+                    .FromSqlRaw($"exec {storedproc}")
+                    .ToList<V>();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
         public async Task<List<T>> LoadAsync(Expression<Func<T, bool>>? filter = null,
                                              Expression<Func<T, object>>[]? includeProperties = null)
         {

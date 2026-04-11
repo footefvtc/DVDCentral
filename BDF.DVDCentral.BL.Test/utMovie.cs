@@ -17,6 +17,12 @@ namespace BDF.DVDCentral.BL.Test
             Assert.IsNotNull(movies[0].FormatDescription);
         }
 
+        [TestMethod] 
+        public async Task LoadSPTest() {
+            var movies = await new MovieManager(options, logger).LoadAsync<spGetMoviesResult>("spGetMovies");
+            Assert.AreEqual(7, movies.Count);
+        }
+
         [TestMethod]
         public async Task LoadByIdTest()
         {
