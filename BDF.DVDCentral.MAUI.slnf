@@ -1,0 +1,11 @@
+{
+  "solution": {
+    "path": "BDF.DVDCentral.sln",
+    "projects": [
+      "BDF.DVDCentral.MAUI\\BDF.DVDCentral.MAUI.csproj",
+      "BDF.DVDCentrol.UIConsole\\BDF.DVDCentrol.UIConsole.csproj",
+      "FVTC.Utility\\FVTC.Utility.csproj",
+      "MauiApp1\\MauiApp1.csproj"
+    ]
+  }
+}

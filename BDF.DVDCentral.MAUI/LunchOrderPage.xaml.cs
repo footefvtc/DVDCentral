@@ -1,5 +1,7 @@
 using BDF.LunchOrder.BL;
 using BDF.LunchOrder.BL.Models;
+using Plugin.LocalNotification;
+using Plugin.LocalNotification.Core.Models;
 
 namespace BDF.DVDCentral.MAUI
 {
@@ -29,6 +31,31 @@ namespace BDF.DVDCentral.MAUI
             //btnSendMessage.BeginInvoke((Action)(() => this.Text = e.Message));
             
             MainThread.BeginInvokeOnMainThread((Action)(() => Title = e.User + " ordered: " + e.Message));
+            MainThread.BeginInvokeOnMainThread((Action)(() => Title = e.User + " ordered: " + e.Message));
+            var request = new NotificationRequest
+            {
+                Title = $"New Message from {e.User}",
+                Description = $"{e.Message}",
+                ReturningData = "Dummy data", // Returning data when tapped on notification.
+                //NotifyTime = DateTime.Now.AddSeconds(5) // Schedule the notification to appear after 5 seconds.
+                Schedule = new NotificationRequestSchedule
+                {
+                    NotifyTime = DateTime.Now.AddSeconds(5) // Schedule the notification to appear after 5 seconds.
+                }
+            };
+#if ANDROID     
+            if (!LocalNotificationCenter.Current.AreNotificationsEnabled().Result)
+            {
+                if (LocalNotificationCenter.Current.RequestNotificationPermission().Result)
+                {
+                    LocalNotificationCenter.Current.Show(request);
+                }
+            }
+            else
+            {
+                LocalNotificationCenter.Current.Show(request);
+            }
+#endif
         }
 
         async void OnButtonClicked(object sender, EventArgs e)
@@ -36,6 +63,7 @@ namespace BDF.DVDCentral.MAUI
             string user = "Frank";
             LunchItem mainDish = mainDishes[whichMainDish];
             string hubAddress = "https://fvtcdp.azurewebsites.net/BingoHub";
+            hubAddress = "https://dvdcentralapi-120212964.azurewebsites.net/DVDCentralHub";
             var signalRClient = new SignalRClient(hubAddress);
             signalRClient.CallSignalR += new SignalRClient.SignalREventHandler(trigger_CallSignalR);
 

@@ -44,6 +44,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BDF.DVDCentral.AzFunctions"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BDF.DVDCentral.Blazor", "BDF.DVDCentral.Blazor\BDF.DVDCentral.Blazor.csproj", "{1EAD4F52-888D-EFEF-3D2D-BB5C7F7E810B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MauiApp1", "MauiApp1\MauiApp1.csproj", "{440ED514-6D09-4E2C-91A5-604487907C36}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -125,14 +127,13 @@ Global
 		{1EAD4F52-888D-EFEF-3D2D-BB5C7F7E810B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1EAD4F52-888D-EFEF-3D2D-BB5C7F7E810B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1EAD4F52-888D-EFEF-3D2D-BB5C7F7E810B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{440ED514-6D09-4E2C-91A5-604487907C36}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{440ED514-6D09-4E2C-91A5-604487907C36}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{440ED514-6D09-4E2C-91A5-604487907C36}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{440ED514-6D09-4E2C-91A5-604487907C36}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{247335F9-8571-4B77-9EFD-00B312437EE8} = {00000000-0000-0000-0000-000000000000}
-		{011ACB2A-1F05-4285-927A-E490C82DAD55} = {00000000-0000-0000-0000-000000000000}
-		{9AFCC7A2-14C1-4525-BA73-B3E9D7746811} = {00000000-0000-0000-0000-000000000000}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AFACC323-176E-4726-91E5-070B958E0AC2}
