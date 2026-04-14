@@ -47,6 +47,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BDF.DVDCentral.PWA", "BDF.D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BDF.DVDCentral.Blazor", "BDF.DVDCentral.Blazor\BDF.DVDCentral.Blazor.csproj", "{6F275599-540F-4DC3-AD19-820E2F507F9E}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{1B2C049A-8C86-462F-835D-1C3BF93CC8FB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -131,6 +133,11 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{247335F9-8571-4B77-9EFD-00B312437EE8} = {1B2C049A-8C86-462F-835D-1C3BF93CC8FB}
+		{011ACB2A-1F05-4285-927A-E490C82DAD55} = {1B2C049A-8C86-462F-835D-1C3BF93CC8FB}
+		{9AFCC7A2-14C1-4525-BA73-B3E9D7746811} = {1B2C049A-8C86-462F-835D-1C3BF93CC8FB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AFACC323-176E-4726-91E5-070B958E0AC2}

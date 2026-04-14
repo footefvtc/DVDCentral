@@ -1,5 +1,7 @@
 using BDF.LunchOrder.BL;
 using BDF.LunchOrder.BL.Models;
+using Plugin.LocalNotification;
+using Plugin.LocalNotification.Core.Models;
 
 namespace BDF.DVDCentral.MAUI
 {
@@ -27,21 +29,46 @@ namespace BDF.DVDCentral.MAUI
 
             //Dispatcher.Invoke(() => { this.Title = e.Message; });
             //btnSendMessage.BeginInvoke((Action)(() => this.Text = e.Message));
-            
+
             MainThread.BeginInvokeOnMainThread((Action)(() => Title = e.User + " ordered: " + e.Message));
+
+            var request = new NotificationRequest
+            {
+                Title = $"New Message from {e.User}",
+                Description = $"{e.Message}",
+                ReturningData = "Returning Data",
+                Schedule = new NotificationRequestSchedule
+                {
+                    NotifyTime = DateTime.Now.AddSeconds(5)
+                }
+            };
+
+#if ANDROID
+            if (!LocalNotificationCenter.Current.AreNotificationsEnabled().Result)
+            {
+                if (LocalNotificationCenter.Current.RequestNotificationPermission().Result)
+                {
+                    LocalNotificationCenter.Current.Show(request);
+                }
+            }
+            else
+            {
+                LocalNotificationCenter.Current.Show(request);
+            }
+#endif
         }
 
-        async void OnButtonClicked(object sender, EventArgs e)
-        {
-            string user = "Frank";
-            LunchItem mainDish = mainDishes[whichMainDish];
-            string hubAddress = "https://fvtcdp.azurewebsites.net/BingoHub";
-            var signalRClient = new SignalRClient(hubAddress);
-            signalRClient.CallSignalR += new SignalRClient.SignalREventHandler(trigger_CallSignalR);
+            async void OnButtonClicked(object sender, EventArgs e)
+            {
+                string user = "Frank";
+                LunchItem mainDish = mainDishes[whichMainDish];
+                string hubAddress = "https://fvtcdp.azurewebsites.net/BingoHub";
+                var signalRClient = new SignalRClient(hubAddress);
+                signalRClient.CallSignalR += new SignalRClient.SignalREventHandler(trigger_CallSignalR);
 
-            signalRClient.ConnectToChannel(user);
-            signalRClient.SendMessageToChannel(user, mainDish.Description);
-        }
+                signalRClient.ConnectToChannel(user);
+                signalRClient.SendMessageToChannel(user, mainDish.Description);
+            }
 
         public delegate void SignalREventHandler(object sender, SignalREventArgs e);
         public event SignalREventHandler CallSignalR;
@@ -166,7 +193,8 @@ namespace BDF.DVDCentral.MAUI
         {
             LunchItem mainDish = mainDishes[whichMainDish];
             double cost = mainDish.Cost;
-            addOnDishCheckboxes.ToList().ForEach(item => {
+            addOnDishCheckboxes.ToList().ForEach(item =>
+            {
                 cost += (bool)item.IsChecked ? mainDish.AddOnCost : 0;
             });
             lblCost.Text = cost.ToString("C");
