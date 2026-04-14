@@ -1,0 +1,13 @@
+{
+  "solution": {
+    "path": "BDF.DVDCentral.sln",
+    "projects": [
+      "BDF.DVDCentral.API.Test\\BDF.DVDCentral.API.Test.csproj",
+      "BDF.DVDCentral.BL.Models\\BDF.DVDCentral.BL.Models.csproj",
+      "BDF.DVDCentral.BL.Test\\BDF.DVDCentral.BL.Test.csproj",
+      "BDF.DVDCentral.MigrationHandler\\BDF.DVDCentral.MigrationHandler.csproj",
+      "BDF.DVDCentral.PL.Test\\BDF.DVDCentral.PL.Test.csproj",
+      "BDF.DVDCentral.PL\\BDF.DVDCentral.PL.csproj"
+    ]
+  }
+}

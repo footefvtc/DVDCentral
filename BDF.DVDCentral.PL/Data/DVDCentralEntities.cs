@@ -376,7 +376,7 @@ namespace BDF.DVDCentral.PL.Data
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_tblMovie_RatingId");
 
-                //modelBuilder.Entity<spGetMoviesResult>().HasNoKey();
+                modelBuilder.Entity<spGetMoviesResult>().HasNoKey();
                 // Comment New Test
 
 
